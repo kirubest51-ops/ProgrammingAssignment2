@@ -183,7 +183,7 @@ Same 20-criterion weighted model as the general report (capital-lightness: 10 = 
 | 3 | Exit-exam / EHPLE outcome contracts with private HEIs | 6.81 | 8.0 | **7.38** | A/B | 1 |
 | 4 | Diaspora-paid medical-travel navigation and second opinion | 7.07 | 7.5 | **7.28** | B | 1 |
 | 5 | Evidence-synthesis and medical-writing export | 5.96 | 8.0 | **6.91** | A | 1 |
-| 6 | Study-abroad application platform (all disciplines) | 6.40 | 7.25 | **6.81** | A | 2 |
+| 6 | Study-abroad / education consulting &mdash; *see §7.6, where this splits into two* | 4.28 / 6.72 | 6.4 / 7.9 | **5.22 / 7.27** | A | Avoid / 1 |
 | 7 | Diaspora-paid parent-care membership | 6.31 | 6.25 | **6.28** | B | 2 |
 | 8 | Amharic clinical decision support for frontline workers | 5.81 | 6.38 | **6.09** | B | 2/3 |
 | — | *CPD course platform (control case)* | *4.17* | *8.12* | *5.82* | *A* | *Avoid* |
@@ -200,7 +200,8 @@ Same 20-criterion weighted model as the general report (capital-lightness: 10 = 
 | Exit/EHPLE outcome contracts | 5 | 7 | 10 | 8 | 8 | 8 | 9 | 7 | 8 | 6 | 6 | 8 | 4 | 6 | 7 | 4 | 1 | 9 | 8 | 3 | 6.81 | 8.0 | **7.38** |
 | Medical-travel navigation | 6 | 8 | 9 | 9 | 8 | 7 | 8 | 6 | 7 | 7 | 6 | 8 | 5 | 7 | 6 | 5 | 9 | 8 | 8 | 4 | 7.07 | 7.5 | **7.28** |
 | Evidence-synthesis export | 6 | 7 | 6 | 7 | 4 | 6 | 10 | 9 | 7 | 7 | 6 | 7 | 3 | 4 | 5 | 5 | 3 | 7 | 8 | 2 | 5.96 | 8.0 | **6.91** |
-| Study-abroad platform | 6 | 7 | 7 | 7 | 5 | 9 | 9 | 7 | 8 | 7 | 7 | 8 | 5 | 5 | 6 | 6 | 4 | 6 | 8 | 3 | 6.40 | 7.2 | **6.81** |
+| Study-abroad, generalist agency (§7.6 A) | 3 | 3 | 7 | 5 | 3 | 7 | 8 | 6 | 7 | 7 | 4 | 5 | 3 | 2 | 5 | 6 | 4 | 3 | 3 | 1 | 4.28 | 6.4 | **5.22** |
+| Study-abroad, funded-pathway advisory (§7.6 B) | 5 | 7 | 9 | 7 | 6 | 10 | 10 | 7 | 8 | 7 | 6 | 9 | 5 | 6 | 7 | 7 | 5 | 7 | 8 | 2 | 6.72 | 7.9 | **7.27** |
 | Parent-care membership | 6 | 8 | 8 | 8 | 8 | 6 | 6 | 6 | 7 | 6 | 5 | 7 | 4 | 6 | 5 | 3 | 10 | 7 | 7 | 3 | 6.31 | 6.2 | **6.28** |
 | Amharic clinical decision support | 6 | 8 | 8 | 4 | 8 | 5 | 7 | 5 | 6 | 5 | 7 | 8 | 4 | 6 | 8 | 4 | 1 | 6 | 5 | 3 | 5.81 | 6.4 | **6.09** |
 
@@ -464,6 +465,103 @@ There is a further honest tension worth stating: **a business that helps Ethiopi
 
 ---
 
+## 7.6 — Education consulting and study-abroad agency
+
+**This is two completely different businesses wearing the same name, and they score 2.05 points apart.** Splitting them is the whole analysis.
+
+| Variant | Who pays | Opportunity | Founder fit | **Adjusted** |
+|---|---|---|---|---|
+| **A** — Generalist agency, university-commission model | Foreign universities, per enrolment | 4.28 | 6.4 | **5.22** |
+| **B** — Funded-pathway advisory, student-paid | The applicant (often diaspora-sponsored) | 6.72 | 7.9 | **7.27** |
+| **C** — Health-professional pathway (§7.2, for comparison) | The applicant | 7.45 | 9.0 | **8.19** |
+
+### The arithmetic that kills Variant A
+
+UNESCO records **8,124 Ethiopian students studying abroad** [V]. That is a *stock* — everyone enrolled anywhere at any level. The annual outbound flow is a fraction of it: at a typical 25–33% replacement rate for multi-year degrees, roughly **2,000–2,700 new students a year** [E].
+
+A commission agency nets **$1,500–3,500 per enrolment** after the aggregator's cut — and that cut is real: on a platform like ApplyBoard the platform keeps 20–25% of the university commission, with the balance to ground agents [V].
+
+| Net per placement | Placements needed for $1m | Share of Ethiopia's **entire** annual outbound flow |
+|---|---|---|
+| $1,500 | 667 | **25–33%** |
+| $2,500 | 400 | **15–20%** |
+| $3,500 | 286 | **11–14%** |
+
+**To reach $1m of revenue you would need to place between one in nine and one in three of every Ethiopian who leaves to study abroad, in any country, at any level, in a given year.** No agency in any market holds that share. This is not a difficult business; it is an arithmetically capped one, and the cap is roughly **$150,000–400,000 of annual revenue** for a strong Ethiopia-only operator [E].
+
+### And the demand side is contracting at exactly the wrong moment
+
+| Destination | 2026 position |
+|---|---|
+| **Canada** | 309,670 application spaces under the 2026 cap; permit target **7% below 2025 and 16% below 2024**; a government audit found the cap's impact **far greater than expected** [V] |
+| **Australia** | Enrolments in publicly funded universities capped at **145,000 — roughly 2019 levels** [V] |
+| **UK** | Tightening visa rules, compliance measures and enrolment controls [V] |
+| **Industry** | **IDP Education forecasting a 20–25% decline in enrolments** across Canada, Australia and the UK [V]; **ApplyBoard's planned 2026 IPO was scuttled** by the policy changes [V] |
+
+Those three countries are precisely the ones that pay agent commissions. Germany's public universities, China's CSC and Türkiye Bursları — the destinations Ethiopians actually reach in numbers — pay agents **nothing**, because they are government scholarship pipelines.
+
+**[I] So Variant A asks you to enter a commoditised local market, at the moment its highest-paying destinations are shrinking 20–25%, for a fee pool that arithmetic caps below half a million dollars.** Add a crowded local field — Maraki Consultancy, Line Addis, Horizon, Alem Consult and many more [V] — in a category with a widely-known reputation problem, and it is a clear no.
+
+### What is genuinely good: Variant B
+
+Three things make the student-paid, scholarship-focused version a real business where the commission version is not.
+
+**1. Funded pipelines are decoupled from the caps.** The Canada/Australia/UK contraction is a *fee-paying* phenomenon. Government scholarship programmes run on their own quotas and are unaffected: **DAAD disburses ~€600m a year to ~140,000 scholars and runs a dedicated Ethiopia programme; China's CSC funds ~70,000 outbound scholars annually; Türkiye Bursları awards 5,000+ a year covering tuition, stipend, accommodation, insurance and flights; Stipendium Hungaricum, Erasmus+, MEXT, Fulbright, Chevington and Commonwealth all remain open**, and the EU awarded Erasmus+ Masters places to 48 Ethiopian students in a single round [V]. **The demand-side collapse that ruins Variant A does not touch Variant B.**
+
+**2. Ethiopia's own FX constraint just lifted — and almost nobody has priced it in.** Under **FXD/04/2026 (12 February 2026)**, Ethiopian banks may process advance payments of **up to USD 20,000 per case for education abroad** on nothing more than a proof-of-payment request or a letter from the institution — **no visa and no ticket required** — and any FX account holder may pay for a spouse's or child's education abroad [V]. Before this, the binding constraint on Ethiopian study abroad was not admission or visas; it was **getting the money out of the country legally**. That constraint is gone, and it is the single strongest "why now" in this section.
+
+**3. There is an information emergency right now, and it is the wrong information.** In January 2026 the US suspended **immigrant visa** processing for 75 countries including Ethiopia on public-charge grounds [V]. That suspension **does not affect non-immigrant visas — student, exchange and work visas remain available to Ethiopian nationals** [V]. Ethiopia is not on the full travel-ban list. **[I] But every Ethiopian family reading headlines about "30 sub-Saharan countries facing US restrictions" now believes the US is closed to their child, and it is not.** Being the accurate, sourced, Amharic-language voice on exactly this question is simultaneously a public service, a customer-acquisition engine, and precisely what the Hakim Podcast already does — including a 2022 VOA segment on international higher-education options for Ethiopians [V].
+
+**[I] One honest caveat I will not skip:** being on a "high risk of public charge" list plausibly raises practical scrutiny on F-1 applications even where the category stays legally open, because F-1 already requires proof of funds and non-immigrant intent. Refusal risk is probably elevated. Any advisory business must model that and say so to clients rather than sell false hope — which is exactly what separates a credible operator from the existing field.
+
+### Unit economics for Variant B [E]
+
+| Product | Price | Note |
+|---|---|---|
+| Scholarship application package (per cycle) | $80–400 | Volume product; diaspora-sponsored skews higher |
+| Premium 1:1 advisory (funded master's / PhD / residency) | $500–1,500 | Where his four declined awards are the proof point |
+| Success fee on award | $200–800 or 5–15% of first-year stipend | Aligns incentives; hard to enforce, use deposits |
+| Credentialing support (WES, transcripts, apostille) | $50–150 | Pure service margin |
+| Test preparation attach (IELTS/TOEFL/GRE) | $60–200 | Natural bundle |
+
+Blended ARPU **$180–350**; gross margin **75–88%**; startup capital **under $10,000**.
+
+- 1–2% conversion of 14,080 subscribers → **140–280 customers → $35k–90k** in year one [E].
+- **$1m requires roughly 3,000–5,000 paying applicants a year** [E] — which means expanding beyond Ethiopia into Kenya, Uganda, Ghana and Nigeria, where the podcast already has reach. Realistic in **30–42 months**.
+- **P($100m): 2/10.** I want to be blunt: this is a $1–5m business with a plausible path to $10m across East Africa. It is not a venture-scale company, and treating it as one would be a mistake.
+
+### The strategic point that actually matters
+
+**[I] Variant B and the health-professional pathway academy (§7.2) are the same machine with different customers — and the health version is worth roughly 3–5× more per customer.**
+
+| | Variant B (general students) | §7.2 (health professionals) |
+|---|---|---|
+| Blended ARPU | $180–350 | $250–600, rising with USMLE/credentialing attach |
+| Competition | Maraki, Line Addis, Horizon, Alem + dozens [V] | MediFlash, Facebook forums, no structured programme [V] |
+| His MD is worth | Nothing | Everything |
+| Repeat purchase | One cycle, then gone | Exam → credentialing → relicensure → CPD, for years |
+| Compounds with business #1 | No | Yes — same clinician network |
+
+**The generalist version puts a physician into a market where his medical credentials are commercially worthless and he competes on price against a dozen consultancies. The specialist version charges more, faces almost no competition, retains customers for years, and feeds the clinician network that business #1 monetises.** That gap — 7.27 versus 8.19 — is the entire argument for specialising.
+
+### One niche worth testing separately: MBBS-abroad, done honestly
+
+There is a real, commission-paying, cap-immune segment inside Variant A: **Ethiopians pursuing medical degrees in India, China, Georgia, Armenia, Kazakhstan, Hungary and Poland.** These universities recruit through agents and pay commissions, and the flow is not constrained by Canadian or Australian caps.
+
+It also has a deservedly poor global reputation — students returning with degrees that do not qualify them to practise anywhere. **[I] Which is precisely the gap a physician can fill honestly.** The one question that matters to an Ethiopian family — *"will this degree let my child sit EHPLE and get licensed in Ethiopia, or anywhere else?"* — is a question only someone who knows Ethiopian licensure can answer, and the existing agents have every incentive not to answer it truthfully. A named physician publishing degree-recognition assessments, and declining to place students into programmes that fail them, would own that segment on credibility alone.
+
+Test it before believing it: **[A]** I have no data on how many Ethiopians pursue MBBS abroad annually, and that number decides whether this is a business or a blog post. It is on the validation list in §11.
+
+### Verdict
+
+- **Variant A — generalist study-abroad agency: AVOID.** Arithmetically capped near $150k–400k of revenue, in a contracting destination market, against entrenched local competition, with a credential that gives him no edge.
+- **Variant B — funded-pathway advisory: START, but as a *feature* of §7.2, not a separate company.** Run it as the non-health track of the same academy, on the same infrastructure, once the health track is proven. The FX unlock and the US visa misinformation window both argue for moving in 2026 rather than 2027.
+- **MBBS-abroad recognition advisory: INVESTIGATE.** One number decides it.
+
+**"Uber ten years later" test.** *Variant A fails badly* — this is not an enabling condition arriving, it is a mature global industry in retreat, and Ethiopia's outbound base is too small to support the model regardless. *Variant B partly passes*: FXD/04/2026 is a genuine, dated unlock of exactly the constraint that previously bound, and it is under-exploited. But the honest framing is that Variant B is a good professional services business with a real timing edge, not a platform with an adoption curve.
+
+---
+
 # 8. What to avoid, and why
 
 **8.1 — A CPD course platform. The control case.**
@@ -560,6 +658,12 @@ That is the honest sequencing advice: **the ranking is also, conveniently, the o
 11. Recruit 20 clinicians, run one calibration exercise, produce a 500-item sample dataset in one specialty, and put it in front of the three buyers from step 3.
 12. Run one 50-person paid cohort for NCLEX or Prometric, in Google Classroom and Telegram, and publish the pass rate.
 
+**Weeks 2–6 — If pursuing the study-abroad track (§7.6).**
+13. Get **annual outbound flow**, not the UNESCO stock figure, from the Ministry of Education / Education and Training Authority: how many Ethiopians left to study abroad in each of the last three years, by destination and funding source.
+14. Count **Ethiopians pursuing MBBS abroad annually** (India, China, Georgia, Armenia, Kazakhstan, Hungary, Poland) — this single number decides whether the recognition-advisory niche is a business.
+15. Confirm with three Addis banks how **FXD/04/2026's $20,000 education advance** works in practice: documentation required, processing time, and whether it is actually being granted.
+16. Verify Ethiopia's current status on **both** US lists — the 75-country immigrant-visa suspension and Presidential Proclamation 10998 — and confirm F/M/J categories remain open.
+
 **The three numbers to track monthly thereafter:** active contracted clinician-hours billed; paid cohort conversion rate from the subscriber base; and the spread between billed and paid hourly rates.
 
 ---
@@ -592,6 +696,23 @@ That is the honest sequencing advice: **the ranking is also, conveniently, the o
 - [Ethiopian University Exit Exam registration portal](https://exam.ethernet.edu.et/)
 - [MediFlash — flashcards for USMLE, NCLEX, PLAB and the Ethiopian MLE](https://www.geezapps.com/apps/mediflash.html)
 - [Ethiopia's EdTech founders — Reach for Change cohort, Mastercard Foundation](https://thenextafrica.com/ethiopias-edtech-founders-take-centre-stage-as-reach-for-change-graduates-new-cohort/)
+
+**Study abroad, student mobility and visa policy**
+- [Ethiopia education and training sector snapshot — 8,124 Ethiopian students abroad, US the top destination — US Dept of Commerce](https://trade.gov/country-commercial-guides/ethiopia-education-and-training-sector-snapshot)
+- [Canada announces international student cap numbers for 2026 — ICEF Monitor](https://monitor.icef.com/2025/11/canada-announces-international-student-cap-numbers-for-2026-and-updated-programme-guidance/)
+- [Canada: government audit finds cap impact far greater than expected — ICEF Monitor](https://monitor.icef.com/2026/03/canada-government-audit-finds-impact-of-international-student-cap-far-greater-than-expected/)
+- [Australia lifts its cap on international students — SBS News](https://www.sbs.com.au/news/article/australia-has-lifted-its-cap-on-international-students-heres-by-how-much/zze1o982f)
+- [IDP investor guidance warns of 20–25% enrolment decline — ICEF Monitor](https://monitor.icef.com/2024/06/idp-investor-guidance-warns-of-market-downturn-through-2025/)
+- [ApplyBoard faces a reckoning as Canada's immigration boom turns to bust — The Logic](https://thelogic.co/news/the-big-read/applyboard-culture-growth-problems/)
+- [State Department suspends immigrant visa processing for 75 countries — Mintz](https://www.mintz.com/insights-center/viewpoints/2806/2026-01-29-state-department-suspends-immigrant-visa-processing-75)
+- [Suspension of immigrant visa issuance for 75 countries — The Global Mobility Review](https://www.globalmobilityreview.com/immigration-update-suspension-of-immigrant-visa-issuance-for-75-countries/)
+- [Proclamation of December 16, 2025, travel ban effective January 1, 2026 — NAFSA](https://www.nafsa.org/regulatory-information/proclamation-december-16-2025-travel-ban-effective-january-1-2026)
+- [NBE rolls out forex liberalization: $20,000 education advance, 100% retention — Capital Newspaper](https://capitalethiopia.com/2026/02/11/nbe-rolls-out-major-forex-liberalization-100-retention-for-service-exporters-higher-bureau-limits/)
+- [Scholarships for Ethiopian students 2026, fully funded by country](https://www.capitalmarketethiopia.com/scholarships-for-ethiopian-students-fully-funded-by-country/)
+- [EU awards Erasmus+ Masters scholarships to 48 Ethiopian students — EEAS](https://www.eeas.europa.eu/delegations/ethiopia/european-union-awarded-erasmus-masters-scholarship-48-ethiopian-students_en)
+- [Guidelines for the Accreditation of Cross-Border Higher Education in Ethiopia No. 579/2021](https://chilot.wordpress.com/2021/06/13/guidelines-for-the-accreditation-of-cross-border-higher-education-in-ethiopia-number-579-2021/)
+- [Education and Training Authority, Ethiopia](https://neta.gov.et/)
+- [Maraki Consultancy — existing Ethiopian study-abroad and scholarship operator](https://marakiconsultancy.com/)
 
 **AI expert-data market**
 - [Data labeling market 2026: expert data labour rates — Mercor $85 average, Surge $50–200, Handshake $100–125](https://blog.pebblous.ai/report/expert-data-labor-market-2026/en/)
