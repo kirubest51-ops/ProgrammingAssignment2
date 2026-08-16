@@ -2,8 +2,41 @@
 """Convert the Ethiopia report markdown into a designed standalone HTML artifact."""
 import re, html, json, pathlib
 
-SRC = pathlib.Path("/home/user/ProgrammingAssignment2/ETHIOPIA_OPPORTUNITY_REPORT_2026.md")
-OUT = pathlib.Path("/home/user/ProgrammingAssignment2/ethiopia-opportunity-map.html")
+import sys
+
+REPORTS = {
+ "map": dict(
+   src="ETHIOPIA_OPPORTUNITY_REPORT_2026.md",
+   out="ethiopia-opportunity-map.html",
+   title="What Ethiopia Is Finally Ready For",
+   eyebrow=["Opportunity map", "August 2026", "Independent analysis"],
+   sub="Thirty proven business models tested against the thresholds Ethiopia has just crossed "
+       "&mdash; and the ten whose adoption curve is about to begin.",
+   meta=["19 sections", "30 candidates &middot; 15 ranked &middot; 10 deep dives", "~25,000 words"],
+   stats=[("60.6M","telebirr users","ETB 4.19tn moved in FY2025/26"),
+          ("~15%","smartphone penetration","the binding constraint on every consumer app"),
+          ("551K","ETHQR transactions, ever","merchant acceptance has not started"),
+          ("50M+","Fayda digital IDs","mandatory for banking from 2026"),
+          ("22%","of remittances are formal","$7.17bn formal; the rest is hawala")],
+ ),
+ "founder": dict(
+   src="ETHIOPIA_HEALTH_EDUCATION_FOUNDER_REPORT.md",
+   out="ethiopia-clinician-founder-map.html",
+   title="The Clinician&rsquo;s Unfair Advantage",
+   eyebrow=["Founder-fit assessment", "Health &amp; education", "August 2026"],
+   sub="Ethiopian health and education opportunities scored twice &mdash; once on market "
+       "attractiveness, once on whether this particular founder can actually build them.",
+   meta=["Companion to the opportunity map", "12 candidates &middot; 5 deep dives", "~11,000 words"],
+   stats=[("8.4%","grade 12 pass rate","536,953 students failed in one year"),
+          ("17.2%","private HEI exit-exam pass","against 62.37% for public universities"),
+          ("$2bn","Mercor annualised revenue","up from ~$760m six months earlier"),
+          ("14,080","subscribers already owned","the scarce asset, not the medical degree"),
+          ("100%","FX retention since Feb 2026","what makes services export viable")],
+ ),
+}
+CFG = REPORTS[sys.argv[1] if len(sys.argv) > 1 else "map"]
+BASE = pathlib.Path(__file__).resolve().parent
+SRC, OUT = BASE / CFG["src"], BASE / CFG["out"]
 
 md = SRC.read_text(encoding="utf-8")
 
@@ -40,6 +73,17 @@ liststack = []
 
 while i < n:
     ln = lines[i]
+
+    # fenced code block
+    if ln.startswith("```"):
+        close(liststack)
+        i += 1
+        buf = []
+        while i < n and not lines[i].startswith("```"):
+            buf.append(lines[i]); i += 1
+        i += 1
+        out.append("<pre><code>" + html.escape("\n".join(buf)) + "</code></pre>")
+        continue
 
     # table
     if ln.startswith("|") and i + 1 < n and re.match(r'^\|[\s:|-]+\|$', lines[i + 1].strip()):
@@ -121,7 +165,7 @@ while i < n:
     close(liststack)
     buf = [ln]
     i += 1
-    while i < n and lines[i].strip() and not re.match(r'^(#{1,4}\s|>|\||---+\s*$|\s*[-*]\s|\s*\d+\.\s)', lines[i]):
+    while i < n and lines[i].strip() and not re.match(r'^(#{1,4}\s|>|\||```|---+\s*$|\s*[-*]\s|\s*\d+\.\s)', lines[i]):
         buf.append(lines[i]); i += 1
     p = inline(" ".join(x.strip() for x in buf))
     cls = ' class="lede"' if p.startswith("<strong>") and len(p) > 260 else ""
@@ -137,13 +181,7 @@ nav = "\n".join(
     f'<a class="tocitem" href="#{s}"><span class="tocnum">{num or "·"}</span><span>{html.escape(t)}</span></a>'
     for num, t, s in toc)
 
-STATS = [
-    ("60.6M", "telebirr users", "ETB 4.19tn moved in FY2025/26"),
-    ("~15%", "smartphone penetration", "the binding constraint on every consumer app"),
-    ("551K", "ETHQR transactions, ever", "merchant acceptance has not started"),
-    ("50M+", "Fayda digital IDs", "mandatory for banking from 2026"),
-    ("22%", "of remittances are formal", "$7.17bn formal; the rest is hawala"),
-]
+STATS = CFG["stats"]
 stats = "\n".join(
     f'<div class="stat"><div class="statv">{v}</div><div class="statl">{l}</div><div class="statn">{n_}</div></div>'
     for v, l, n_ in STATS)
@@ -343,6 +381,15 @@ table strong{color:var(--accent-ink); font-weight:700;}
 .wide tbody td{padding:8px 9px; text-align:center;}
 .wide tbody td:first-child, .wide thead th:first-child{text-align:left; min-width:190px;}
 
+pre{
+  background:var(--surface2); border:1px solid var(--rule); border-radius:6px;
+  padding:18px 20px; overflow-x:auto; margin:26px 0; line-height:1.5;
+}
+pre code{
+  background:none; padding:0; font-size:12.5px; color:var(--muted);
+  white-space:pre; font-family:var(--mono);
+}
+
 /* footer */
 footer{
   max-width:69ch; margin:70px auto 0; padding-top:26px; border-top:1px solid var(--rule);
@@ -351,7 +398,7 @@ footer{
 @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 """
 
-HTML = f"""<title>What Ethiopia Is Finally Ready For</title>
+HTML = f"""<title>{CFG["title"]}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>{CSS}</style>
 <div class="shell">
@@ -361,10 +408,10 @@ HTML = f"""<title>What Ethiopia Is Finally Ready For</title>
   </nav>
   <main>
     <header class="mast">
-      <p class="eyebrow"><span>Opportunity map</span><span>August 2026</span><span>Independent analysis</span></p>
-      <h1>What Ethiopia Is Finally Ready For</h1>
-      <p class="sub">Thirty proven business models tested against the thresholds Ethiopia has just crossed &mdash; and the ten whose adoption curve is about to begin.</p>
-      <p class="meta"><span>19 sections</span><span>30 candidates &middot; 15 ranked &middot; 10 deep dives</span><span>~25,000 words</span></p>
+      <p class="eyebrow">{"".join(f"<span>{{x}}</span>" for x in CFG["eyebrow"])}</p>
+      <h1>{CFG["title"]}</h1>
+      <p class="sub">{CFG["sub"]}</p>
+      <p class="meta">{"".join(f"<span>{{x}}</span>" for x in CFG["meta"])}</p>
     </header>
     <section class="stats" aria-label="The five numbers the thesis rests on">{stats}</section>
     <div class="col">

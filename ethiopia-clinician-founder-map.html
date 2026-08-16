@@ -1,0 +1,580 @@
+<title>The Clinician&rsquo;s Unfair Advantage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+:root{
+  --paper:#FBFBF9; --surface:#F2F4EF; --surface2:#E9ECE5;
+  --ink:#161B19; --muted:#5F6A64; --faint:#8A948E;
+  --rule:#DBE0D8; --rule2:#C6CDC2;
+  --accent:#0E6A4E; --accent-soft:#DCEDE4; --accent-ink:#0B5540;
+  --flag:#9B3B2F; --flag-soft:#F6E4E0;
+  --shadow:0 1px 2px rgba(20,30,25,.05),0 8px 28px -18px rgba(20,30,25,.28);
+  --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1311; --surface:#151C18; --surface2:#1C2521;
+    --ink:#E6EBE7; --muted:#9BA69F; --faint:#75817A;
+    --rule:#232D28; --rule2:#33403A;
+    --accent:#59C79A; --accent-soft:#12291F; --accent-ink:#8FDCBB;
+    --flag:#E29383; --flag-soft:#2C1A16;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -18px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1311; --surface:#151C18; --surface2:#1C2521;
+  --ink:#E6EBE7; --muted:#9BA69F; --faint:#75817A;
+  --rule:#232D28; --rule2:#33403A;
+  --accent:#59C79A; --accent-soft:#12291F; --accent-ink:#8FDCBB;
+  --flag:#E29383; --flag-soft:#2C1A16;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -18px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.66;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.shell{display:grid; grid-template-columns:minmax(0,1fr); }
+@media (min-width:1080px){
+  .shell{grid-template-columns:276px minmax(0,1fr); align-items:start;}
+}
+
+/* ---- index rail ---- */
+.rail{
+  border-bottom:1px solid var(--rule); background:var(--surface);
+  padding:20px 22px 22px;
+}
+@media (min-width:1080px){
+  .rail{
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+    border-bottom:0; border-right:1px solid var(--rule); padding:34px 24px 40px;
+  }
+}
+.raillabel{
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--faint); margin:0 0 14px;
+}
+.tocitem{
+  display:flex; gap:11px; align-items:baseline; text-decoration:none;
+  color:var(--muted); font-family:var(--sans); font-size:12.5px; line-height:1.35;
+  padding:5px 8px 5px 6px; border-radius:4px; border-left:2px solid transparent;
+}
+.tocitem:hover{color:var(--ink); background:var(--surface2); border-left-color:var(--accent);}
+.tocnum{
+  font-family:var(--mono); font-size:10.5px; color:var(--faint);
+  min-width:16px; font-variant-numeric:tabular-nums;
+}
+.tocitem:hover .tocnum{color:var(--accent);}
+
+/* ---- main ---- */
+main{padding:0 22px 96px; min-width:0;}
+.col{max-width:69ch; margin:0 auto;}
+@media (min-width:1080px){ main{padding:0 48px 120px;} }
+
+/* masthead */
+.mast{
+  max-width:69ch; margin:0 auto; padding:56px 0 34px; border-bottom:1px solid var(--rule);
+}
+.eyebrow{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.19em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 20px; display:flex; gap:10px; flex-wrap:wrap;
+}
+.eyebrow span:not(:last-child)::after{content:"  /"; color:var(--faint);}
+h1{
+  font-family:var(--sans); font-weight:700; letter-spacing:-.028em; line-height:1.03;
+  font-size:clamp(2.3rem,6.2vw,3.9rem); margin:0 0 20px; text-wrap:balance;
+}
+.sub{
+  font-family:var(--serif); font-size:clamp(1.02rem,2.1vw,1.2rem); color:var(--muted);
+  margin:0 0 26px; max-width:56ch; line-height:1.5;
+}
+.meta{
+  font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:.05em;
+  display:flex; gap:18px; flex-wrap:wrap;
+}
+
+/* stat strip */
+.stats{
+  max-width:69ch; margin:0 auto; display:grid; gap:1px; background:var(--rule);
+  border:1px solid var(--rule); border-radius:6px; overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  margin-top:34px; margin-bottom:8px;
+}
+.stat{background:var(--surface); padding:15px 16px 16px;}
+.statv{
+  font-family:var(--sans); font-weight:700; font-size:1.5rem; letter-spacing:-.02em;
+  color:var(--accent); font-variant-numeric:tabular-nums; line-height:1.1;
+}
+.statl{
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink); margin-top:7px;
+}
+.statn{font-family:var(--serif); font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.4;}
+
+/* headings */
+h2.sec{
+  font-family:var(--sans); font-weight:700; letter-spacing:-.022em; line-height:1.12;
+  font-size:clamp(1.5rem,3.4vw,2.05rem); margin:76px 0 22px; text-wrap:balance;
+  display:flex; gap:16px; align-items:baseline; scroll-margin-top:24px;
+}
+h2.sec .secnum{
+  font-family:var(--mono); font-size:.72em; font-weight:400; color:var(--accent);
+  font-variant-numeric:tabular-nums; flex:none;
+  border-bottom:2px solid var(--accent); line-height:1; padding-bottom:3px;
+}
+h2.sec-plain{display:block;}
+h3{
+  font-family:var(--sans); font-weight:700; font-size:1.16rem; letter-spacing:-.012em;
+  margin:48px 0 14px; line-height:1.28; text-wrap:balance; scroll-margin-top:24px;
+}
+h4{
+  font-family:var(--mono); font-weight:600; font-size:.78rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--accent); margin:36px 0 10px; scroll-margin-top:24px;
+}
+h5{font-family:var(--sans); font-weight:700; font-size:1rem; margin:26px 0 8px;}
+
+p{margin:0 0 17px;}
+.col > p, .col > ul, .col > ol, .col > blockquote{max-width:69ch;}
+p.lede{font-size:1.06rem;}
+strong{font-weight:700;}
+em{font-style:italic;}
+a{color:var(--accent-ink); text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:.5px; text-decoration-color:var(--rule2);}
+a:hover{text-decoration-color:var(--accent);}
+a:focus-visible,.tocitem:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px;}
+code{font-family:var(--mono); font-size:.86em; background:var(--surface2); padding:1px 5px; border-radius:3px;}
+hr{border:0; border-top:1px solid var(--rule); margin:56px 0;}
+ul,ol{margin:0 0 18px; padding-left:1.35em;}
+li{margin-bottom:8px;}
+li::marker{color:var(--faint); font-family:var(--mono); font-size:.85em;}
+blockquote{
+  margin:32px 0; padding:22px 26px; background:var(--accent-soft);
+  border-left:3px solid var(--accent); border-radius:0 6px 6px 0;
+}
+blockquote p{
+  margin:0; font-family:var(--sans); font-weight:700; font-size:1.22rem;
+  letter-spacing:-.015em; line-height:1.34;
+}
+
+/* evidence chips */
+.ev{
+  font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.06em;
+  display:inline-block; padding:1px 4px; border-radius:3px; vertical-align:1.5px;
+  background:var(--surface2); color:var(--muted); border:1px solid var(--rule);
+  cursor:help;
+}
+.ev-V{background:var(--accent-soft); color:var(--accent-ink); border-color:transparent;}
+.ev-A{background:var(--flag-soft); color:var(--flag); border-color:transparent;}
+
+/* tables */
+.tw{
+  overflow-x:auto; margin:26px 0 30px; border:1px solid var(--rule);
+  border-radius:6px; background:var(--surface); box-shadow:var(--shadow);
+  -webkit-overflow-scrolling:touch;
+}
+@media (min-width:1180px){
+  .tw{width:min(112%,1180px); margin-left:calc((100% - min(112%,1180px))/2);}
+  .tw.wide{width:min(150%,1500px); margin-left:calc((100% - min(150%,1500px))/2);}
+}
+table{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:12.8px; line-height:1.45;}
+thead th{
+  background:var(--surface2); text-align:left; font-weight:700; font-size:10.5px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  padding:11px 13px; border-bottom:1px solid var(--rule2); white-space:nowrap;
+}
+tbody td{
+  padding:11px 13px; border-bottom:1px solid var(--rule); vertical-align:top;
+  font-variant-numeric:tabular-nums;
+}
+tbody tr:last-child td{border-bottom:0;}
+tbody tr:hover td{background:var(--surface2);}
+tbody td:first-child{color:var(--ink);}
+table strong{color:var(--accent-ink); font-weight:700;}
+.wide table{font-size:11.6px;}
+.wide tbody td{padding:8px 9px; text-align:center;}
+.wide tbody td:first-child, .wide thead th:first-child{text-align:left; min-width:190px;}
+
+pre{
+  background:var(--surface2); border:1px solid var(--rule); border-radius:6px;
+  padding:18px 20px; overflow-x:auto; margin:26px 0; line-height:1.5;
+}
+pre code{
+  background:none; padding:0; font-size:12.5px; color:var(--muted);
+  white-space:pre; font-family:var(--mono);
+}
+
+/* footer */
+footer{
+  max-width:69ch; margin:70px auto 0; padding-top:26px; border-top:1px solid var(--rule);
+  font-family:var(--mono); font-size:11px; color:var(--faint); line-height:1.7;
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+</style>
+<div class="shell">
+  <nav class="rail" aria-label="Report contents">
+    <p class="raillabel">Contents</p>
+    <a class="tocitem" href="#the-clinicians-unfair-advantage"><span class="tocnum">·</span><span>The Clinician&#x27;s Unfair Advantage</span></a>
+<a class="tocitem" href="#1-executive-summary"><span class="tocnum">1</span><span>Executive summary</span></a>
+<a class="tocitem" href="#2-founder-asset-audit"><span class="tocnum">2</span><span>Founder asset audit</span></a>
+<a class="tocitem" href="#3-what-has-structurally-changed-in-ethiopian-health-and-education"><span class="tocnum">3</span><span>What has structurally changed in Ethiopian health and education</span></a>
+<a class="tocitem" href="#4-readiness-assessment-health-and-education"><span class="tocnum">4</span><span>Readiness assessment: health and education</span></a>
+<a class="tocitem" href="#5-international-analogues"><span class="tocnum">5</span><span>International analogues</span></a>
+<a class="tocitem" href="#6-twelve-candidates-scored"><span class="tocnum">6</span><span>Twelve candidates, scored</span></a>
+<a class="tocitem" href="#7-deep-dives-on-the-top-five"><span class="tocnum">7</span><span>Deep dives on the top five</span></a>
+<a class="tocitem" href="#8-what-to-avoid-and-why"><span class="tocnum">8</span><span>What to avoid, and why</span></a>
+<a class="tocitem" href="#9-sequencing-the-portfolio-view"><span class="tocnum">9</span><span>Sequencing: the portfolio view</span></a>
+<a class="tocitem" href="#10-trigger-signals-to-monitor"><span class="tocnum">10</span><span>Trigger signals to monitor</span></a>
+<a class="tocitem" href="#11-exact-next-research-steps"><span class="tocnum">11</span><span>Exact next research steps</span></a>
+<a class="tocitem" href="#sources"><span class="tocnum">·</span><span>Sources</span></a>
+  </nav>
+  <main>
+    <header class="mast">
+      <p class="eyebrow"><span>{x}</span><span>{x}</span><span>{x}</span></p>
+      <h1>The Clinician&rsquo;s Unfair Advantage</h1>
+      <p class="sub">Ethiopian health and education opportunities scored twice &mdash; once on market attractiveness, once on whether this particular founder can actually build them.</p>
+      <p class="meta"><span>{x}</span><span>{x}</span><span>{x}</span></p>
+    </header>
+    <section class="stats" aria-label="The five numbers the thesis rests on"><div class="stat"><div class="statv">8.4%</div><div class="statl">grade 12 pass rate</div><div class="statn">536,953 students failed in one year</div></div>
+<div class="stat"><div class="statv">17.2%</div><div class="statl">private HEI exit-exam pass</div><div class="statn">against 62.37% for public universities</div></div>
+<div class="stat"><div class="statv">$2bn</div><div class="statl">Mercor annualised revenue</div><div class="statn">up from ~$760m six months earlier</div></div>
+<div class="stat"><div class="statv">14,080</div><div class="statl">subscribers already owned</div><div class="statn">the scarce asset, not the medical degree</div></div>
+<div class="stat"><div class="statv">100%</div><div class="statl">FX retention since Feb 2026</div><div class="statn">what makes services export viable</div></div></section>
+    <div class="col">
+      
+<h3 id="how-this-differs-from-the-general-report">How this differs from the general report</h3>
+<p>The first report asked <em>"what is Ethiopia ready for?"</em> This one asks a narrower and harder question: <strong>"what is Ethiopia ready for that this particular person is unusually well-positioned to build?"</strong></p>
+<p>That changes the answer materially. Several of the strongest opportunities in the general report — merchant acquiring, EV asset finance, pharmacy distribution — are excellent businesses and <strong>bad fits for this founder</strong>, because they require licences, balance sheets, field sales forces and logistics operations that nothing in the CV supports. Conversely, one opportunity that barely registered in the general report turns out to be the single best thing on this list, because it depends on an asset almost nobody has.</p>
+<p>Evidence tags are as before: <strong><span class="ev ev-V" title="Verified — sourced">V</span></strong> verified and sourced, <strong><span class="ev ev-E" title="Estimate — derived">E</span></strong> estimate with arithmetic shown, <strong><span class="ev ev-A" title="Assumption — stated input">A</span></strong> stated assumption, <strong><span class="ev ev-I" title="Inference — judgement">I</span></strong> my inference. FX at <strong>ETB 155 = USD 1</strong>.</p>
+<p>I am reading a CV, not the person. Where I make a judgement about capability or constraint, it is an inference from what the document contains and what it does not.</p>
+<hr />
+<h2 id="1-executive-summary" class="sec"><span class="secnum">1</span><span class="sectxt">Executive summary</span></h2>
+<p class="lede"><strong>The finding: the scarce asset here is not the medical degree. Ethiopia has roughly 25,000 general practitioners in supply by 2030 <span class="ev ev-V" title="Verified — sourced">V</span>. The scarce asset is the combination of a licensed clinician, a working researcher's quality-control instinct, a seat on the accreditation side of Ethiopian health regulation, and an owned audience of 14,080 health professionals.</strong> Almost nobody holds all four. Every recommendation below is built on that intersection rather than on the MD alone.</p>
+<p class="lede"><strong>The single most important structural fact I found:</strong> the global market for <strong>expert clinical judgement as AI training data</strong> has gone from niche to enormous — Mercor moved from ~$760m annualised revenue at end-2025 to <strong>$2bn by June 2026</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, paying healthcare experts <strong>$50–180/hour</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, while Centaur AI runs a network of <strong>50,000+ vetted physicians</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. Meanwhile the major platforms (Outlier, Mindrift, Prolific, Remotasks) list Kenya, Nigeria, Ghana, South Africa and Egypt as eligible countries — <strong>and generally not Ethiopia</strong> [V/I]. Ethiopian clinicians are structurally excluded from a market that pays 15–30× their domestic clinical wage, largely because of payment rails and country eligibility, not competence. <strong>NBE Directive FXD/04/2026 now lets an Ethiopian service exporter retain 100% of foreign-currency earnings indefinitely</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. That is a closed arbitrage that just opened.</p>
+<p class="lede"><strong>The most important negative finding:</strong> do not build a CPD course business. Ethiopia made CPD mandatory for relicensure — 30 CEU/year, 90 CEU per three-year cycle <span class="ev ev-V" title="Verified — sourced">V</span> — which looks like a perfect forced-demand trigger. But the courses are already free: <strong>WCEA supplies free CPD platforms and apps in partnership with the Ethiopian Medical Association, the Ethiopian Nurses Association and the Public Health Officers Association</strong>, and the <strong>Ministry of Health runs its own eCPD platform</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. The incumbent price is zero. I scored it deliberately as a control case: <strong>founder fit 8.1/10, opportunity 4.2/10.</strong> It is the clearest illustration in this report that fit and opportunity are different things, and that a founder's instinct will pull hardest toward exactly the business his credentials suit and the market has already given away.</p>
+<p><strong>Ranked recommendation:</strong></p>
+<div class="tw"><table><thead><tr><th>#</th><th>Business</th><th>Opportunity</th><th>Founder fit</th><th>Adjusted</th><th>Capital</th></tr></thead><tbody><tr><td>1</td><td><strong>Clinical expert-data network for AI labs</strong></td><td>7.69</td><td>9.0</td><td><strong>8.32</strong></td><td>Tier A</td></tr><tr><td>2</td><td><strong>Health-professional pathway academy</strong> (licensing, credentialing, scholarships)</td><td>7.45</td><td>9.0</td><td><strong>8.19</strong></td><td>Tier A</td></tr><tr><td>3</td><td><strong>Exit-exam / EHPLE outcome contracts with private health colleges</strong></td><td>6.81</td><td>8.0</td><td><strong>7.38</strong></td><td>Tier A/B</td></tr><tr><td>4</td><td><strong>Diaspora-paid medical-travel navigation and second opinion</strong></td><td>7.07</td><td>7.5</td><td><strong>7.28</strong></td><td>Tier B</td></tr><tr><td>5</td><td>Evidence-synthesis and medical-writing export</td><td>5.96</td><td>8.0</td><td><strong>6.91</strong></td><td>Tier A</td></tr></tbody></table></div>
+<p class="lede"><strong>The one I would start: #1, built so that it creates #2 as a by-product.</strong> Both run on the same underlying asset — a verified, credentialed, quality-scored network of African clinicians. The AI labs pay for that network's judgement; the clinicians themselves pay for career progression. One asset, two revenue lines pointing in opposite directions, which is what makes it defensible.</p>
+<p class="lede"><strong>The decision that gates everything:</strong> the CV shows USMLE Step 1 and Step 2 passed and ECFMG certification <span class="ev ev-V" title="Verified — sourced">V</span>. That is a live option on US residency — three to seven years at roughly 80 hours a week. <strong>Founding and residency are not compatible.</strong> Ranked #1 and #2 are the only two recommendations here that could survive being run alongside a demanding job, because both are asynchronous, network-based and have no inventory, no field operations and no licence to maintain. That is not an incidental property; for this founder it may be the deciding one.</p>
+<hr />
+<h2 id="2-founder-asset-audit" class="sec"><span class="secnum">2</span><span class="sectxt">Founder asset audit</span></h2>
+<p>Before assessing markets, assess the founder. This is a read of the CV, not a character assessment.</p>
+<h3 id="21-genuinely-scarce-assets">2.1 Genuinely scarce assets</h3>
+<div class="tw"><table><thead><tr><th>Asset</th><th>Evidence in the CV</th><th>Why it is scarce</th></tr></thead><tbody><tr><td><strong>Owned audience of health professionals</strong></td><td>Hakim Podcast, founder and host since 2020: 74 videos, <strong>14,080 subscribers, 505,554 views</strong>; content is "A-to-Z mentorship on major scholarships and licensing pathways" across Africa, the Middle East, Europe and the US</td><td>This is the single most commercially valuable line in the document. Six years of trust with exactly the population two of the top three businesses need to recruit or sell to. Most founders spend $200k+ trying to build this</td></tr><tr><td><strong>Position on the accreditation side of regulation</strong></td><td>Medical Research Lounge, CPD Panel of Experts, Addis Ababa, 2023–present: "reviewed CPD modules and advised on accreditation decisions, ensuring alignment with national/CPD standards"</td><td>Not "knows the regulator" — <em>sits inside the accreditation process</em>. Rare, and directly relevant to the education businesses</td></tr><tr><td><strong>Research-grade quality control</strong></td><td>10+ indexed publications, multiple first-author; systematic reviews and meta-analyses; <strong>IHME Global Burden of Disease collaborator</strong> reviewing five GBD 2023 manuscripts with line-referenced comments</td><td>Expert-data businesses live or die on QA rigour. This is the exact skill, evidenced repeatedly, and it is unusual in a clinician</td></tr><tr><td><strong>Direct experience of the AI-data business</strong></td><td>TELUS Digital AI Data Solutions, <strong>Medical AI Trainer (Project MARVEL)</strong>, Cork, Oct 2024–Jan 2025: extracted textbook figures with citations, wrote image-based Q&amp;A for clinical visual reasoning, applied and refined labelling guidelines, resolved edge cases, QA-reviewed annotations</td><td>He has <em>worked the job</em> he would be selling. He knows what a labelling guideline is, what an edge case looks like, and what a rejected batch costs</td></tr><tr><td><strong>Dual-market credibility</strong></td><td>MD Ethiopia + MSc Barcelona + MPH Ireland; ECFMG-certified; USMLE Steps 1–2; memberships in ACP, WMA, IEA, APHA, RAMI, EMA (lifetime), EPHA</td><td>Buyers in the US and EU need a counterparty who reads as credible to them. Ethiopian clinicians need someone who reads as one of them. Very few people satisfy both</td></tr><tr><td><strong>National-language public communication</strong></td><td>VOA Amharic (×3), DW radio; a health book written in a local language</td><td>Distribution in Amharic at national scale, already demonstrated</td></tr><tr><td><strong>Institutional management</strong></td><td>Jimma University School of Medicine leadership team and <strong>Acting Head, College of Medical Sciences</strong> — staffing, curriculum, scheduling</td><td>Sells the B2B education product to institutions, because he has been the buyer</td></tr><tr><td><strong>Demonstrated ability to monetise digital products</strong></td><td>Cielo 133 (Madrid): "monetized digital products and built/promoted the group's YouTube channel and website, generating additional revenue through online sales and content income"</td><td>Small, but it is evidence of commercial follow-through, not just audience-building</td></tr><tr><td><strong>Credibility on the scholarship pathway specifically</strong></td><td>Awarded and declined: <strong>Johns Hopkins $18,000, Yale $25,000, WashU Brown $54,000, Dartmouth $10,000</strong>; held a Spanish Government scholarship</td><td>He did not study the game; he won it four times over. That is the proof point his audience actually wants</td></tr></tbody></table></div>
+<h3 id="22-honest-gaps">2.2 Honest gaps</h3>
+<div class="tw"><table><thead><tr><th>Gap</th><th>What the CV shows</th><th>Consequence</th></tr></thead><tbody><tr><td><strong>No software engineering</strong></td><td>R programming certificate (JHU); no build history, no technical co-founder named</td><td>Rules out anything requiring a real product surface early. Every recommendation below must work on off-the-shelf tools for the first 12 months, or requires a technical co-founder before it can scale</td></tr><tr><td><strong>No capital, no fundraising history</strong></td><td>No investment, grant-raising for a venture, or company formation on the record</td><td>Everything recommended is Tier A (&lt;$25k) or low Tier B. Ideas requiring inventory, licences or a lending book are excluded on this basis alone</td></tr><tr><td><strong>No commercial sales or operations at scale</strong></td><td>Clinical, academic and volunteer leadership; no revenue-carrying role</td><td>The B2B businesses (#3, #4) need a commercial partner. The audience-driven businesses (#1, #2) partly substitute distribution for selling — which is why they rank first</td></tr><tr><td><strong>Not based in Ethiopia</strong></td><td>Cork, Ireland since 09/2024</td><td>A real constraint for anything requiring local field operations; a real <em>advantage</em> for anything requiring EU/US-facing credibility, contracting and FX. Reinforces the ranking</td></tr><tr><td><strong>Severe time conflict</strong></td><td>MPH thesis pending; ECFMG certification and USMLE Steps 1–2 complete</td><td>The residency option is the elephant. See §8</td></tr><tr><td><strong>Domain-narrow</strong></td><td>Deep in medicine, public health and evidence synthesis; nothing in K–12 pedagogy, curriculum or schools</td><td>Grade 12 mass-market prep — the largest education market in Ethiopia — is a <strong>poor</strong> fit despite being a huge opportunity. The model penalises it correctly (fit 4.9)</td></tr></tbody></table></div>
+<h3 id="23-the-one-sentence-read">2.3 The one-sentence read</h3>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span></strong> This is a credentialing-and-trust founder, not a product-or-operations founder. Every business he should start must monetise verification, judgement, or access to a network — and must not require him to build software, hold inventory, or carry a licence.</p>
+<hr />
+<h2 id="3-what-has-structurally-changed-in-ethiopian-health-and-education" class="sec"><span class="secnum">3</span><span class="sectxt">What has structurally changed in Ethiopian health and education</span></h2>
+<h3 id="31-health-regulation-created-a-compliance-architecture-and-then-gave-t">3.1 Health regulation created a compliance architecture — and then gave the content away free</h3>
+<div class="tw"><table><thead><tr><th></th><th>Before</th><th>Now</th></tr></thead><tbody><tr><td>Licensure</td><td>Fragmented</td><td><strong>EHPLE</strong> national licensing exam launched 2019 for 7 cadres, now <strong>17 health professions</strong>; <strong>166,293 examinees across 14 rounds to February 2024</strong> <span class="ev ev-V" title="Verified — sourced">V</span>; administered annually via <code>hple.moh.gov.et</code>; new <strong>Health Profession Licensing Examination Implementation Directive No. 1124/2026</strong> issued this year <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Relicensure</td><td>No CPD requirement</td><td><strong>CPD mandatory since 2018–2020/21</strong>: 30 CEU/year, <strong>90 CEU per three-year renewal cycle</strong>, with an accreditation process for CPD providers and courses <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>CPD supply</td><td>Nothing</td><td><strong>Free.</strong> WCEA provides free branded CPD platforms and mobile apps in partnership with the Ethiopian Medical Association, Ethiopian Nurses Association and Public Health Officers Association; MOH runs <code>cpd.moh.gov.et</code> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Health workforce</td><td>—</td><td><strong>313,097 in 2024, projected 404,196 by 2030</strong> <span class="ev ev-V" title="Verified — sourced">V</span>; <strong>1 physician per 5,843 people</strong> <span class="ev ev-V" title="Verified — sourced">V</span>; <strong>~2,000 medical experts emigrate every year</strong> per the Ministry of Health <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Medical education</td><td>5 medical schools in 2005</td><td><strong>43 medical schools by 2022, 10 of them private</strong>; annual medical graduates up tenfold to <strong>1,500–1,600</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Health financing</td><td>Out-of-pocket dominant</td><td><strong>CBHI at 11.1m households by 2024</strong> (73% of eligible households in implementing woredas); social health insurance for the formal sector forthcoming <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Digital health</td><td>Paper</td><td><strong>Digital Health Blueprint 2021–2030</strong>; <strong>~$120m allocated in 2026</strong> to national health informatics; plan to digitise <strong>&gt;80% of government hospitals and clinics by 2030</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr></tbody></table></div>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> The analytical point:</strong> Ethiopia has built a textbook forced-demand structure — mandatory exams, mandatory CPD, mandatory relicensure — and then <strong>removed the willingness to pay for the largest piece of it</strong> by supplying CPD free through donor-funded platforms. This is the opposite of the e-invoicing situation in the general report, where the mandate created a paid market. Here the mandate created a <em>free</em> market. The money in Ethiopian health education is therefore not in CPD. It is in the <strong>high-stakes, career-changing exams that are not free</strong>: EHPLE for domestic licensure, and USMLE / PLAB / NCLEX / Prometric / OET for the exit route.</p>
+<h3 id="32-education-an-examination-system-that-fails-9-out-of-10-students">3.2 Education: an examination system that fails 9 out of 10 students</h3>
+<p>This is the most dramatic structural fact in Ethiopian education, and it is under-exploited.</p>
+<div class="tw"><table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Grade 12 national exam pass rate, 2024/25</td><td><strong>8.4%</strong> — 48,929 passed out of <strong>585,882</strong> sitters <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Trend</td><td>3.3% (2023) → 5.4% (2024) → 8.4% (2025) <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Students failing per year</td><td><strong>~536,953</strong> [E: 585,882 − 48,929]</td></tr><tr><td>Secondary schools recording <strong>zero</strong> passes</td><td><strong>1,249</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Pass rate by school type</td><td>Boarding <strong>87%</strong>, international <strong>86%</strong>, urban private <strong>~51%</strong>, government schools <strong>low single digits</strong> — where about nine in ten students are enrolled <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Repeat-taker pass rate</td><td><strong>6–14%</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Minister's own projection</td><td>15–20% pass rate may take two more years <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>University <strong>exit exam</strong> (mandatory to graduate since 2023, 60% pass mark)</td><td>Public universities <strong>62.37%</strong> pass; <strong>private universities 17.2%</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr></tbody></table></div>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> Two separate businesses hide in that table.</strong> The mass-market one — half a million failing students a year — is enormous, low-ARPU, contested (A+ Online Tutors reportedly has 10,000+ subscribers at ETB 300/month <span class="ev ev-V" title="Verified — sourced">V</span>; Ethio IQ, Kelem Tutors, LIQ Tutor and a dozen others exist <span class="ev ev-V" title="Verified — sourced">V</span>) and <strong>outside this founder's domain</strong>. The other one is small, high-urgency and precisely inside it: <strong>private higher education institutions passing 17.2% of their graduates on a mandatory exit exam face an existential accreditation and enrolment problem, and they are institutions with budgets.</strong> That asymmetry — 62.37% public versus 17.2% private — is a sales pitch that writes itself.</p>
+<h3 id="33-the-macro-unlocks-that-matter-here">3.3 The macro unlocks that matter here</h3>
+<p>Three items from the general report bear directly on this founder:</p>
+<ol>
+<li><strong>FXD/04/2026 (12 February 2026):</strong> service exporters may retain <strong>100% of export proceeds in FX accounts indefinitely</strong>, and banks may load internationally recognised debit cards without travel documents <span class="ev ev-V" title="Verified — sourced">V</span>. Before this, an Ethiopian company earning dollars for services had to surrender a large share at a rate that made the business uneconomic. <strong>This is what makes an Ethiopian-domiciled expert-services export company viable for the first time.</strong></li>
+<li><strong>The float:</strong> ~ETB 155/USD, stable across 24 NBE auctions in 2026 <span class="ev ev-V" title="Verified — sourced">V</span>. A dollar-earning, birr-paying business now has a priceable spread.</li>
+<li><strong>Personal Data Protection Proclamation 1321/2024:</strong> personal data collected in Ethiopia must be stored on servers inside Ethiopia <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>This binds hard on anything touching patient data</strong> and is the reason I rank clinical-record businesses below non-clinical ones for a first venture.</li>
+</ol>
+<hr />
+<h2 id="4-readiness-assessment-health-and-education" class="sec"><span class="secnum">4</span><span class="sectxt">Readiness assessment: health and education</span></h2>
+<p>My judgement <span class="ev ev-I" title="Inference — judgement">I</span>, anchored on the verified data above.</p>
+<div class="tw"><table><thead><tr><th>Condition</th><th>Score</th><th>Read</th></tr></thead><tbody><tr><td>Regulatory forcing function (exams, licensure)</td><td><strong>9</strong></td><td>EHPLE, exit exam, mandatory CPD, Directive 1124/2026. Demand is legally compelled</td></tr><tr><td>Willingness to pay — CPD</td><td><strong>2</strong></td><td>Free incumbents. Do not enter</td></tr><tr><td>Willingness to pay — high-stakes exams</td><td><strong>8</strong></td><td>Career-defining outcomes; candidates and families borrow for this</td></tr><tr><td>Willingness to pay — international pathway</td><td><strong>9</strong></td><td>The highest per-capita spend in Ethiopian health professional life</td></tr><tr><td>Institutional budgets (private HEIs)</td><td><strong>7</strong></td><td>Exit-exam failure is existential; they will pay to fix it</td></tr><tr><td>Institutional budgets (government)</td><td><strong>3</strong></td><td>Slow, donor-cycle dependent, procurement-heavy</td></tr><tr><td>Household ability to pay (K–12)</td><td><strong>4</strong></td><td>ETB 300/month is the demonstrated ceiling for mass tutoring</td></tr><tr><td>Diaspora ability to pay (health services)</td><td><strong>9</strong></td><td>Families already sell property to fund treatment abroad <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Connectivity for online delivery</td><td><strong>7</strong></td><td>92% 4G population coverage <span class="ev ev-V" title="Verified — sourced">V</span>; power reliability is the weak link</td></tr><tr><td>Payment collection</td><td><strong>8</strong></td><td>Telebirr at 60.6m users, instant interoperable payments live <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Clinical data infrastructure</td><td><strong>3</strong></td><td>EMR adoption thin; localisation law binds; avoid for a first venture</td></tr><tr><td>Global demand for African clinical expertise</td><td><strong>9</strong></td><td>Mercor at $2bn ARR, Centaur AI at 50,000+ clinicians <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>FX / repatriation for services export</td><td><strong>8</strong></td><td>100% retention since Feb 2026 <span class="ev ev-V" title="Verified — sourced">V</span></td></tr></tbody></table></div>
+<hr />
+<h2 id="5-international-analogues" class="sec"><span class="secnum">5</span><span class="sectxt">International analogues</span></h2>
+<p class="lede"><strong>For the expert-data business.</strong> <strong>Centaur AI</strong> (formerly Centaur Labs, US) built a network of 50,000+ vetted physicians and clinical professionals who label medical data through a gamified accuracy app, works with about half the top ten pharmaceutical companies, and has contributed to multiple FDA-cleared algorithms <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>Mercor</strong> operates a 300,000+ expert marketplace and grew from ~$760m to <strong>$2bn annualised revenue between end-2025 and June 2026</strong>, with healthcare experts paid $50–180/hour <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>Surge AI</strong> pays frontier experts $50–200 <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>Karya</strong> (India) is the closest structural precedent for a <em>supply-side, Global South</em> version: it built a data-work company that pays rural Indian workers far above local wage while selling to global buyers, and it is explicitly ethical-sourcing positioned. <strong>The gap:</strong> none of these has a serious African clinician supply chain, and the self-serve platforms largely exclude Ethiopia.</p>
+<p class="lede"><strong>For the pathway academy.</strong> <strong>PrepLadder</strong> and <strong>Marrow</strong> (India) built subscription medical-exam preparation into substantial businesses on the back of India's NEET-PG bottleneck; PrepLadder was acquired by Unacademy. <strong>Academically</strong> (India) does exactly the international-licensing pathway — USMLE, NCLEX, OET, credentialing, placement — for Indian and Filipino clinicians. <strong>Leverage Edu</strong> and <strong>ApplyBoard</strong> built study-abroad application platforms into large companies by monetising universities rather than students. <strong>The Ethiopian version does not exist</strong>, and this founder has been running its free precursor on YouTube for six years.</p>
+<p class="lede"><strong>For the private-HEI outcome business.</strong> <strong>Zeraki</strong> (Kenya) sells analytics and outcome tracking to schools rather than parents, which is how you get a real ARPU in a low-income market. <strong>Embibe</strong> (India) sold outcome-improvement to institutions. The Ethiopian trigger — a mandatory exit exam that private institutions fail at 17.2% — is stronger than either country's was.</p>
+<p class="lede"><strong>For medical-travel navigation.</strong> <strong>Vaidam</strong> and <strong>Medigence</strong> (India) built inbound medical-travel facilitation into real businesses; <strong>PlacidWay</strong> operates globally and already lists Ethiopia <span class="ev ev-V" title="Verified — sourced">V</span>. Every one of them is paid by the <em>hospital</em>, which is precisely the flaw a physician-founded, patient-paid competitor can attack.</p>
+<p><strong>The diffusion-lag view <span class="ev ev-I" title="Inference — judgement">I</span>:</strong></p>
+<div class="tw"><table><thead><tr><th>Model</th><th>First scaled</th><th>Ethiopian enabling conditions</th><th>Lag</th><th>Status</th></tr></thead><tbody><tr><td>Expert clinical data for AI</td><td>US 2018 → mass 2024–26</td><td><strong>2026</strong> (FX retention + audience + model demand)</td><td>~2 yr</td><td><strong>Open now, unusually short lag</strong></td></tr><tr><td>International licensing prep</td><td>India 2010s</td><td>2020–26</td><td>~10 yr</td><td><strong>Open now</strong></td></tr><tr><td>Institutional exam-outcome analytics</td><td>India/Kenya 2016</td><td>2023–26 (exit exam)</td><td>~8 yr</td><td><strong>Open now</strong></td></tr><tr><td>Medical-travel facilitation</td><td>India 2010</td><td>2024–26 (FX, cards, air links)</td><td>~14 yr</td><td>Open now</td></tr><tr><td>Mass K–12 test prep</td><td>India 2016 (Physics Wallah)</td><td>2023–26</td><td>~8 yr</td><td>Open, contested, poor fit</td></tr><tr><td>Telemedicine / e-pharmacy</td><td>India 2015</td><td>Partially</td><td>~10 yr</td><td>Contested, thin</td></tr><tr><td>Clinical AI decision support</td><td>US 2020</td><td>2029+ (data, EMR, safety)</td><td>—</td><td>Too early</td></tr></tbody></table></div>
+<p class="lede"><strong>Note the first row.</strong> In almost every category in the general report Ethiopia lags by 8–15 years. Expert clinical data is the one place where the lag is about <strong>two years</strong>, because the buyer is global rather than domestic, and the only local input required is a person and an internet connection. That is why it ranks first.</p>
+<hr />
+<h2 id="6-twelve-candidates-scored" class="sec"><span class="secnum">6</span><span class="sectxt">Twelve candidates, scored</span></h2>
+<p>Same 20-criterion weighted model as the general report (capital-lightness: 10 = startable under $25k; regulatory ease: 10 = no licence), plus an eight-part <strong>founder-fit</strong> score (domain authority, evidence/QA capability, owned distribution, institutional access, international position, directly relevant prior experience, capital-independence, time compatibility).</p>
+<p class="lede"><strong>Adjusted score is the geometric mean of opportunity and fit</strong> — deliberately, because it punishes imbalance in both directions. A superb business he cannot build is worth nothing; a business he is perfect for that nobody will pay for is worth nothing.</p>
+<div class="tw"><table><thead><tr><th>Rank</th><th>Opportunity</th><th>Opportunity</th><th>Founder fit</th><th><strong>Adjusted</strong></th><th>Tier</th><th>Type</th></tr></thead><tbody><tr><td>1</td><td>Clinical expert-data network for AI labs</td><td>7.69</td><td>9.0</td><td><strong>8.32</strong></td><td>A</td><td>1</td></tr><tr><td>2</td><td>Health-professional pathway academy</td><td>7.45</td><td>9.0</td><td><strong>8.19</strong></td><td>A</td><td>1</td></tr><tr><td>3</td><td>Exit-exam / EHPLE outcome contracts with private HEIs</td><td>6.81</td><td>8.0</td><td><strong>7.38</strong></td><td>A/B</td><td>1</td></tr><tr><td>4</td><td>Diaspora-paid medical-travel navigation and second opinion</td><td>7.07</td><td>7.5</td><td><strong>7.28</strong></td><td>B</td><td>1</td></tr><tr><td>5</td><td>Evidence-synthesis and medical-writing export</td><td>5.96</td><td>8.0</td><td><strong>6.91</strong></td><td>A</td><td>1</td></tr><tr><td>6</td><td>Study-abroad application platform (all disciplines)</td><td>6.40</td><td>7.25</td><td><strong>6.81</strong></td><td>A</td><td>2</td></tr><tr><td>7</td><td>Diaspora-paid parent-care membership</td><td>6.31</td><td>6.25</td><td><strong>6.28</strong></td><td>B</td><td>2</td></tr><tr><td>8</td><td>Amharic clinical decision support for frontline workers</td><td>5.81</td><td>6.38</td><td><strong>6.09</strong></td><td>B</td><td>2/3</td></tr><tr><td>—</td><td><em>CPD course platform (control case)</em></td><td><em>4.17</em></td><td><em>8.12</em></td><td><em>5.82</em></td><td><em>A</em></td><td><em>Avoid</em></td></tr><tr><td>9</td><td>Grade 12 / university-entrance mass prep</td><td>6.79</td><td>4.88</td><td><strong>5.75</strong></td><td>B</td><td>1, wrong founder</td></tr><tr><td>10</td><td>Private-school outcome analytics + fee OS</td><td>6.60</td><td>4.88</td><td><strong>5.67</strong></td><td>A/B</td><td>1, wrong founder</td></tr><tr><td>11</td><td>Caregiver / nursing-assistant export academy</td><td>5.90</td><td>5.00</td><td><strong>5.43</strong></td><td>B/C</td><td>2, ethically loaded</td></tr></tbody></table></div>
+<p><strong>Full sub-scores, top eight:</strong></p>
+<div class="tw wide"><table><thead><tr><th>Opportunity</th><th>Mkt</th><th>Grw</th><th>Urg</th><th>WTP</th><th>WkComp</th><th>CAC</th><th>CapLt</th><th>RegEase</th><th>Tech</th><th>Infra</th><th>Scale</th><th>Marg</th><th>Netwk</th><th>Def</th><th>Natl</th><th>EAfr</th><th>Dias</th><th>Timing</th><th>P$1M</th><th>P$100M</th><th>Opp</th><th>Fit</th><th><strong>Adj</strong></th></tr></thead><tbody><tr><td>Clinical expert-data network</td><td>8</td><td>10</td><td>8</td><td>9</td><td>5</td><td>9</td><td>10</td><td>8</td><td>8</td><td>7</td><td>8</td><td>7</td><td>5</td><td>6</td><td>7</td><td>8</td><td>5</td><td>10</td><td>9</td><td>5</td><td>7.69</td><td>9.0</td><td><strong>8.32</strong></td></tr><tr><td>Pathway academy</td><td>6</td><td>8</td><td>9</td><td>9</td><td>7</td><td>10</td><td>10</td><td>6</td><td>8</td><td>7</td><td>7</td><td>9</td><td>6</td><td>7</td><td>7</td><td>7</td><td>6</td><td>8</td><td>9</td><td>4</td><td>7.45</td><td>9.0</td><td><strong>8.19</strong></td></tr><tr><td>Exit/EHPLE outcome contracts</td><td>5</td><td>7</td><td>10</td><td>8</td><td>8</td><td>8</td><td>9</td><td>7</td><td>8</td><td>6</td><td>6</td><td>8</td><td>4</td><td>6</td><td>7</td><td>4</td><td>1</td><td>9</td><td>8</td><td>3</td><td>6.81</td><td>8.0</td><td><strong>7.38</strong></td></tr><tr><td>Medical-travel navigation</td><td>6</td><td>8</td><td>9</td><td>9</td><td>8</td><td>7</td><td>8</td><td>6</td><td>7</td><td>7</td><td>6</td><td>8</td><td>5</td><td>7</td><td>6</td><td>5</td><td>9</td><td>8</td><td>8</td><td>4</td><td>7.07</td><td>7.5</td><td><strong>7.28</strong></td></tr><tr><td>Evidence-synthesis export</td><td>6</td><td>7</td><td>6</td><td>7</td><td>4</td><td>6</td><td>10</td><td>9</td><td>7</td><td>7</td><td>6</td><td>7</td><td>3</td><td>4</td><td>5</td><td>5</td><td>3</td><td>7</td><td>8</td><td>2</td><td>5.96</td><td>8.0</td><td><strong>6.91</strong></td></tr><tr><td>Study-abroad platform</td><td>6</td><td>7</td><td>7</td><td>7</td><td>5</td><td>9</td><td>9</td><td>7</td><td>8</td><td>7</td><td>7</td><td>8</td><td>5</td><td>5</td><td>6</td><td>6</td><td>4</td><td>6</td><td>8</td><td>3</td><td>6.40</td><td>7.2</td><td><strong>6.81</strong></td></tr><tr><td>Parent-care membership</td><td>6</td><td>8</td><td>8</td><td>8</td><td>8</td><td>6</td><td>6</td><td>6</td><td>7</td><td>6</td><td>5</td><td>7</td><td>4</td><td>6</td><td>5</td><td>3</td><td>10</td><td>7</td><td>7</td><td>3</td><td>6.31</td><td>6.2</td><td><strong>6.28</strong></td></tr><tr><td>Amharic clinical decision support</td><td>6</td><td>8</td><td>8</td><td>4</td><td>8</td><td>5</td><td>7</td><td>5</td><td>6</td><td>5</td><td>7</td><td>8</td><td>4</td><td>6</td><td>8</td><td>4</td><td>1</td><td>6</td><td>5</td><td>3</td><td>5.81</td><td>6.4</td><td><strong>6.09</strong></td></tr></tbody></table></div>
+<hr />
+<h2 id="7-deep-dives-on-the-top-five" class="sec"><span class="secnum">7</span><span class="sectxt">Deep dives on the top five</span></h2>
+<hr />
+<h3 id="71-clinical-expert-data-network-for-ai-labs">7.1 — Clinical expert-data network for AI labs</h3>
+<p><strong>Adjusted 8.32 · Opportunity 7.69 · Founder fit 9.0 · Tier A · Type 1</strong></p>
+<p class="lede"><strong>Concept.</strong> A company that recruits, credentials, trains and quality-scores African clinicians — starting with Ethiopian physicians, nurses, pharmacists and lab scientists — and sells their expert judgement to frontier AI labs and medical-AI companies as training and evaluation data: clinical reasoning traces, RLHF preference rankings, image-based question-and-answer sets, red-teaming for medical safety, and specialty evaluation rubrics. The company is the credentialing, QA and contracting layer; the clinicians are contractors.</p>
+<p class="lede"><strong>Customer.</strong> Frontier labs and their data vendors (Mercor, Surge, Handshake, Centaur AI, Invisible, Turing and the labs' internal data teams), plus medical-AI product companies needing clinical evaluation, plus pharma and device companies needing annotated clinical datasets.</p>
+<p class="lede"><strong>Problem being solved — for the buyer.</strong> Labs are running out of high-quality expert medical data and are paying accordingly: <strong>$50–180/hour for healthcare experts at Mercor, $50–200 at Surge, $100–125 at Handshake</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. They also increasingly need <em>non-Western</em> clinical data — tropical and infectious disease presentations, resource-constrained decision-making, treatment protocols that differ from US guidelines — precisely the material Ethiopian clinicians produce as a matter of routine and US clinicians cannot fabricate.</p>
+<p class="lede"><strong>Problem being solved — for the supply side.</strong> An Ethiopian general practitioner earns on the order of <strong>$150–400/month</strong> [A — verify against current public and private salary scales]. The same person's clinical judgement is worth $50+/hour to a frontier lab. The main platforms — Outlier, Mindrift, Remotasks, Prolific — enumerate Kenya, Nigeria, Ghana, South Africa and Egypt as eligible countries, and Ethiopia is typically absent [V/I]. <strong>The exclusion is a payments-and-contracting problem, not a competence problem, and it is now solvable.</strong></p>
+<p><strong>Current workaround.</strong> A small number of Ethiopian clinicians work through personal contacts or by using foreign payment workarounds. Most do not participate at all.</p>
+<p class="lede"><strong>Solution.</strong> (1) A credentialing pipeline — verify licence, cadre, specialty and English competence; (2) a calibration and training programme — the founder has literally done this work at TELUS on Project MARVEL <span class="ev ev-V" title="Verified — sourced">V</span>; (3) an accuracy-scoring layer that produces a trust rating per clinician, which is the thing buyers actually purchase; (4) an Ethiopian-domiciled contracting entity that bills in USD, retains 100% of FX under FXD/04/2026 <span class="ev ev-V" title="Verified — sourced">V</span>, and pays clinicians in birr through Telebirr or bank transfer; (5) delivery management and QA on batches.</p>
+<p class="lede"><strong>Why Ethiopia was too early.</strong> Before February 2026 an Ethiopian services exporter had to surrender a substantial share of foreign-currency earnings, and the parallel exchange rate made the residual uneconomic. Before ~2024, demand for expert-tier medical data was a fraction of its current size. Both changed within eighteen months.</p>
+<p class="lede"><strong>Why it is ready now.</strong> FX retention at 100% <span class="ev ev-V" title="Verified — sourced">V</span>; 92% 4G population coverage <span class="ev ev-V" title="Verified — sourced">V</span>; a buyer market that grew from ~$760m to $2bn ARR at a single vendor in six months <span class="ev ev-V" title="Verified — sourced">V</span>; and — specific to this founder — a recruiting channel of 14,080 health professionals who already trust him.</p>
+<p><strong>Market size.</strong></p>
+<ul>
+<li><strong>TAM <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> the expert-data market is in the low billions of dollars annually and growing fast [V for Mercor's $2bn; the total is my inference]. Medical and clinical is one of the largest expert verticals.</li>
+<li><strong>SAM <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> an African clinician supply business realistically addresses <strong>$50–200m</strong> of annual buyer spend by 2029, being the share of medical expert-data work that is language-compatible, non-US-specific and price-sensitive.</li>
+<li><strong>SOM year 3 <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> <strong>$3–12m</strong> of billings.</li>
+</ul>
+<p class="lede"><strong>Revenue model.</strong> Bill the buyer <strong>$40–90/hour</strong> of reviewed clinician output; pay the clinician <strong>$12–30/hour</strong>; retain the spread. Alternatively, fixed-price per deliverable (per annotated case, per evaluation rubric), which is higher-margin once calibration is mature.</p>
+<p><strong>Unit economics <span class="ev ev-E" title="Estimate — derived">E</span>.</strong></p>
+<div class="tw"><table><thead><tr><th></th><th>Conservative</th><th>Central</th><th>Strong</th></tr></thead><tbody><tr><td>Billed rate/hour</td><td>$40</td><td>$60</td><td>$85</td></tr><tr><td>Clinician pay/hour</td><td>$18</td><td>$22</td><td>$28</td></tr><tr><td>QA + delivery cost/hour</td><td>$6</td><td>$7</td><td>$8</td></tr><tr><td><strong>Gross margin</strong></td><td><strong>40%</strong></td><td><strong>52%</strong></td><td><strong>58%</strong></td></tr><tr><td>Active clinicians</td><td>30</td><td>60</td><td>200</td></tr><tr><td>Hours/clinician/month</td><td>40</td><td>55</td><td>60</td></tr><tr><td><strong>Annual billings</strong></td><td><strong>$576k</strong></td><td><strong>$2.4m</strong></td><td><strong>$12.2m</strong></td></tr><tr><td><strong>Annual gross profit</strong></td><td><strong>$230k</strong></td><td><strong>$1.24m</strong></td><td><strong>$7.1m</strong></td></tr></tbody></table></div>
+<p><strong>$1m of revenue needs roughly 30–45 active clinicians working part-time.</strong> That is 0.3% of his existing subscriber base.</p>
+<p class="lede"><strong>Startup capital.</strong> <strong>$8,000–25,000</strong> (Tier A). Costs are entity formation, a contracting and payments setup, a simple applicant-tracking and scoring spreadsheet or Airtable, and the founder's time. <strong>This is the most capital-light serious business in either report.</strong></p>
+<p class="lede"><strong>Regulation.</strong> Services export — no licence required. Key obligations: contractor classification and Ethiopian labour/tax treatment of contractor payments; FX account setup under FXD/04/2026 <span class="ev ev-V" title="Verified — sourced">V</span>; and <strong>data protection</strong>, which is the real one — if any task involves identifiable patient data, the Personal Data Protection Proclamation 1321/2024 localisation rule and the buyer's own HIPAA/GDPR obligations both bite <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>Start with synthetic and de-identified work only.</strong> Also confirm no export-control or sanctions issue in the buyer's jurisdiction.</p>
+<p class="lede"><strong>Competition.</strong> Centaur AI (50,000+ clinicians), Mercor (300,000+ experts), Surge, Handshake <span class="ev ev-V" title="Verified — sourced">V</span>. These are large and well-funded — <strong>but they are buyers as much as competitors.</strong> The realistic entry is to become a <em>supplier</em> to them, not a rival: they need vetted African clinical capacity and have no efficient way to recruit and QA it. <em>Is the market won?</em> Not the African supply layer. <em>Is it empty because economics fail?</em> No — the economics are the best in this report; it is empty because nobody with the right credentials has assembled the network.</p>
+<p><strong>Moat.</strong> The credentialed, accuracy-scored clinician roster — a buyer switching away must re-recruit and re-calibrate. Secondarily, the founder's personal trust with that population, which is genuinely hard to replicate, and the QA playbook.</p>
+<p><strong>Network effects.</strong> Weak (5/10). Be honest: this is a scale-and-quality business, not a network business.</p>
+<p class="lede"><strong>Expansion path.</strong> Ethiopian physicians → all 17 EHPLE cadres → Kenya, Uganda, Nigeria, Ghana (the podcast already reaches "Africa, the Middle East, Europe and the US") → adjacent expert verticals where the same credentialing machinery applies (pharmacy, veterinary, public health, biostatistics).</p>
+<p class="lede"><strong>Major risks.</strong> (i) <strong>Customer concentration</strong> — one lab contract can be most of revenue and can end abruptly; this is the defining risk of the category. (ii) <strong>Demand volatility</strong> — expert-data budgets move with model release cycles. (iii) <strong>Disintermediation</strong> — a buyer signs your clinicians directly; mitigate with contracts, but expect leakage. (iv) <strong>Power and connectivity</strong> for annotators, in a country with ~39 grid interruptions a month for large users <span class="ev ev-V" title="Verified — sourced">V</span>. (v) <strong>Reputational and ethical exposure</strong> — see below. (vi) Rate compression as more Global South supply comes online.</p>
+<p class="lede"><strong>The ethical question, addressed directly <span class="ev ev-I" title="Inference — judgement">I</span>.</strong> Paying a physician 15–30× their clinical wage to annotate data, in a country with <strong>one physician per 5,843 people</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, risks pulling clinicians away from patients — a second brain drain that does not even require them to leave. This is a real objection and it deserves a real answer, not a disclaimer. The defensible design: <strong>cap contracted hours per clinician (say 40–60/month), recruit deliberately across cadres and regions rather than concentrating on scarce specialists, and position the income as supplementary retention money that makes staying in Ethiopia financially survivable.</strong> Framed that way, it is plausibly an <em>anti</em>-brain-drain instrument — a clinician earning an extra $600/month is markedly less likely to be among the ~2,000 experts who emigrate annually <span class="ev ev-V" title="Verified — sourced">V</span>. That framing is also commercially useful: ethical-sourcing credentials are a genuine differentiator with frontier-lab procurement, as Karya has demonstrated in India.</p>
+<p class="lede"><strong>90-day MVP.</strong> Recruit <strong>20 Ethiopian physicians</strong>, run one calibration exercise against a public benchmark, produce a 500-item sample dataset in one specialty, and take it to three buyers. No platform, no app — Airtable, Google Forms and a spreadsheet of accuracy scores.</p>
+<p class="lede"><strong>First 100 clinicians.</strong> One podcast episode. That is the entire acquisition strategy for the first cohort, and it is why this business belongs to him and not to a generalist founder. Then: EMSA and Ethiopian Medical Association channels, university alumni groups, and referral bonuses.</p>
+<p class="lede"><strong>First three buyers.</strong> Approach vendor-side rather than lab-side: Mercor, Surge, Handshake, Invisible and Centaur AI all have supply/partnerships functions. The pitch is a single sentence — <em>"vetted, accuracy-scored African clinicians, contracted and paid legally, ready in two weeks."</em> Secondary channel: medical-AI startups (there are hundreds) that cannot afford Centaur's pricing.</p>
+<p><strong>Path to $1m revenue.</strong> 30–45 active clinicians at 40–55 hours/month, billed at $50–60 <span class="ev ev-E" title="Estimate — derived">E</span>. <strong>Plausible within 12–18 months</strong> — the fastest path to $1m in either report.</p>
+<p class="lede"><strong>Path to a $100m company.</strong> Requires becoming <em>the</em> African expert-supply layer across verticals: 2,000–5,000 active experts, $60–150m of billings, and a proprietary evaluation/benchmark product that buyers license rather than merely staffing. I scored P($100m) at only <strong>5/10</strong> — the more likely good outcomes are a $15–50m business or an acquisition by one of the vendor platforms, which are consolidating aggressively.</p>
+<p class="lede"><strong>Why now.</strong> <em>This business could not have existed in 2023: demand for expert-tier clinical data was a fraction of today's, and an Ethiopian services exporter had to surrender much of its hard currency at an exchange rate that made the residual worthless. It is viable now because a single vendor in this market went from roughly $760m to $2bn of annualised revenue in six months while paying healthcare experts $50–180 an hour, because NBE Directive FXD/04/2026 lets an Ethiopian service exporter keep 100% of its foreign currency indefinitely, and because the major self-serve platforms still exclude Ethiopia — leaving a large, competent, English-speaking clinical workforce locked out of a market that wants it. If African clinical data becomes a procurement requirement rather than a nice-to-have, as non-Western evaluation increasingly does, the supply layer built now becomes the default.</em></p>
+<p><strong>Verdict: START NOW.</strong></p>
+<p class="lede"><strong>"Uber ten years later" test.</strong> <em>This is the one case where the analogy genuinely does not apply — and that is a point in its favour.</em> Ethiopia is not two years behind on a consumer adoption curve here; it is <strong>excluded from a global market it is qualified to serve</strong>. The opportunity is not a delayed diffusion, it is an arbitrage created by payment rails and country eligibility, which is a different and more urgent kind of window. It will close as those platforms expand country coverage — which is the strongest argument for starting immediately rather than the strongest argument against.</p>
+<hr />
+<h3 id="72-health-professional-pathway-academy">7.2 — Health-professional pathway academy</h3>
+<p><strong>Adjusted 8.19 · Opportunity 7.45 · Founder fit 9.0 · Tier A · Type 1</strong></p>
+<p class="lede"><strong>Concept.</strong> Convert the Hakim audience into a paid, outcome-accountable programme covering the two things Ethiopian and East African health professionals actually spend money on: <strong>passing licensing examinations</strong> (EHPLE domestically; USMLE, PLAB, NCLEX, Prometric/SCFHS and OET/IELTS internationally) and <strong>winning funded places abroad</strong> (scholarship and residency applications). Cohort-based, with structured curriculum, accountability, and published pass rates.</p>
+<p class="lede"><strong>Customer.</strong> The candidate pays, frequently with diaspora family sponsorship. Segments: final-year and newly qualified health-science graduates facing EHPLE; nurses targeting the Gulf or UK; physicians targeting USMLE/PLAB; and applicants for funded master's and residency places.</p>
+<p class="lede"><strong>Problem.</strong> These are the highest-stakes, highest-cost decisions in an Ethiopian health professional's life, and they are currently navigated through Facebook groups, WhatsApp rumour and unregulated agents. The reference materials are priced for Western incomes — UWorld, Amboss and Kaplan are out of reach [V, implied by MediFlash's own positioning]. The information asymmetry is enormous and expensive: a wrong sequencing decision costs a year and thousands of dollars.</p>
+<p class="lede"><strong>Current workaround.</strong> USMLE-Ethio-forums on Facebook; content sites like Doctors Online Ethiopia and Med In Ethiopia; MediFlash flashcards from GeezApps, explicitly built for developing-country students and covering USMLE, NCLEX, PLAB and the Ethiopian MLE <span class="ev ev-V" title="Verified — sourced">V</span>; individual tutors; and <strong>the Hakim Podcast itself</strong>, which is the incumbent — free and owned by the founder.</p>
+<p class="lede"><strong>Solution.</strong> Paid cohorts with a fixed timetable, a question bank licensed or built, weekly live sessions, peer accountability groups, a credentialing concierge (ECFMG, WES, NMC CBT/OSCE booking, Dataflow, OET registration), and an application service for scholarships and residency. Publish outcomes.</p>
+<p class="lede"><strong>International precedent.</strong> <strong>PrepLadder</strong> and <strong>Marrow</strong> (India) built subscription medical exam prep into major businesses on India's postgraduate bottleneck; PrepLadder was acquired by Unacademy. <strong>Academically</strong> (India) runs precisely this international-licensing pathway for Indian and Filipino clinicians. <strong>Leverage Edu</strong> and <strong>ApplyBoard</strong> monetised the study-abroad application funnel from the institution side.</p>
+<p class="lede"><strong>Why previously too early / why now.</strong> Two things changed. First, <strong>online payment collection from Ethiopian candidates is now routine</strong> — Telebirr at 60.6m users with instant interoperable settlement <span class="ev ev-V" title="Verified — sourced">V</span> — where five years ago collecting ETB 5,000 from 500 people scattered across the country was itself a business problem. Second, <strong>the audience now exists</strong>: 14,080 subscribers and 505,554 views accumulated over six years <span class="ev ev-V" title="Verified — sourced">V</span>. The asset was built before the payment rails arrived; both are now in place.</p>
+<p><strong>Market size.</strong></p>
+<ul>
+<li><strong>TAM <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> Ethiopia's health workforce is <strong>313,097 (2024) rising to 404,196 by 2030</strong> <span class="ev ev-V" title="Verified — sourced">V</span>; <strong>166,293 EHPLE examinees across 14 rounds to Feb 2024</strong> implies roughly <strong>25,000–40,000 candidates a year</strong> <span class="ev ev-E" title="Estimate — derived">E</span>; medical graduates alone are 1,500–1,600 a year <span class="ev ev-V" title="Verified — sourced">V</span>.</li>
+<li><strong>SAM <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> candidates seriously pursuing a paid exam or pathway product: <strong>15,000–35,000 a year</strong> across Ethiopia, rising with East African expansion.</li>
+<li><strong>SOM year 3 <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> <strong>2,000–4,000 paying candidates a year.</strong></li>
+</ul>
+<p><strong>Revenue model and unit economics <span class="ev ev-E" title="Estimate — derived">E</span>.</strong></p>
+<div class="tw"><table><thead><tr><th>Product</th><th>Price</th><th>Notes</th></tr></thead><tbody><tr><td>EHPLE cohort (domestic licensure)</td><td>$25–60</td><td>High volume, low ARPU, strong funnel</td></tr><tr><td>NCLEX / Prometric / OET cohort</td><td>$120–350</td><td>Nurses; often family-funded</td></tr><tr><td>USMLE Step 1 / Step 2 cohort</td><td>$250–600</td><td>Highest ARPU, longest duration</td></tr><tr><td>Credentialing concierge (ECFMG, WES, NMC, Dataflow)</td><td>$80–250</td><td>Pure service margin</td></tr><tr><td>Scholarship / residency application service</td><td>$200–500</td><td>His single strongest personal credential</td></tr></tbody></table></div>
+<p>Blended ARPU <strong>$120–250</strong> <span class="ev ev-E" title="Estimate — derived">E</span>. Gross margin <strong>70–85%</strong>.</p>
+<ul>
+<li><strong>10,000 subscribers → 2–5% paid conversion → 280–700 customers → $35k–175k</strong> in year one <span class="ev ev-E" title="Estimate — derived">E</span>.</li>
+<li><strong>$1m revenue ≈ 4,000–8,000 paying candidates cumulatively</strong>, or ~2,500–4,000/year at a $250–400 blended ARPU if the mix shifts toward USMLE and application services <span class="ev ev-E" title="Estimate — derived">E</span>. <strong>24–36 months</strong> is realistic.</li>
+<li><strong>$100m: no.</strong> I scored P($100m) at <strong>4/10</strong> and mean it. This is a high-probability $3–15m business, and a $30m+ business only with regional expansion and institutional contracts. It is a <em>cash engine and a network builder</em>, not a venture rocket — and that is exactly why it pairs with #1.</li>
+</ul>
+<p><strong>Startup capital.</strong> <strong>$5,000–20,000</strong> (Tier A). The audience is already paid for.</p>
+<p><strong>Regulation — and the ethical constraint that changes the business model.</strong> This is the most important paragraph in this section.</p>
+<p>The WHO <strong>Health Workforce Support and Safeguards List</strong> identifies countries with critical health workforce shortages — 55 countries on the 2023 list, 37 of them African, with an update due in 2026 <span class="ev ev-V" title="Verified — sourced">V</span>. Ethiopia sits far below the WHO threshold of 44.5 doctors, nurses and midwives per 10,000 population, with <strong>one physician per 5,843 people</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, so its presence on that list is highly likely <strong>[A — verify against the current published list before doing anything in this space]</strong>. NHS Employers maintains a corresponding red and amber list <span class="ev ev-V" title="Verified — sourced">V</span>. The practical consequence: <strong>active, employer-paid international recruitment of Ethiopian health workers into countries observing the Code is restricted, while individual applications by the professionals themselves are not.</strong></p>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> So the business model is constrained in a specific and useful way: be paid by the candidate, never by a foreign employer.</strong> Employer-paid placement fees — the most lucrative revenue line in international healthcare recruitment — are off the table, both legally in some corridors and reputationally in all of them. A candidate-paid preparation and advisory business is clean. A recruitment agency is not. The founder's own published work on global health equity makes this more than a compliance question; running the second version would contradict his record.</p>
+<p>There is a further honest tension worth stating: <strong>a business that helps Ethiopian clinicians emigrate makes Ethiopia's workforce crisis marginally worse, one clinician at a time.</strong> I do not think that makes it wrong — individuals have a right to migrate and the shortage is caused by conditions of employment, not by the existence of preparation courses. But the mitigation is real and available: <strong>make EHPLE preparation and domestic career progression a first-class product line, not an afterthought</strong>, so that the same platform serves people staying as well as people leaving. Add pay this founder's #1 business generates for clinicians who stay, and the portfolio is defensible.</p>
+<p class="lede"><strong>Competition.</strong> MediFlash/GeezApps (flashcards), Doctors Online Ethiopia, Med In Ethiopia, USMLE-Ethio-forums, individual tutors <span class="ev ev-V" title="Verified — sourced">V</span>. All are content or community; <strong>none is a structured, outcome-accountable, paid programme.</strong> No dominant player.</p>
+<p class="lede"><strong>Moat.</strong> Published pass rates plus personal brand. In exam preparation, verified outcomes compound into a near-unassailable position — this is how PrepLadder and Marrow won India. Secondarily, the credentialing-concierge operations knowledge, which is fiddly and jurisdiction-specific.</p>
+<p><strong>Expansion path.</strong> Ethiopian physicians → nurses (much larger cadre) → all 17 EHPLE professions → Kenya, Uganda, Ghana, Nigeria → non-health scholarship applications (which is opportunity #6 on the list).</p>
+<p class="lede"><strong>Major risks.</strong> (i) The founder <em>is</em> the brand — key-person risk is severe and must be engineered away early with faculty. (ii) Free content is the incumbent, including his own. (iii) Willingness to pay in birr is genuinely limited; the mix must tilt toward diaspora-sponsored and higher-ARPU products. (iv) Regulatory or reputational blowback on migration facilitation. (v) Time: this business demands live delivery, which is the least compatible with a residency.</p>
+<p class="lede"><strong>90-day MVP.</strong> One paid cohort — <strong>50 candidates, one exam, one price</strong>. I would choose <strong>NCLEX or Prometric for nurses</strong> rather than USMLE: larger cadre, shorter preparation cycle, faster proof of outcomes, and less crowded than the physician track. Run it in Google Classroom and Telegram. Publish the pass rate.</p>
+<p class="lede"><strong>First 100 customers.</strong> One podcast episode plus an email to the existing subscriber list. If a 14,080-subscriber audience built on exactly this topic cannot produce 100 paying customers, <strong>that is a decisive and cheap negative signal, and it should be tested before anything else on this list.</strong></p>
+<p><strong>Verdict: START NOW — as the second product, funded by the first.</strong></p>
+<p class="lede"><strong>"Uber ten years later" test.</strong> <em>Analogous, and unusually low-risk.</em> The enabling change (payment collection at scale) is real and dated, the model is proven by PrepLadder, Marrow and Academically, and the customer acquisition problem — normally the thing that kills Ethiopian consumer businesses — is already solved. The reason it ranks second rather than first is ceiling, not probability: it is the more likely business to reach $1m and the less likely one to reach $50m.</p>
+<hr />
+<h3 id="73-exit-exam-and-ehple-outcome-contracts-with-private-health-colleges">7.3 — Exit-exam and EHPLE outcome contracts with private health colleges</h3>
+<p><strong>Adjusted 7.38 · Opportunity 6.81 · Founder fit 8.0 · Tier A/B · Type 1</strong></p>
+<p class="lede"><strong>Concept.</strong> Sell private higher education institutions a paid programme that measurably raises their students' pass rates on the mandatory university exit exam and on EHPLE: diagnostic testing, a question bank mapped to the national blueprint, faculty training, cohort analytics, and a per-student outcome report to the institution.</p>
+<p class="lede"><strong>Customer.</strong> The institution pays. Private universities and private health-science colleges — Ethiopia had <strong>43 medical schools by 2022, 10 of them private</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, plus a much larger number of private nursing, midwifery, pharmacy and laboratory colleges.</p>
+<p class="lede"><strong>Problem — and it is existential, not aspirational.</strong> <strong>Private universities pass 17.2% of their graduates on the exit exam against 62.37% for public universities</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. The exit exam has been mandatory for graduation since 2023 <span class="ev ev-V" title="Verified — sourced">V</span>. An institution that cannot graduate its students cannot recruit new ones. This is a survival problem with a budget attached, and it recurs annually.</p>
+<p><strong>Current workaround.</strong> Ad hoc internal tutorials, past-paper photocopies, and hope. Nothing systematic.</p>
+<p class="lede"><strong>Solution.</strong> A three-part contract: (1) a diagnostic sat by every student in the year before the exam, producing an institution-level gap report; (2) a remediation curriculum and question bank aligned to the national blueprint; (3) faculty training and cohort tracking, with a mid-cycle checkpoint. Price on outcomes where the institution will accept it.</p>
+<p class="lede"><strong>International precedent.</strong> <strong>Zeraki</strong> (Kenya) — analytics and outcome tracking sold to schools rather than parents, which is how ARPU gets to a workable level in a low-income market. <strong>Embibe</strong> (India) sold outcome improvement to institutions. The Ethiopian trigger is sharper than either.</p>
+<p class="lede"><strong>Why now.</strong> The exit exam only became mandatory in 2023 and results have now been published for three cycles (2023–2025) <span class="ev ev-V" title="Verified — sourced">V</span>, which means institutions can see their own trend and cannot claim it was an anomaly. <strong>Directive No. 1124/2026</strong> on licensing examination implementation adds regulatory momentum on the EHPLE side <span class="ev ev-V" title="Verified — sourced">V</span>. Three years of bad data is what converts an institutional problem into an institutional budget line.</p>
+<p><strong>Market size.</strong></p>
+<ul>
+<li><strong>TAM <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> private HEI health-science enrolment — I estimate <strong>40,000–90,000 students</strong> across private health colleges and medical schools <strong>[A — verify with the Ministry of Education and the Education and Training Authority]</strong>.</li>
+<li><strong>SAM <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> institutions with the budget and the incentive: <strong>60–150</strong>.</li>
+<li><strong>SOM year 3 <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> <strong>20–40 institutions, 15,000–30,000 students</strong>.</li>
+</ul>
+<p class="lede"><strong>Revenue model and unit economics <span class="ev ev-E" title="Estimate — derived">E</span>.</strong> <strong>ETB 1,500–3,500 per student per year</strong> ($10–23), or an institutional contract of <strong>ETB 400,000–1,500,000</strong> ($2,600–9,700) per year.</p>
+<ul>
+<li>25 institutions × 700 students × ETB 2,000 = <strong>ETB 35m ≈ $226k</strong> <span class="ev ev-E" title="Estimate — derived">E</span>.</li>
+<li><strong>$1m revenue ≈ 60,000–100,000 students under contract</strong>, or fewer students at higher per-head pricing, or expansion beyond health into all disciplines <span class="ev ev-E" title="Estimate — derived">E</span>. Timeline 30–42 months.</li>
+<li>Gross margin <strong>70–85%</strong> once the question bank is built; the first bank is the main cost.</li>
+</ul>
+<p><strong>Startup capital.</strong> <strong>$15,000–60,000</strong> (Tier A/B), dominated by item writing — which he can source from his own clinician network, closing the loop with business #1.</p>
+<p class="lede"><strong>Regulation.</strong> Working with the Ministry of Education, the Education and Training Authority and the Ministry of Health's licensure directorate. <strong>Do not sell anything that could be construed as exam content leakage</strong> — the reputational and legal downside is total. Position explicitly as blueprint-aligned preparation.</p>
+<p><strong>Competition.</strong> Essentially none at institutional level [V — nothing surfaced in the search of the Ethiopian market]. Some local school-ERP vendors sell administration software, not outcomes.</p>
+<p class="lede"><strong>Moat.</strong> Published institutional results; the item bank; and — the founder-specific one — <strong>credibility with academic leadership because he sat on it</strong>, as Acting Head of a College of Medical Sciences and on a CPD accreditation panel <span class="ev ev-V" title="Verified — sourced">V</span>. An education-technology salesperson does not get that meeting.</p>
+<p class="lede"><strong>Major risks.</strong> (i) Private HEIs are cash-constrained and slow to pay. (ii) The Ministry could supply a free national remediation programme. (iii) Attribution — proving your programme caused the improvement is genuinely hard, and outcome-based pricing will be disputed. (iv) The exit-exam policy itself could be softened; it is politically contested <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p><strong>90-day MVP.</strong> One institution, one cadre, one free diagnostic. Produce a gap report so specific and so uncomfortable that the dean asks what it would cost to fix. <strong>Charge nothing for the diagnostic; charge for the remediation.</strong></p>
+<p class="lede"><strong>First 10 customers.</strong> Direct, through academic networks — Jimma, and the private colleges whose 2025 exit results were worst. The published results are public, which means <strong>your prospect list is a ranked table of institutions in trouble.</strong></p>
+<p><strong>Verdict: INVESTIGATE IMMEDIATELY</strong> — start after #1 is generating cash, or in parallel if a commercial co-founder joins.</p>
+<p class="lede"><strong>"Uber ten years later" test.</strong> <em>Not really analogous — and it does not need to be.</em> This is a regulatory-shock consulting-and-software business with a finite customer list, closer in shape to the EUDR opportunity in the general report than to Uber. It will not compound into a large company on its own. It will produce durable, high-margin institutional revenue and unmatched credibility in Ethiopian health education, which is strategically valuable to everything else on this list.</p>
+<hr />
+<h3 id="74-diaspora-paid-medical-travel-navigation-and-independent-second-opin">7.4 — Diaspora-paid medical-travel navigation and independent second opinion</h3>
+<p><strong>Adjusted 7.28 · Opportunity 7.07 · Founder fit 7.5 · Tier B · Type 1</strong></p>
+<p class="lede"><strong>Concept.</strong> A clinically governed, <strong>patient-paid</strong> service that tells an Ethiopian family whether they actually need to travel abroad for treatment, and if so, where, at what realistic total cost, with what preparation — then manages records, appointments, translation and aftercare. Explicitly refuses hospital commissions.</p>
+<p><strong>Customer.</strong> Primarily the <strong>diaspora relative funding the treatment</strong>; secondarily affluent domestic families. Both are paying today.</p>
+<p class="lede"><strong>Problem.</strong> Ethiopians travel to India, Thailand, Turkey and Europe for care that is unavailable domestically, and reporting describes families spending savings or <strong>selling property</strong> to fund it <span class="ev ev-V" title="Verified — sourced">V</span>. The decisions are made on rumour, agent advice and WhatsApp. Two failure modes are common and expensive: travelling for something treatable in Addis, and travelling unprepared to the wrong facility at the wrong price.</p>
+<p class="lede"><strong>Current workaround.</strong> Informal brokers, relatives who went before, and foreign facilitators — PlacidWay, Medigence and similar, which already market to Ethiopia <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>Every one of these is paid by the receiving hospital</strong>, which means the advice to travel is never independent.</p>
+<p class="lede"><strong>Solution.</strong> A paid consultation with an Ethiopian physician who reviews the records and gives an honest recommendation — including "do not travel." If travel is indicated: facility shortlist with outcome data, realistic all-in cost estimate, records preparation and translation, visa and logistics support, a local point of contact, and a structured aftercare handover to an Ethiopian clinician on return.</p>
+<p class="lede"><strong>International precedent.</strong> <strong>Vaidam</strong> and <strong>Medigence</strong> (India) built real businesses on inbound facilitation; <strong>PlacidWay</strong> operates globally. All are hospital-paid. The independent, patient-paid second-opinion model is closer to <strong>Grand Rounds / Included Health</strong> (US) and <strong>2nd.MD</strong>, which are paid by employers and payers precisely because independence is the product.</p>
+<p class="lede"><strong>Why now.</strong> The float and <strong>FXD/04/2026</strong> make cross-border payment and international card use routine <span class="ev ev-V" title="Verified — sourced">V</span>; Ethiopian Airlines' network makes the logistics tractable; and diaspora willingness to pay for <em>verification rather than transfer</em> is the same insight that drives the diaspora opportunity in the general report.</p>
+<p class="lede"><strong>Market size.</strong> <strong>TAM <span class="ev ev-A" title="Assumption — stated input">A</span>:</strong> no reliable figure exists for Ethiopian outbound medical travel — I estimate <strong>5,000–25,000 patients a year</strong> at <strong>$4,000–15,000</strong> per episode, implying <strong>$40–300m</strong> of spend <strong>[A — this is the weakest number in this section and the first to validate]</strong>. <strong>SOM year 3 <span class="ev ev-E" title="Estimate — derived">E</span>:</strong> 800–2,500 navigated cases.</p>
+<p class="lede"><strong>Revenue model and unit economics <span class="ev ev-E" title="Estimate — derived">E</span>.</strong> Second-opinion consultation <strong>$60–150</strong>; full navigation package <strong>$400–1,200</strong>; diaspora subscription for ongoing family care <strong>$25–60/month</strong>. Deliberately <strong>no hospital commission</strong> — that is the differentiator, and it should be stated publicly.</p>
+<ul>
+<li>1,200 navigation packages at $700 = <strong>$840k</strong>, plus consultations and subscriptions → <strong>~$1m</strong> <span class="ev ev-E" title="Estimate — derived">E</span>.</li>
+<li>Gross margin <strong>60–75%</strong>; the cost is clinician time.</li>
+</ul>
+<p><strong>Startup capital.</strong> <strong>$25,000–120,000</strong> (Tier B) — needs a small clinical panel, a case manager, and partnerships with two or three foreign hospital groups (as referral relationships, not commission arrangements).</p>
+<p class="lede"><strong>Regulation.</strong> Medical advice across borders carries real liability; incorporate carefully, carry indemnity, and define the service as second opinion and navigation rather than treatment. <strong>Patient data is the hard constraint</strong>: identifiable records touching Ethiopia engage the localisation requirement of Proclamation 1321/2024 <span class="ev ev-V" title="Verified — sourced">V</span>, and any EU-resident sender engages GDPR. Get this designed by counsel before the first case.</p>
+<p><strong>Competition.</strong> Informal brokers; foreign commission-paid facilitators <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>No independent, physician-led, Ethiopian option.</strong> The market is not won.</p>
+<p><strong>Moat.</strong> Clinical governance and the refusal to take commissions — a competitor funded by hospital referral fees cannot copy the independence claim without destroying its own revenue model. Plus outcome data and diaspora word of mouth.</p>
+<p class="lede"><strong>Major risks.</strong> (i) A bad clinical outcome in a high-trust community is potentially fatal to the business. (ii) Liability. (iii) Foreign hospitals will push hard to convert you to a commission model — the margin pressure will be constant. (iv) Case volume is lumpy and CAC is high per case.</p>
+<p class="lede"><strong>90-day MVP.</strong> Ten paid second opinions for diaspora families, delivered personally, with a written report. Measure one thing: <strong>how often the honest recommendation is "do not travel."</strong> If it is frequently, the value proposition is proven and quantifiable in dollars saved.</p>
+<p><strong>First 100 customers.</strong> Diaspora community groups, churches and mosques abroad; the podcast audience's own families; Ethiopian physicians abroad as referrers.</p>
+<p><strong>Verdict: WATCH CLOSELY / start as a small clinical service line, not as a company.</strong> The market size is genuinely unknown and the liability is genuinely real. Ten cases will tell you more than any amount of desk research.</p>
+<p class="lede"><strong>"Uber ten years later" test.</strong> <em>Partly forcing it.</em> The enabling conditions are real but incremental rather than step-change, and the business is a professional service with a hard scaling ceiling, not a platform. Worth doing; not worth calling a startup yet.</p>
+<hr />
+<h3 id="75-evidence-synthesis-and-medical-writing-export">7.5 — Evidence-synthesis and medical-writing export</h3>
+<p><strong>Adjusted 6.91 · Opportunity 5.96 · Founder fit 8.0 · Tier A · Type 1 — included because the fit is high and the market is weak</strong></p>
+<p class="lede"><strong>Concept.</strong> A services firm selling systematic reviews, meta-analyses, protocol development, manuscript preparation and regulatory/medical writing to universities, pharma, CROs, NGOs and journals — staffed by Ethiopian and East African clinicians and public-health graduates.</p>
+<p><strong>Customer.</strong> Academic groups, biotech and pharma, global health NGOs, and journals needing editorial capacity.</p>
+<p class="lede"><strong>Why the fit is excellent.</strong> This is precisely what the CV documents: 10+ indexed publications, multiple first-author systematic reviews, IHME/GBD manuscript review, and JHU training in systematic review and meta-analysis <span class="ev ev-V" title="Verified — sourced">V</span>. He could deliver the first ten engagements personally at a quality most competitors cannot match.</p>
+<p class="lede"><strong>Why I still rank it fifth.</strong> Two reasons, both honest. First, <strong>the incumbents are entrenched and enormous</strong> — Cactus Communications, Enago and Editage have run this playbook from India for two decades with global sales forces. Second, and more seriously, <strong>generative AI is compressing exactly this market's pricing right now.</strong> Manuscript editing and first-draft literature synthesis are among the tasks most exposed to language models. Entering a market whose unit price is falling, against incumbents with scale, is a poor use of a scarce founder.</p>
+<p class="lede"><strong>What would change my view <span class="ev ev-I" title="Inference — judgement">I</span>.</strong> If the offer were repositioned from <em>writing</em> to <em>evidence adjudication</em> — the human verification layer on AI-generated synthesis, which is rising in value as the drafting layer falls — it becomes far more interesting, and it converges with business #1. That is the version worth pursuing: not "we write your review," but "we verify what your model wrote, with named clinicians and an audit trail."</p>
+<p class="lede"><strong>Unit economics <span class="ev ev-E" title="Estimate — derived">E</span>.</strong> Systematic review $4,000–15,000 per project; manuscript preparation $600–2,500; retainer $2,000–8,000/month. <strong>$1m ≈ 25–50 retained institutional clients</strong> or 100–200 projects a year. Gross margin 45–65%. Capital: <strong>under $10,000</strong>.</p>
+<p><strong>Verdict: AVOID as a standalone company. FOLD the evidence-adjudication version into business #1 as a higher-margin service line.</strong></p>
+<hr />
+<h2 id="8-what-to-avoid-and-why" class="sec"><span class="secnum">8</span><span class="sectxt">What to avoid, and why</span></h2>
+<p><strong>8.1 — A CPD course platform. The control case.</strong></p>
+<p>Founder fit <strong>8.1/10</strong>; opportunity <strong>4.2/10</strong>. Everything about this looks right: CPD is legally mandatory for relicensure at 30 CEU/year and 90 CEU per three-year cycle <span class="ev ev-V" title="Verified — sourced">V</span>; he sits on a CPD accreditation panel <span class="ev ev-V" title="Verified — sourced">V</span>; he has the content, the credentials and the audience.</p>
+<p class="lede"><strong>The market is already free.</strong> WCEA supplies free CPD platforms and mobile apps through the Ethiopian Medical Association, the Ethiopian Nurses Association and the Public Health Officers Association; the Ministry of Health runs its own eCPD platform <span class="ev ev-V" title="Verified — sourced">V</span>. Donor-funded free is the hardest competitor in the world to beat, because it does not have to make money and will not exit.</p>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> This is the trap this specific founder is most likely to fall into</strong>, precisely because his credentials point at it so directly. A mandate does not create a market. A mandate creates a market only when someone has to <em>pay</em> to satisfy it. Check the price of the incumbent before building anything.</p>
+<p class="lede"><strong>8.2 — Grade 12 / university-entrance mass preparation.</strong> Opportunity 6.79, founder fit 4.88. The market is genuinely enormous — 536,953 students fail annually <span class="ev ev-E" title="Estimate — derived">E</span> — but he has no K–12 pedagogical background, the ARPU ceiling is around ETB 300/month <span class="ev ev-V" title="Verified — sourced">V</span>, and there are a dozen active competitors <span class="ev ev-V" title="Verified — sourced">V</span>. Great market, wrong founder. If he wants exposure to it, license content to an existing player rather than compete.</p>
+<p class="lede"><strong>8.3 — Employer-paid international recruitment of Ethiopian health workers.</strong> Restricted under the WHO Code framework for countries on the Health Workforce Support and Safeguards List, which Ethiopia is highly likely to be on [V/A]. Beyond the compliance question, it is the one business here that would sit badly against his own published work on global health equity.</p>
+<p class="lede"><strong>8.4 — Telemedicine and e-pharmacy.</strong> Contested (TENAWO, TenaFirst Plus, Tena'adam, Hello Tena all operating <span class="ev ev-V" title="Verified — sourced">V</span>), a <strong>state-backed health platform has entered the space and startups have publicly raised concerns about a tilted field</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, patient data engages the localisation law <span class="ev ev-V" title="Verified — sourced">V</span>, and it requires exactly the operational and capital base the CV does not show.</p>
+<p class="lede"><strong>8.5 — Clinical AI decision support as a first venture.</strong> The mission case is strong and the eventual market is real, but the buyer is government or donor-funded, EMR adoption is thin, the safety and liability bar for clinical AI is high, and Amharic clinical language models are not ready. Revisit when the MOH's $120m informatics programme and the 80%-of-hospitals digitisation target have actually produced data <span class="ev ev-V" title="Verified — sourced">V</span>. Type 3.</p>
+<hr />
+<h2 id="9-sequencing-the-portfolio-view" class="sec"><span class="secnum">9</span><span class="sectxt">Sequencing: the portfolio view</span></h2>
+<p><strong><span class="ev ev-I" title="Inference — judgement">I</span> These are not five separate choices. Three of them share one asset.</strong></p>
+<pre><code>            VERIFIED AFRICAN CLINICIAN NETWORK
+                   (the compounding asset)
+                            |
+        +-------------------+-------------------+
+        |                   |                   |
+   #1 AI labs pay      #2 Clinicians pay   #3 Institutions pay
+   for their judgement  for progression     for outcomes
+        |                   |                   |
+   hard currency,      cash + loyalty,     credibility +
+   Tier A, fastest     lowest risk         item bank supply</code></pre>
+<p>The clinicians recruited and accuracy-scored for the AI-data business are the same people who buy exam preparation, and the same people who write questions for the institutional product. Each business makes the next one cheaper to run. <strong>That is a genuine compounding structure and it is unusual — most founders' second product has nothing to do with their first.</strong></p>
+<p><strong>Recommended order:</strong></p>
+<ol>
+<li><strong>Months 0–6:</strong> Business #1. Twenty clinicians, one calibration set, three buyer conversations. Capital under $25k. Generates hard currency, which under FXD/04/2026 he keeps in full <span class="ev ev-V" title="Verified — sourced">V</span>.</li>
+<li><strong>Months 3–9, in parallel:</strong> Business #2, one paid cohort of 50 nurses. Tests the audience's willingness to pay at essentially zero cost. <strong>If this fails, it is the cheapest and most important negative signal available.</strong></li>
+<li><strong>Months 9–18:</strong> Business #3, once there is a clinician bench to write items and cash to fund a sales hire.</li>
+<li><strong>Business #4</strong> as a small clinical service line, not a company, until the ten-case pilot says otherwise.</li>
+<li><strong>Business #5</strong> folded into #1 as evidence adjudication.</li>
+</ol>
+<p><strong>9.1 — The residency question</strong></p>
+<p>The CV shows USMLE Steps 1 and 2 passed and ECFMG certification <span class="ev ev-V" title="Verified — sourced">V</span> — a live option on US residency, which means three to seven years at roughly 80 hours a week. It also shows four declined US public-health scholarships worth $107,000 combined <span class="ev ev-V" title="Verified — sourced">V</span>, which suggests the trade-off is already being weighed.</p>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> I will state the implication plainly rather than hedge it.</strong> Residency and founding a company are not compatible. But the two top-ranked businesses here are unusually tolerant of a demanding job: both are asynchronous, network-based, involve no inventory, no field operations, no licence and no real-time service obligation. Business #1 in particular can be run at 10–15 hours a week for the first six months with a part-time operations hire, because the work is recruiting, calibrating and contracting rather than building.</p>
+<p>Business #2, by contrast, requires live cohort delivery and is the least compatible with clinical training. If residency happens, #2 should be run with hired faculty from the start or deferred.</p>
+<p>That is the honest sequencing advice: <strong>the ranking is also, conveniently, the order of compatibility with keeping his options open.</strong></p>
+<hr />
+<h2 id="10-trigger-signals-to-monitor" class="sec"><span class="secnum">10</span><span class="sectxt">Trigger signals to monitor</span></h2>
+<div class="tw"><table><thead><tr><th>Signal</th><th>Threshold</th><th>Implication</th></tr></thead><tbody><tr><td>Outlier / Mindrift / Prolific country eligibility</td><td><strong>Ethiopia added</strong></td><td>The arbitrage in #1 narrows sharply. Start before this happens</td></tr><tr><td>Expert-data market pricing</td><td>Healthcare expert rates falling below <strong>$40/hour</strong> at Mercor/Surge</td><td>Margin compression; shift to fixed-price deliverables</td></tr><tr><td>WHO Health Workforce Support and Safeguards List</td><td><strong>2026 update published</strong></td><td>Confirms or changes the constraint on #2's business model</td></tr><tr><td>Exit-exam policy</td><td>Any softening or suspension of the mandatory exit exam</td><td>#3's forcing function disappears</td></tr><tr><td>Private HEI exit-exam pass rate</td><td>Rising above <strong>~40%</strong></td><td>#3's urgency fades</td></tr><tr><td>MOH health informatics programme</td><td><strong>$120m</strong> budget actually disbursed; hospital digitisation past 40%</td><td>Opens the clinical-data businesses currently rated Type 3</td></tr><tr><td>Grade 12 pass rate</td><td>Reaching the Minister's <strong>15–20%</strong> projection</td><td>Mass-prep market economics shift</td></tr><tr><td>NBE FX regime</td><td>Parallel-market premium returning above ~20%</td><td>Threatens the FX retention economics underpinning #1</td></tr><tr><td>Ethiopian nurse migration corridors</td><td>New bilateral labour agreements (Kuwait reopened in 2026 <span class="ev ev-V" title="Verified — sourced">V</span>)</td><td>Expands #2's addressable candidate pool</td></tr></tbody></table></div>
+<hr />
+<h2 id="11-exact-next-research-steps" class="sec"><span class="secnum">11</span><span class="sectxt">Exact next research steps</span></h2>
+<p><strong>Week 1 — Test the audience, because it is free and decisive.</strong></p>
+<ol>
+<li>Post one video or email to the 14,080 subscribers offering a paid cohort at a named price. <strong>Do not build anything.</strong> Count how many pay a deposit. <em>Kill criterion for #2: fewer than 40 deposits from 14,000 subscribers means the audience values him but will not pay him, and that changes everything.</em></li>
+<li>Simultaneously post a call for clinicians interested in paid remote AI work. Count sign-ups within 72 hours. <em>This is the supply test for #1.</em></li>
+</ol>
+<p><strong>Weeks 1–3 — Test the buyer side of #1.</strong></p>
+<ol>
+<li>Contact supply/partnerships at <strong>Mercor, Surge AI, Handshake AI, Invisible and Centaur AI</strong>. Ask one question: <em>do you have unmet demand for vetted African clinicians, and what would you pay per hour for reviewed output?</em> Three conversations settle the thesis.</li>
+<li>Verify current <strong>country eligibility</strong> on Outlier, Mindrift, Prolific and Remotasks for Ethiopia. If Ethiopia is already eligible everywhere, the arbitrage is smaller than I have modelled and #1 drops.</li>
+<li>Get a written opinion on <strong>contractor classification and tax treatment</strong> of paying Ethiopian clinicians as contractors, and on setting up an <strong>FX retention account under FXD/04/2026</strong>.</li>
+</ol>
+<p><strong>Weeks 2–4 — Verify the numbers I have marked <span class="ev ev-A" title="Assumption — stated input">A</span>.</strong></p>
+<ol>
+<li><strong>Ethiopian clinician salary bands</strong>, public and private, by cadre — the whole arbitrage argument rests on this.</li>
+<li><strong>EHPLE annual candidate volumes and pass rates by cadre</strong>, from the Ministry of Health licensure directorate. I inferred ~25,000–40,000/year from 166,293 examinees over 14 rounds; confirm it.</li>
+<li><strong>Private HEI health-science enrolment</strong> and the institution list, from the Ministry of Education / Education and Training Authority.</li>
+<li>The <strong>current WHO Health Workforce Support and Safeguards List</strong> — is Ethiopia on it, and what does the NHS red/amber classification say?</li>
+<li><strong>Ethiopian outbound medical travel volume</strong> — the weakest number in this report. Ask three Addis referral hospitals and two Indian hospital groups with Ethiopian patient desks.</li>
+</ol>
+<p><strong>Weeks 4–8 — Build the smallest real thing.</strong></p>
+<ol>
+<li>Recruit 20 clinicians, run one calibration exercise, produce a 500-item sample dataset in one specialty, and put it in front of the three buyers from step 3.</li>
+<li>Run one 50-person paid cohort for NCLEX or Prometric, in Google Classroom and Telegram, and publish the pass rate.</li>
+</ol>
+<p><strong>The three numbers to track monthly thereafter:</strong> active contracted clinician-hours billed; paid cohort conversion rate from the subscriber base; and the spread between billed and paid hourly rates.</p>
+<hr />
+<h2 id="sources" class="sec sec-plain">Sources</h2>
+<p><strong>Health workforce, regulation and education</strong></p>
+<ul>
+<li><a href="https://www.moh.gov.et/ehple" target="_blank" rel="noopener noreferrer">Ethiopian Health Professionals Licensing Examination (EHPLE) — Ministry of Health</a></li>
+<li><a href="https://www.moh.gov.et/Directive_Number_1124/2026" target="_blank" rel="noopener noreferrer">Health Profession Licensing Examination Implementation Directive No. 1124/2026 — Ministry of Health</a></li>
+<li><a href="https://hple.moh.gov.et/" target="_blank" rel="noopener noreferrer">EHPLE registration portal</a></li>
+<li><a href="https://www.scribd.com/document/693096714/332-Directive-on-Continuing-Professional-Development-for-Health" target="_blank" rel="noopener noreferrer">CPD Directive for Health Professionals in Ethiopia — 30 CEU/year, 90 CEU per cycle</a></li>
+<li><a href="https://www.hrhresourcecenter.org/node/5436.html" target="_blank" rel="noopener noreferrer">Continuing Professional Development Guideline for Health Professionals in Ethiopia — HRH Global Resource Center</a></li>
+<li><a href="https://cpd.moh.gov.et/cpd/course/index.php?categoryid=16" target="_blank" rel="noopener noreferrer">MOH eCPD platform</a></li>
+<li><a href="https://doctorsonlinee.com/2024/07/30/free-cpd-courses-online-for-ethiopian-health-professionals-with-certificate-wcea-courses-and-courses-by-moh/" target="_blank" rel="noopener noreferrer">Free CPD courses for Ethiopian health professionals — WCEA and MOH</a></li>
+<li><a href="https://wcea.education/" target="_blank" rel="noopener noreferrer">WCEA partnerships with Ethiopian professional associations</a></li>
+<li><a href="https://www.ethiopianmedicalass.org/ema-accredited-cpd-providers/" target="_blank" rel="noopener noreferrer">EMA accredited CPD providers — Ethiopian Medical Association</a></li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13068872/" target="_blank" rel="noopener noreferrer">Examining the supply and need of health workforce in Ethiopia — 313,097 (2024) to 404,196 (2030)</a></li>
+<li><a href="https://borgenproject.org/ethiopias-health-workforce-shortage/" target="_blank" rel="noopener noreferrer">Ethiopia's health workforce shortage — 1 physician per 5,843 people; ~2,000 experts emigrate annually</a></li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10355053/" target="_blank" rel="noopener noreferrer">Are Ethiopian schools of medicine producing competent graduates — 5 to 43 medical schools, 1,500–1,600 graduates/year</a></li>
+<li><a href="https://www.afro.who.int/publications/state-health-workforce-africa-2026-plan-train-and-retain" target="_blank" rel="noopener noreferrer">State of the health workforce in Africa 2026 — WHO AFRO</a></li>
+<li><a href="https://www.nhsemployers.org/articles/code-practice-red-and-amber-list-countries" target="_blank" rel="noopener noreferrer">Code of Practice red and amber list of countries — NHS Employers</a></li>
+<li><a href="https://www.healthcarebusinessinternational.com/why-are-countries-ignoring-the-who-red-list/" target="_blank" rel="noopener noreferrer">Why are countries ignoring the WHO 'red list'? — 55 countries, 2023 list, 2026 update due</a></li>
+</ul>
+<p><strong>Education outcomes</strong></p>
+<ul>
+<li><a href="https://ethiopianmonitor.com/2025/09/14/grade-12-exam-results-8-4-of-the-students-hit-the-passing-mark/" target="_blank" rel="noopener noreferrer">Grade 12 exam results: 8.4% pass, 48,929 of 585,882 — Ethiopian Monitor</a></li>
+<li><a href="https://birrmetrics.com/ethiopias-2024-25-grade-12-exam-pass-rate-rises-to-8-4-percent-as-1249-schools-record-no-passes/" target="_blank" rel="noopener noreferrer">Ethiopia's 2024/25 Grade-12 exam: 1,249 schools record no passes — Birr Metrics</a></li>
+<li><a href="https://www.addisinsight.net/2025/09/16/why-ethiopia-has-africas-lowest-national-exam-pass-rate/" target="_blank" rel="noopener noreferrer">Why Ethiopia has Africa's lowest national exam pass rate — Addis Insight</a></li>
+<li><a href="https://www.universityworldnews.com/post.php?story=20230721143146869" target="_blank" rel="noopener noreferrer">University exit exam: 62.37% public vs 17.2% private — University World News</a></li>
+<li><a href="https://www.academia.edu/144510611/Assessment_of_the_Implementation_of_Exit_Exam_on_Private_Higher_Education_Institutions_in_Ethiopia_Three_year_Trend_Analysis_2023_2025" target="_blank" rel="noopener noreferrer">Assessment of exit exam implementation in private HEIs, 2023–2025 trend analysis</a></li>
+<li><a href="https://exam.ethernet.edu.et/" target="_blank" rel="noopener noreferrer">Ethiopian University Exit Exam registration portal</a></li>
+<li><a href="https://www.geezapps.com/apps/mediflash.html" target="_blank" rel="noopener noreferrer">MediFlash — flashcards for USMLE, NCLEX, PLAB and the Ethiopian MLE</a></li>
+<li><a href="https://thenextafrica.com/ethiopias-edtech-founders-take-centre-stage-as-reach-for-change-graduates-new-cohort/" target="_blank" rel="noopener noreferrer">Ethiopia's EdTech founders — Reach for Change cohort, Mastercard Foundation</a></li>
+</ul>
+<p><strong>AI expert-data market</strong></p>
+<ul>
+<li><a href="https://blog.pebblous.ai/report/expert-data-labor-market-2026/en/" target="_blank" rel="noopener noreferrer">Data labeling market 2026: expert data labour rates — Mercor $85 average, Surge $50–200, Handshake $100–125</a></li>
+<li><a href="https://www.herohunt.ai/blog/top-10-data-annotators-for-ai-labs-2026-benchmark/" target="_blank" rel="noopener noreferrer">Top 10 data annotators for AI labs, 2026 benchmark — Centaur AI's 50,000+ vetted clinicians</a></li>
+<li><a href="https://www.mercor.com/experts/healthcare/" target="_blank" rel="noopener noreferrer">AI training jobs for healthcare and medical professionals — Mercor</a></li>
+<li><a href="https://www.progigfinder.com/ai-training-jobs-africa" target="_blank" rel="noopener noreferrer">AI training jobs in Africa 2026 — platform country eligibility</a></li>
+<li><a href="https://alignlist.com/guides/top-medical-data-annotation-companies" target="_blank" rel="noopener noreferrer">Top medical data annotation companies 2026 — AlignList</a></li>
+</ul>
+<p><strong>Health system, financing and digital health</strong></p>
+<ul>
+<li><a href="https://www.tendersgo.com/post/digital-health-transformation-in-ethiopia-2026-initiatives" target="_blank" rel="noopener noreferrer">Digital health transformation in Ethiopia: 2026 initiatives — $120m health informatics allocation</a></li>
+<li><a href="https://www.atnews.co.za/ethiopia-launches-comprehensive-plan-to-digitise-healthcare-system-and-boost-medical-tourism/" target="_blank" rel="noopener noreferrer">Ethiopia launches plan to digitise healthcare and boost medical tourism — African Times</a></li>
+<li><a href="https://www.pep-net.org/blog/making-universal-health-coverage-reality-ethiopia-through-equitable-contribution-system-community-based-health-insurance" target="_blank" rel="noopener noreferrer">Making universal health coverage a reality through CBHI — 11.1m households by 2024</a></li>
+<li><a href="https://addisfortune.news/beyond-borders-ethiopians-journey-to-healing" target="_blank" rel="noopener noreferrer">Beyond borders: Ethiopians' journey to healing — outbound medical travel</a></li>
+<li><a href="https://medigence.com/international-patients/ethiopia" target="_blank" rel="noopener noreferrer">Medical tourism from Ethiopia — Medigence</a></li>
+<li><a href="https://shega.co/news/a-state-backed-health-platform-enters-ethiopias-digital-space-startups-fear-tilted-field" target="_blank" rel="noopener noreferrer">A state-backed health platform enters Ethiopia's digital space, startups fear tilted field — Shega</a></li>
+</ul>
+<p><strong>Macro and regulatory (carried from the general report)</strong></p>
+<ul>
+<li><a href="https://nbe.gov.et/wp-content/uploads/2026/02/DIRECTIVE-NO.-FXD042026_.pdf" target="_blank" rel="noopener noreferrer">NBE Directive FXD/04/2026 — 100% FX retention for service exporters</a></li>
+<li><a href="https://www.afriwise.com/blog/update-on-the-new-forex-amendment-directive-no-fxd-04-2026" target="_blank" rel="noopener noreferrer">Analysis of FXD/04/2026 — Afriwise</a></li>
+<li><a href="https://www.dlapiperdataprotection.com/index.html?t=law&amp;c=ET" target="_blank" rel="noopener noreferrer">Personal Data Protection Proclamation 1321/2024 and data localisation — DLA Piper</a></li>
+<li><a href="https://ethionegari.com/2026/07/23/ethio-telecom-reports-etb-216-billion-revenue/" target="_blank" rel="noopener noreferrer">Ethio Telecom FY2025/26 results — telebirr at 60.6m users</a></li>
+<li><a href="https://techtrendske.co.ke/2026/08/11/ethio-telecom-4g-coverage-92-percent-ethiopia/" target="_blank" rel="noopener noreferrer">Ethio Telecom 4G coverage reaches 92%</a></li>
+</ul>
+<hr />
+<p><em>Founder assessment based solely on the curriculum vitae supplied. Market figures are labelled verified, estimated, assumed or inferred throughout. The five numbers most worth verifying before acting are: Ethiopian clinician salary bands by cadre, EHPLE annual candidate volumes, private HEI health-science enrolment, Ethiopia's status on the WHO Health Workforce Support and Safeguards List, and Ethiopian outbound medical-travel volume. Each is flagged <strong><span class="ev ev-A" title="Assumption — stated input">A</span></strong> in the text. Not investment advice.</em></p>
+      <footer>
+        Evidence is tagged throughout: <span class="ev ev-V">V</span> verified &middot;
+        <span class="ev ev-E">E</span> estimate &middot;
+        <span class="ev ev-A">A</span> assumption &middot;
+        <span class="ev ev-I">I</span> inference.<br />
+        Forward-looking statements are estimates. Not investment advice.
+      </footer>
+    </div>
+  </main>
+</div>
