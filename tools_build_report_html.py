@@ -19,6 +19,20 @@ REPORTS = {
           ("50M+","Fayda digital IDs","mandatory for banking from 2026"),
           ("22%","of remittances are formal","$7.17bn formal; the rest is hawala")],
  ),
+ "spain": dict(
+   src="SPAIN_ORAL_ELDERCARE_FOUNDER_REPORT.md",
+   out="spain-oral-eldercare-map.html",
+   title="The Mouth Nobody Checks",
+   eyebrow=["Founder-fit assessment", "Spain &middot; oral health &amp; eldercare", "August 2026"],
+   sub="A &euro;128m public programme has just reached older people in care homes, and reached "
+       "3% of them. This is what a dental hygienist could build in that gap.",
+   meta=["Third in the series", "8 candidates &middot; 5 deep dives", "~7,500 words"],
+   stats=[("&euro;128M","newly allocated to oral health","&euro;68m for 2025 plus &euro;60m in May 2026"),
+          ("~3%","of over-65s covered so far","against 30.4% of children"),
+          ("407,780","residential care places","across 5,530 homes in Spain"),
+          ("1 in 4","decayed teeth treated","in Spanish older adults"),
+          ("~35%","of the market, 10 operators","a buyer list you can phone")],
+ ),
  "founder": dict(
    src="ETHIOPIA_HEALTH_EDUCATION_FOUNDER_REPORT.md",
    out="ethiopia-clinician-founder-map.html",

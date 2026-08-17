@@ -1,0 +1,514 @@
+<title>The Mouth Nobody Checks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+:root{
+  --paper:#FBFBF9; --surface:#F2F4EF; --surface2:#E9ECE5;
+  --ink:#161B19; --muted:#5F6A64; --faint:#8A948E;
+  --rule:#DBE0D8; --rule2:#C6CDC2;
+  --accent:#0E6A4E; --accent-soft:#DCEDE4; --accent-ink:#0B5540;
+  --flag:#9B3B2F; --flag-soft:#F6E4E0;
+  --shadow:0 1px 2px rgba(20,30,25,.05),0 8px 28px -18px rgba(20,30,25,.28);
+  --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  --serif:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1311; --surface:#151C18; --surface2:#1C2521;
+    --ink:#E6EBE7; --muted:#9BA69F; --faint:#75817A;
+    --rule:#232D28; --rule2:#33403A;
+    --accent:#59C79A; --accent-soft:#12291F; --accent-ink:#8FDCBB;
+    --flag:#E29383; --flag-soft:#2C1A16;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -18px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1311; --surface:#151C18; --surface2:#1C2521;
+  --ink:#E6EBE7; --muted:#9BA69F; --faint:#75817A;
+  --rule:#232D28; --rule2:#33403A;
+  --accent:#59C79A; --accent-soft:#12291F; --accent-ink:#8FDCBB;
+  --flag:#E29383; --flag-soft:#2C1A16;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -18px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.66;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.shell{display:grid; grid-template-columns:minmax(0,1fr); }
+@media (min-width:1080px){
+  .shell{grid-template-columns:276px minmax(0,1fr); align-items:start;}
+}
+
+/* ---- index rail ---- */
+.rail{
+  border-bottom:1px solid var(--rule); background:var(--surface);
+  padding:20px 22px 22px;
+}
+@media (min-width:1080px){
+  .rail{
+    position:sticky; top:0; height:100vh; overflow-y:auto;
+    border-bottom:0; border-right:1px solid var(--rule); padding:34px 24px 40px;
+  }
+}
+.raillabel{
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--faint); margin:0 0 14px;
+}
+.tocitem{
+  display:flex; gap:11px; align-items:baseline; text-decoration:none;
+  color:var(--muted); font-family:var(--sans); font-size:12.5px; line-height:1.35;
+  padding:5px 8px 5px 6px; border-radius:4px; border-left:2px solid transparent;
+}
+.tocitem:hover{color:var(--ink); background:var(--surface2); border-left-color:var(--accent);}
+.tocnum{
+  font-family:var(--mono); font-size:10.5px; color:var(--faint);
+  min-width:16px; font-variant-numeric:tabular-nums;
+}
+.tocitem:hover .tocnum{color:var(--accent);}
+
+/* ---- main ---- */
+main{padding:0 22px 96px; min-width:0;}
+.col{max-width:69ch; margin:0 auto;}
+@media (min-width:1080px){ main{padding:0 48px 120px;} }
+
+/* masthead */
+.mast{
+  max-width:69ch; margin:0 auto; padding:56px 0 34px; border-bottom:1px solid var(--rule);
+}
+.eyebrow{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.19em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 20px; display:flex; gap:10px; flex-wrap:wrap;
+}
+.eyebrow span:not(:last-child)::after{content:"  /"; color:var(--faint);}
+h1{
+  font-family:var(--sans); font-weight:700; letter-spacing:-.028em; line-height:1.03;
+  font-size:clamp(2.3rem,6.2vw,3.9rem); margin:0 0 20px; text-wrap:balance;
+}
+.sub{
+  font-family:var(--serif); font-size:clamp(1.02rem,2.1vw,1.2rem); color:var(--muted);
+  margin:0 0 26px; max-width:56ch; line-height:1.5;
+}
+.meta{
+  font-family:var(--mono); font-size:11px; color:var(--faint); letter-spacing:.05em;
+  display:flex; gap:18px; flex-wrap:wrap;
+}
+
+/* stat strip */
+.stats{
+  max-width:69ch; margin:0 auto; display:grid; gap:1px; background:var(--rule);
+  border:1px solid var(--rule); border-radius:6px; overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  margin-top:34px; margin-bottom:8px;
+}
+.stat{background:var(--surface); padding:15px 16px 16px;}
+.statv{
+  font-family:var(--sans); font-weight:700; font-size:1.5rem; letter-spacing:-.02em;
+  color:var(--accent); font-variant-numeric:tabular-nums; line-height:1.1;
+}
+.statl{
+  font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink); margin-top:7px;
+}
+.statn{font-family:var(--serif); font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.4;}
+
+/* headings */
+h2.sec{
+  font-family:var(--sans); font-weight:700; letter-spacing:-.022em; line-height:1.12;
+  font-size:clamp(1.5rem,3.4vw,2.05rem); margin:76px 0 22px; text-wrap:balance;
+  display:flex; gap:16px; align-items:baseline; scroll-margin-top:24px;
+}
+h2.sec .secnum{
+  font-family:var(--mono); font-size:.72em; font-weight:400; color:var(--accent);
+  font-variant-numeric:tabular-nums; flex:none;
+  border-bottom:2px solid var(--accent); line-height:1; padding-bottom:3px;
+}
+h2.sec-plain{display:block;}
+h3{
+  font-family:var(--sans); font-weight:700; font-size:1.16rem; letter-spacing:-.012em;
+  margin:48px 0 14px; line-height:1.28; text-wrap:balance; scroll-margin-top:24px;
+}
+h4{
+  font-family:var(--mono); font-weight:600; font-size:.78rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--accent); margin:36px 0 10px; scroll-margin-top:24px;
+}
+h5{font-family:var(--sans); font-weight:700; font-size:1rem; margin:26px 0 8px;}
+
+p{margin:0 0 17px;}
+.col > p, .col > ul, .col > ol, .col > blockquote{max-width:69ch;}
+p.lede{font-size:1.06rem;}
+strong{font-weight:700;}
+em{font-style:italic;}
+a{color:var(--accent-ink); text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:.5px; text-decoration-color:var(--rule2);}
+a:hover{text-decoration-color:var(--accent);}
+a:focus-visible,.tocitem:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px;}
+code{font-family:var(--mono); font-size:.86em; background:var(--surface2); padding:1px 5px; border-radius:3px;}
+hr{border:0; border-top:1px solid var(--rule); margin:56px 0;}
+ul,ol{margin:0 0 18px; padding-left:1.35em;}
+li{margin-bottom:8px;}
+li::marker{color:var(--faint); font-family:var(--mono); font-size:.85em;}
+blockquote{
+  margin:32px 0; padding:22px 26px; background:var(--accent-soft);
+  border-left:3px solid var(--accent); border-radius:0 6px 6px 0;
+}
+blockquote p{
+  margin:0; font-family:var(--sans); font-weight:700; font-size:1.22rem;
+  letter-spacing:-.015em; line-height:1.34;
+}
+
+/* evidence chips */
+.ev{
+  font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.06em;
+  display:inline-block; padding:1px 4px; border-radius:3px; vertical-align:1.5px;
+  background:var(--surface2); color:var(--muted); border:1px solid var(--rule);
+  cursor:help;
+}
+.ev-V{background:var(--accent-soft); color:var(--accent-ink); border-color:transparent;}
+.ev-A{background:var(--flag-soft); color:var(--flag); border-color:transparent;}
+
+/* tables */
+.tw{
+  overflow-x:auto; margin:26px 0 30px; border:1px solid var(--rule);
+  border-radius:6px; background:var(--surface); box-shadow:var(--shadow);
+  -webkit-overflow-scrolling:touch;
+}
+@media (min-width:1180px){
+  .tw{width:min(112%,1180px); margin-left:calc((100% - min(112%,1180px))/2);}
+  .tw.wide{width:min(150%,1500px); margin-left:calc((100% - min(150%,1500px))/2);}
+}
+table{border-collapse:collapse; width:100%; font-family:var(--sans); font-size:12.8px; line-height:1.45;}
+thead th{
+  background:var(--surface2); text-align:left; font-weight:700; font-size:10.5px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  padding:11px 13px; border-bottom:1px solid var(--rule2); white-space:nowrap;
+}
+tbody td{
+  padding:11px 13px; border-bottom:1px solid var(--rule); vertical-align:top;
+  font-variant-numeric:tabular-nums;
+}
+tbody tr:last-child td{border-bottom:0;}
+tbody tr:hover td{background:var(--surface2);}
+tbody td:first-child{color:var(--ink);}
+table strong{color:var(--accent-ink); font-weight:700;}
+.wide table{font-size:11.6px;}
+.wide tbody td{padding:8px 9px; text-align:center;}
+.wide tbody td:first-child, .wide thead th:first-child{text-align:left; min-width:190px;}
+
+pre{
+  background:var(--surface2); border:1px solid var(--rule); border-radius:6px;
+  padding:18px 20px; overflow-x:auto; margin:26px 0; line-height:1.5;
+}
+pre code{
+  background:none; padding:0; font-size:12.5px; color:var(--muted);
+  white-space:pre; font-family:var(--mono);
+}
+
+/* footer */
+footer{
+  max-width:69ch; margin:70px auto 0; padding-top:26px; border-top:1px solid var(--rule);
+  font-family:var(--mono); font-size:11px; color:var(--faint); line-height:1.7;
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+</style>
+<div class="shell">
+  <nav class="rail" aria-label="Report contents">
+    <p class="raillabel">Contents</p>
+    <a class="tocitem" href="#the-mouth-nobody-checks"><span class="tocnum">·</span><span>The Mouth Nobody Checks</span></a>
+<a class="tocitem" href="#0-a-framing-correction-before-anything-else"><span class="tocnum">0</span><span>A framing correction, before anything else</span></a>
+<a class="tocitem" href="#1-executive-summary"><span class="tocnum">1</span><span>Executive summary</span></a>
+<a class="tocitem" href="#2-founder-asset-audit"><span class="tocnum">2</span><span>Founder asset audit</span></a>
+<a class="tocitem" href="#3-what-has-structurally-changed-in-spain"><span class="tocnum">3</span><span>What has structurally changed in Spain</span></a>
+<a class="tocitem" href="#4-readiness-assessment"><span class="tocnum">4</span><span>Readiness assessment</span></a>
+<a class="tocitem" href="#5-international-precedent"><span class="tocnum">5</span><span>International precedent</span></a>
+<a class="tocitem" href="#6-eight-candidates-scored"><span class="tocnum">6</span><span>Eight candidates, scored</span></a>
+<a class="tocitem" href="#7-deep-dives"><span class="tocnum">7</span><span>Deep dives</span></a>
+<a class="tocitem" href="#8-what-to-avoid"><span class="tocnum">8</span><span>What to avoid</span></a>
+<a class="tocitem" href="#9-sequencing"><span class="tocnum">9</span><span>Sequencing</span></a>
+<a class="tocitem" href="#10-trigger-signals"><span class="tocnum">10</span><span>Trigger signals</span></a>
+<a class="tocitem" href="#11-next-research-steps"><span class="tocnum">11</span><span>Next research steps</span></a>
+<a class="tocitem" href="#sources"><span class="tocnum">·</span><span>Sources</span></a>
+  </nav>
+  <main>
+    <header class="mast">
+      <p class="eyebrow"><span>{x}</span><span>{x}</span><span>{x}</span></p>
+      <h1>The Mouth Nobody Checks</h1>
+      <p class="sub">A &euro;128m public programme has just reached older people in care homes, and reached 3% of them. This is what a dental hygienist could build in that gap.</p>
+      <p class="meta"><span>{x}</span><span>{x}</span><span>{x}</span></p>
+    </header>
+    <section class="stats" aria-label="The five numbers the thesis rests on"><div class="stat"><div class="statv">&euro;128M</div><div class="statl">newly allocated to oral health</div><div class="statn">&euro;68m for 2025 plus &euro;60m in May 2026</div></div>
+<div class="stat"><div class="statv">~3%</div><div class="statl">of over-65s covered so far</div><div class="statn">against 30.4% of children</div></div>
+<div class="stat"><div class="statv">407,780</div><div class="statl">residential care places</div><div class="statn">across 5,530 homes in Spain</div></div>
+<div class="stat"><div class="statv">1 in 4</div><div class="statl">decayed teeth treated</div><div class="statn">in Spanish older adults</div></div>
+<div class="stat"><div class="statv">~35%</div><div class="statl">of the market, 10 operators</div><div class="statn">a buyer list you can phone</div></div></section>
+    <div class="col">
+      
+<h2 id="0-a-framing-correction-before-anything-else" class="sec"><span class="secnum">0</span><span class="sectxt">A framing correction, before anything else</span></h2>
+<p>The previous two reports answered <em>"what is Ethiopia ready for?"</em> This CV does not belong to that question, and pretending otherwise would waste the analysis.</p>
+<p>The document describes someone who <strong>arrived in Spain around age 14 in 2008</strong>, completed the entire Spanish education system from ESO through Bachillerato to a Higher Technician diploma, holds <strong>Spanish nationality</strong>, speaks <strong>Spanish at C2</strong>, and has spent <strong>eight and a half continuous years inside the Spanish dental sector</strong> [V, CV]. Her connection to Ethiopia is heritage and two native languages — <strong>Amharic and Afaan Oromo</strong> — not current market knowledge, professional networks, or residence.</p>
+<p>Three facts settle it:</p>
+<ol>
+<li><strong>The Ethiopian community in Spain is too small to be a market.</strong> Spain's African-origin population exceeds 800,000 and grew 15% in five years, but the composition is Morocco 32%, Senegal 18%, Nigeria 12%, Ghana 8% <span class="ev ev-V" title="Verified — sourced">V</span> — <strong>Ethiopia does not appear as a reported category at all.</strong> Any business whose customers are Ethiopians in Spain has a ceiling measured in hundreds of customers.</li>
+<li><strong>English at B1</strong> [V, CV] closes off the global-buyer businesses that made the previous report's top pick work. The AI expert-data play, the international pathway academy, cross-border consulting — all of those require negotiating in English with US and UK buyers.</li>
+<li><strong>Her scarce asset is Spanish, not Ethiopian.</strong> Eight and a half years of hands-on practice in a regulated Spanish health profession, in a country with a documented and publicly-funded gap in exactly that profession's scope, is worth far more than heritage.</li>
+</ol>
+<p class="lede"><strong>So this report assesses Spain.</strong> The Ethiopian-heritage assets are scored as a real but secondary advantage (criterion 17), and §7.5 examines the one Ethiopia-linked business that survives scrutiny. Evidence tags as before: <strong><span class="ev ev-V" title="Verified — sourced">V</span></strong> verified, <strong><span class="ev ev-E" title="Estimate — derived">E</span></strong> estimate with arithmetic, <strong><span class="ev ev-A" title="Assumption — stated input">A</span></strong> stated assumption, <strong><span class="ev ev-I" title="Inference — judgement">I</span></strong> my inference.</p>
+<p>I am reading a CV, not the person.</p>
+<hr />
+<h2 id="1-executive-summary" class="sec"><span class="secnum">1</span><span class="sectxt">Executive summary</span></h2>
+<p><strong>The finding: there is a €128 million pot of newly allocated Spanish public money aimed at a population whose mouths almost nobody is checking, and the professional legally scoped to check them is a dental hygienist.</strong></p>
+<p>Spain's Plan for the Expansion of the Common Portfolio of Oral Health Services distributed <strong>€68,058,000 for 2025</strong> and the Council of Ministers authorised a further <strong>€60,058,000 in May 2026</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. Its headline change is the progressive incorporation of <strong>people over 65 as a new beneficiary group — beginning with those receiving care in institutions</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. Coverage of that group stands at roughly <strong>3%</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, against 30.4% for children and 25% for pregnant women. The funds sit inside Component 18 of the EU Recovery Plan and can be executed to 2027 <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p>Meanwhile the target population is large, concentrated and commercially organised: <strong>5,530 residential homes with 407,780 places at the end of 2025</strong>, a <strong>€6.1bn market growing 6.9% a year</strong>, where the ten largest operators hold about <strong>35%</strong> of revenue <span class="ev ev-V" title="Verified — sourced">V</span>. And the clinical need is not disputed: among older adults in Spain <strong>only one in four decayed teeth is treated</strong>, with restoration rates of 41% in high-income groups against 18% in low-income ones <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p><strong>Ranked recommendation:</strong></p>
+<div class="tw"><table><thead><tr><th>#</th><th>Business</th><th>Opportunity</th><th>Founder fit</th><th>Adjusted</th><th>Capital</th></tr></thead><tbody><tr><td>1</td><td><strong>Caregiver oral-care training and protocol programme for care homes</strong></td><td>6.70</td><td>8.0</td><td><strong>7.32</strong></td><td>under €5,000</td></tr><tr><td>2</td><td><strong>Dental staffing and training pipeline for clinics</strong></td><td>6.54</td><td>7.6</td><td><strong>7.06</strong></td><td>€5–20,000</td></tr><tr><td>3</td><td><strong>Residential and domiciliary oral-health service</strong></td><td>6.73</td><td>7.2</td><td><strong>6.99</strong></td><td>€25–70,000</td></tr><tr><td>4</td><td>Homologación / vocational-access advisory for migrants</td><td>5.85</td><td>5.9</td><td><strong>5.86</strong></td><td>under €5,000</td></tr><tr><td>5</td><td>East Africa → Spain care-worker pathway</td><td>5.85</td><td>5.9</td><td><strong>5.86</strong></td><td>€15–60,000</td></tr></tbody></table></div>
+<p class="lede"><strong>The top three are not three businesses. They are one business in three stages</strong>, and the ordering is by capital requirement, not by attractiveness. Start by training care-home staff to clean residents' mouths properly — a service she can deliver alone, tomorrow, with no licence beyond the one she holds and no equipment. Use those contracts to earn the clinical service inside the same buildings. That sequencing is the whole recommendation.</p>
+<p class="lede"><strong>The one honest caution:</strong> none of these is a venture-scale company. The realistic outcome is a <strong>€1–4m revenue services business</strong> with strong margins, defensible relationships and genuine social value. I scored P(€100m) at 2–3 out of 10 across the board and I mean it. If the goal is a large technology company, this CV points the wrong way and the right advice is to say so.</p>
+<hr />
+<h2 id="2-founder-asset-audit" class="sec"><span class="secnum">2</span><span class="sectxt">Founder asset audit</span></h2>
+<h3 id="21-genuinely-scarce-assets">2.1 Genuinely scarce assets</h3>
+<div class="tw"><table><thead><tr><th>Asset</th><th>Evidence in the CV</th><th>Why it matters</th></tr></thead><tbody><tr><td><strong>A regulated Spanish health credential, actively used for 8.5 years</strong></td><td>Higher Technician in Oral and Dental Hygiene (IES Juan de Mairena, Madrid, 2016–2018); dental hygienist at Milenium Dental group, Nov 2017 – Feb 2026, continuously</td><td>This is the asset. Spain's expansion of public oral health to institutionalised over-65s creates demand precisely inside a hygienist's scope: cleanings, fluoride application, oral hygiene instruction, radiographs</td></tr><tr><td><strong>Clinic operations, not just clinical work</strong></td><td>"Managed the reception desk, assisting patients in person and by telephone and resolving day-to-day administrative and customer-service issues"; "ordered dental materials and supplies"</td><td>She has run the front desk and the supply chain of a dental clinic. That is the operational half of the business most clinicians never learn, and it is what makes the staffing and service businesses credible</td></tr><tr><td><strong>Continuity and retention inside one group</strong></td><td>Two roles across Torrelodones and Torremolinos in the same group, 2017–2026</td><td>Eight and a half years at one employer, across two provinces, reads as reliability and internal mobility — the profile clinic owners trust and hire from</td></tr><tr><td><strong>Direct frontline eldercare and childcare experience</strong></td><td>Domestic cleaner and waitress, 2011–2018: "provided childcare", "cared for elderly people", housekeeping, cooking</td><td>Unusual and undervalued. She has done the actual work of the care assistants she would be training. Anyone who has stood in that role can tell within a minute whether a training programme was written by someone who has, or hasn't</td></tr><tr><td><strong>Spanish at C2 plus Amharic and Afaan Oromo as mother tongues</strong></td><td>Language table, CV</td><td>Two Ethiopian national languages at native level is rare anywhere in the EU, and both are among the hardest to source for interpreting, asylum and public-service mediation</td></tr><tr><td><strong>Costa del Sol base</strong></td><td>Torremolinos, Málaga</td><td>Málaga is one of the best-paying regions for hygienists in Spain <span class="ev ev-V" title="Verified — sourced">V</span>, and Andalucía has one of the country's largest concentrations of residential care places</td></tr><tr><td><strong>Lived experience of the migrant qualification path</strong></td><td>Spanish language course + 3rd year ESO (2008–2011) → Bachillerato → FP Grado Superior → regulated profession</td><td>She has personally walked the route that hundreds of thousands of people in Spain are now trying to walk. That is the credibility behind opportunities 4 and 5</td></tr></tbody></table></div>
+<h3 id="22-honest-gaps">2.2 Honest gaps</h3>
+<div class="tw"><table><thead><tr><th>Gap</th><th>Consequence</th></tr></thead><tbody><tr><td><strong>English at B1</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td><td>Rules out the global-buyer businesses that dominated the previous report. Also limits the Costa del Sol's large British and northern-European expat market, which is the obvious-looking dental opportunity in Málaga and is <strong>not</strong> recommended here for that reason</td></tr><tr><td><strong>No degree; FP Grado Superior is EQF level 5</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td><td>Spain classifies hygienists at EQF 5 while several European countries have raised the profession higher; the regulatory framework is described by the sector itself as outdated and restrictive of professional development <span class="ev ev-V" title="Verified — sourced">V</span>. She cannot diagnose, treat or practise autonomously — a dentist must hold clinical direction</td></tr><tr><td><strong>No management, sales or business-ownership record</strong></td><td>The first business must be one she can sell by demonstrating competence in a room, not by running a sales function</td></tr><tr><td><strong>No capital evidenced</strong></td><td>Everything recommended must start under €25,000. This is why clinic ownership ranks sixth despite being legally available</td></tr><tr><td><strong>No software or technical capability evidenced</strong></td><td>No product business. Services only, at least initially</td></tr><tr><td><strong>Last role ended February 2026</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td><td>She may be between roles. That is a real advantage for starting something and a real pressure on runway. It argues strongly for the option that generates revenue within 90 days</td></tr></tbody></table></div>
+<h3 id="23-the-one-sentence-read">2.3 The one-sentence read</h3>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span></strong> She is a credentialed frontline practitioner with unusually deep operational exposure to two sectors that are colliding — dentistry and eldercare — at the exact moment public money starts flowing across that seam. Her businesses should sell <strong>her competence and her protocols</strong>, not technology, and should be bought by <strong>institutions</strong>, not consumers.</p>
+<hr />
+<h2 id="3-what-has-structurally-changed-in-spain" class="sec"><span class="secnum">3</span><span class="sectxt">What has structurally changed in Spain</span></h2>
+<h3 id="31-public-oral-health-just-reached-the-over-65s-and-almost-nobody-is-d">3.1 Public oral health just reached the over-65s — and almost nobody is delivering it</h3>
+<div class="tw"><table><thead><tr><th></th><th>Before</th><th>Now</th></tr></thead><tbody><tr><td>Public dental cover</td><td>Children, and limited groups</td><td><strong>Plan for the Expansion of the Common Portfolio of Oral Health Services</strong>, PRTR Component 18 <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Funding</td><td>—</td><td><strong>€68,058,000 distributed for 2025</strong>; <strong>€60,058,000 authorised May 2026</strong>; funds committed by 31 Dec 2025, executable to <strong>2027</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Target groups</td><td>Children and youth, pregnant women, people with disability, head-and-neck oncology patients</td><td><strong>Plus, newly: people over 65 — "beginning with those receiving care in institutions"</strong> <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Coverage achieved</td><td>Children and youth <strong>30.4%</strong>, pregnant women <strong>25%</strong></td><td><strong>Over-65s: approximately 3%</strong> after starting in 2025 <span class="ev ev-V" title="Verified — sourced">V</span></td></tr></tbody></table></div>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> Read that last row as a business plan.</strong> A funded national programme has reached 3% of its newest and largest target group, with a spending deadline. The delivery bottleneck is not money or policy; it is people who can physically get into residential homes and do preventive oral care, and organisations that can contract to provide it at scale.</p>
+<h3 id="32-the-buyer-side-is-large-concentrated-and-already-commercial">3.2 The buyer side is large, concentrated and already commercial</h3>
+<div class="tw"><table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Residential homes for older people in Spain, end-2025</td><td><strong>5,530</strong></td></tr><tr><td>Total places</td><td><strong>407,780</strong></td></tr><tr><td>Private homes / places</td><td><strong>3,904 homes, 289,471 places</strong> — around 76% of supply</td></tr><tr><td>Sector revenue 2025</td><td><strong>€6.1bn, up 6.9%</strong></td></tr><tr><td>Top 5 operators' share</td><td><strong>23.8%</strong>; top 10 approximately <strong>35%</strong></td></tr><tr><td>Largest operator</td><td>DomusVi Spain: 144 centres, 19,352 places, 28,000 staff, €844m revenue</td></tr><tr><td>Dependent people waiting for a public place</td><td><strong>more than 50,000</strong></td></tr></tbody></table></div>
+<p>All figures <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> This is a rare configuration for a first-time founder: a market where roughly a third of demand sits behind ten telephone numbers.</strong> You do not need a marketing budget. You need ten meetings.</p>
+<h3 id="33-the-clinical-gap-is-documented-not-asserted">3.3 The clinical gap is documented, not asserted</h3>
+<ul>
+<li>Among older adults in Spain, <strong>only one in four decayed teeth is treated</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Restoration rates: <strong>41% in high-income groups, 18% in low-income groups</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Thousands of older people with mobility limitations or dependency find travelling to a dental clinic <strong>"not only difficult but completely unfeasible"</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>The literature describes domiciliary dental programmes as having three components: comprehensive treatment, preventive treatment, and <strong>oral hygiene education directed at caregivers</strong> — and notes they are simultaneously very necessary and difficult to execute within the current structure of the health system <span class="ev ev-V" title="Verified — sourced">V</span></li>
+</ul>
+<p><strong><span class="ev ev-I" title="Inference — judgement">I</span> That third component is the one requiring no dentist, no mobile surgery and no capital. It is the wedge.</strong></p>
+<h3 id="34-the-care-workforce-is-in-crisis-which-cuts-both-ways">3.4 The care workforce is in crisis, which cuts both ways</h3>
+<ul>
+<li>Carer (<em>gerocultor</em>) shortage is acute, worst in rural areas and on nights and weekends <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Staffing ratios <strong>have not been updated since 2010</strong>; the target is 0.43 carers per 100 residents by 2029 while sector experts argue quality requires <strong>1.13</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Gross pay <strong>€1,200–1,500 per month across 14 payments</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Consequences reported include inadequate help with hygiene and eating, and safety failures <span class="ev ev-V" title="Verified — sourced">V</span></li>
+</ul>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> The double edge:</strong> overstretched staff are exactly why residents' mouths go uncleaned — which is the problem — and also why a training programme that takes <em>time</em> out of their day will be resisted unless it demonstrably <em>saves</em> time. Any product here must be built around a two-minute protocol, not a twenty-minute one.</p>
+<h3 id="35-migration-and-labour-reform">3.5 Migration and labour reform</h3>
+<ul>
+<li>The reformed <strong>Reglamento de Extranjería took effect in May 2025</strong>: residence requirement for <em>arraigo</em> cut from <strong>three years to two</strong>, and <em>arraigo</em> holders may now work <strong>self-employed, not only as employees</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li><strong>95,000 people regularised</strong> through the new <em>arraigo</em> routes between May and October 2025 <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li><strong>Health and social services is the sector concentrating the most hard-to-fill occupations</strong> in Spain's official catalogue — nurses, radiology technicians, physiotherapists, carers <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Recognition of foreign qualifications averages <strong>~4.5 months</strong> overall but <strong>12–24 months for health qualifications</strong>, with routine delays, and a single documentation error can freeze a file for months <span class="ev ev-V" title="Verified — sourced">V</span></li>
+</ul>
+<h3 id="36-dentistry-itself-fragmented-and-consolidating">3.6 Dentistry itself: fragmented and consolidating</h3>
+<ul>
+<li><strong>~23,000–24,000 dental clinics</strong> in Spain <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Chains hold about <strong>15% of the market</strong>, against 30% in the UK and 25% in the US — Spain is early in its consolidation <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Sanitas reached <strong>217 clinics</strong> after acquiring six from Dental Star in January 2025 <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li>Hygienist pay: <strong>€27,500–34,500 gross per year</strong>, collective agreement floors of €1,400–1,700/month, with <strong>Málaga among the better-paying cities</strong>, above €2,300/month in established private clinics <span class="ev ev-V" title="Verified — sourced">V</span></li>
+<li><strong>A dental hygienist may legally own a dental clinic in Spain.</strong> Ownership and clinical direction are distinct: the owner needs no health qualification, but a licensed dentist must serve as medical director, at a reported cost of <strong>€1,500–4,000/month</strong> <span class="ev ev-V" title="Verified — sourced">V</span></li>
+</ul>
+<hr />
+<h2 id="4-readiness-assessment" class="sec"><span class="secnum">4</span><span class="sectxt">Readiness assessment</span></h2>
+<p>My judgement <span class="ev ev-I" title="Inference — judgement">I</span>, anchored on the above.</p>
+<div class="tw"><table><thead><tr><th>Condition</th><th>Score</th><th>Read</th></tr></thead><tbody><tr><td>Public funding available for institutional oral health</td><td><strong>9</strong></td><td>€128m across two years, execution window to 2027 <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Delivery capacity to absorb it</td><td><strong>2</strong></td><td>3% coverage of over-65s. This gap <em>is</em> the opportunity</td></tr><tr><td>Buyer concentration</td><td><strong>8</strong></td><td>Top 10 operators ≈35% of a €6.1bn market</td></tr><tr><td>Clinical need evidence base</td><td><strong>9</strong></td><td>Documented, quantified, published by the profession's own bodies</td></tr><tr><td>Her legal scope to deliver</td><td><strong>7</strong></td><td>Prevention, education, cleanings, fluoride, radiographs — yes. Diagnosis and treatment — requires a dentist</td></tr><tr><td>Capital required to start</td><td><strong>9</strong></td><td>The training wedge needs almost none</td></tr><tr><td>Competition</td><td><strong>6</strong></td><td>Dental Residency operates in residential dentistry <span class="ev ev-V" title="Verified — sourced">V</span>; regionally the field is thin</td></tr><tr><td>Care-home willingness to pay</td><td><strong>6</strong></td><td>Sector margins are tight; must be sold as risk and time reduction, not as goodwill</td></tr><tr><td>Workforce availability to scale</td><td><strong>4</strong></td><td>The same hygienist shortage that creates demand constrains delivery</td></tr><tr><td>Regulatory clarity</td><td><strong>5</strong></td><td>Hygienist scope is described by the sector as outdated and restrictive <span class="ev ev-V" title="Verified — sourced">V</span></td></tr><tr><td>Ethiopian-heritage advantage</td><td><strong>3</strong></td><td>Real for interpreting and for an East Africa pipeline; irrelevant to the top three</td></tr></tbody></table></div>
+<hr />
+<h2 id="5-international-precedent" class="sec"><span class="secnum">5</span><span class="sectxt">International precedent</span></h2>
+<p>This is not a speculative model. Three health systems have already built it, and each supplies a different piece of the template.</p>
+<p class="lede"><strong>United Kingdom — the standard.</strong> NICE guideline <strong>NG48, <em>Oral health for adults in care homes</em>, published 5 July 2016</strong>, addresses daily mouth care and access to dental treatment for care-home residents, and is explicitly aimed at <strong>care home managers, staff caring for residents, dental services and local authorities</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. It established that oral care is a care-home management responsibility, not merely a dental one. <strong><span class="ev ev-I" title="Inference — judgement">I</span> That is the framing to sell in Spain: this is a quality-and-risk obligation of the home, not a favour to the resident.</strong></p>
+<p class="lede"><strong>Japan — the operational unit.</strong> Japan's long-term care insurance covers <strong>90% of service cost</strong> and funds in-home healthcare guidance in which dentists and dental hygienists visit users who cannot attend a clinic. <strong>Dental hygienist home visits are reimbursed under health insurance, requiring visits of at least 20 minutes and capped at four per month</strong>, with the fee schedule revised in 2018 <span class="ev ev-V" title="Verified — sourced">V</span>. <strong><span class="ev ev-I" title="Inference — judgement">I</span> That gives a defensible service unit to design around: a ~20-minute structured visit, up to monthly, priced per resident.</strong></p>
+<p class="lede"><strong>Sweden — the warning.</strong> Sweden runs domiciliary dental care and population-based preventive programmes in the home for older people <span class="ev ev-V" title="Verified — sourced">V</span>. And yet: research from the University of Gothenburg finds oral health still "falls between the cracks" in Swedish elder care, with <strong>unclear responsibility and a lack of routines meaning oral care receives low priority</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. <strong><span class="ev ev-I" title="Inference — judgement">I</span> This is the most useful of the three findings. Even with funding and guidelines, the failure mode is organisational — nobody owns the task. A business whose actual product is <em>ownership of the routine</em> — named responsibility, a written protocol, a monitored record — is solving the thing that money alone has not solved anywhere.</strong></p>
+<p><strong>The diffusion-lag view <span class="ev ev-I" title="Inference — judgement">I</span>:</strong></p>
+<div class="tw"><table><thead><tr><th>Model</th><th>Established</th><th>Spain's enabling conditions</th><th>Lag</th><th>Status</th></tr></thead><tbody><tr><td>Care-home oral health as a management standard</td><td>UK 2016 (NG48)</td><td>2025–26 (public plan reaches institutions)</td><td>~9 yr</td><td><strong>Opening now</strong></td></tr><tr><td>Publicly funded hygienist home visits</td><td>Japan, mature</td><td>Partially — funding exists, delivery model does not</td><td>—</td><td><strong>Opening now</strong></td></tr><tr><td>Domiciliary dental services</td><td>Sweden, mature</td><td>Emerging; Dental Residency operating</td><td>~15 yr</td><td>Open, thin competition</td></tr><tr><td>Dental service organisation consolidation</td><td>US/UK 2010s</td><td>Spain at 15% chain share vs UK 30%</td><td>~10 yr</td><td>Open, capital-intensive</td></tr></tbody></table></div>
+<hr />
+<h2 id="6-eight-candidates-scored" class="sec"><span class="secnum">6</span><span class="sectxt">Eight candidates, scored</span></h2>
+<p>Same weighted 20-criterion model as the previous reports, with two criteria re-specified for a Spain-based founder: criterion 16 becomes <strong>expansion beyond the home region</strong> and criterion 17 becomes <strong>Ethiopian-heritage advantage</strong>. Capital-lightness: 10 = startable under €25,000. Regulatory ease: 10 = no licence or supervision required.</p>
+<p>Founder fit is scored on eight sub-criteria: clinical domain authority, clinic operations experience, existing distribution, institutional access, language and cultural assets, directly relevant prior experience, capital-independence, and regulatory standing. <strong>Adjusted score is the geometric mean</strong>, which punishes imbalance in either direction.</p>
+<div class="tw"><table><thead><tr><th>Rank</th><th>Opportunity</th><th>Opp</th><th>Fit</th><th><strong>Adjusted</strong></th><th>Capital</th><th>Verdict</th></tr></thead><tbody><tr><td>1</td><td>Caregiver oral-care training and protocol programme for care homes</td><td>6.70</td><td>8.0</td><td><strong>7.32</strong></td><td>&lt;€5k</td><td><strong>Start now</strong></td></tr><tr><td>2</td><td>Dental staffing and training pipeline for clinics</td><td>6.54</td><td>7.6</td><td><strong>7.06</strong></td><td>€5–20k</td><td>Start second</td></tr><tr><td>3</td><td>Residential and domiciliary oral-health service</td><td>6.73</td><td>7.2</td><td><strong>6.99</strong></td><td>€25–70k</td><td>Earn into it</td></tr><tr><td>4</td><td>Homologación and vocational-access advisory for migrants</td><td>5.85</td><td>5.9</td><td><strong>5.86</strong></td><td>&lt;€5k</td><td>Watch</td></tr><tr><td>5</td><td>East Africa → Spain care-worker pathway</td><td>5.85</td><td>5.9</td><td><strong>5.86</strong></td><td>€15–60k</td><td>Investigate carefully</td></tr><tr><td>6</td><td>Own or acquire a dental clinic</td><td>4.75</td><td>6.8</td><td><strong>5.66</strong></td><td>€80–250k</td><td>Not yet</td></tr><tr><td>7</td><td>Domiciliary elderly care agency (SAD)</td><td>5.69</td><td>5.6</td><td><strong>5.66</strong></td><td>€30–100k</td><td>Avoid</td></tr><tr><td>8</td><td>Amharic / Afaan Oromo – Spanish health interpreting</td><td>4.95</td><td>5.4</td><td><strong>5.16</strong></td><td>&lt;€2k</td><td>Side income, not a business</td></tr></tbody></table></div>
+<p><strong>Full sub-scores:</strong></p>
+<div class="tw wide"><table><thead><tr><th>Opportunity</th><th>Mkt</th><th>Grw</th><th>Urg</th><th>WTP</th><th>WkComp</th><th>CAC</th><th>CapLt</th><th>RegEase</th><th>Tech</th><th>Infra</th><th>Scale</th><th>Marg</th><th>Netwk</th><th>Def</th><th>Natl</th><th>Expand</th><th>Heritage</th><th>Timing</th><th>P€1M</th><th>P€100M</th><th>Opp</th><th>Fit</th><th><strong>Adj</strong></th></tr></thead><tbody><tr><td>Caregiver oral-care training</td><td>5</td><td>8</td><td>8</td><td>6</td><td>8</td><td>8</td><td>10</td><td>9</td><td>8</td><td>9</td><td>6</td><td>9</td><td>3</td><td>5</td><td>7</td><td>5</td><td>2</td><td>9</td><td>7</td><td>2</td><td>6.70</td><td>8.0</td><td><strong>7.32</strong></td></tr><tr><td>Dental staffing &amp; training</td><td>6</td><td>7</td><td>8</td><td>7</td><td>5</td><td>7</td><td>9</td><td>8</td><td>7</td><td>8</td><td>7</td><td>8</td><td>6</td><td>5</td><td>7</td><td>4</td><td>3</td><td>7</td><td>8</td><td>3</td><td>6.54</td><td>7.6</td><td><strong>7.06</strong></td></tr><tr><td>Residential oral-health service</td><td>7</td><td>9</td><td>9</td><td>8</td><td>7</td><td>7</td><td>6</td><td>5</td><td>7</td><td>8</td><td>6</td><td>6</td><td>4</td><td>7</td><td>7</td><td>4</td><td>1</td><td>10</td><td>7</td><td>3</td><td>6.73</td><td>7.2</td><td><strong>6.99</strong></td></tr><tr><td>Homologación advisory</td><td>6</td><td>7</td><td>8</td><td>6</td><td>4</td><td>5</td><td>9</td><td>6</td><td>7</td><td>8</td><td>6</td><td>8</td><td>4</td><td>3</td><td>7</td><td>3</td><td>6</td><td>7</td><td>6</td><td>2</td><td>5.85</td><td>5.9</td><td><strong>5.86</strong></td></tr><tr><td>East Africa → Spain pathway</td><td>6</td><td>8</td><td>8</td><td>6</td><td>6</td><td>4</td><td>7</td><td>3</td><td>6</td><td>5</td><td>6</td><td>7</td><td>4</td><td>6</td><td>6</td><td>6</td><td>10</td><td>7</td><td>5</td><td>3</td><td>5.85</td><td>5.9</td><td><strong>5.86</strong></td></tr><tr><td>Own or acquire a clinic</td><td>6</td><td>5</td><td>5</td><td>7</td><td>3</td><td>5</td><td>2</td><td>6</td><td>6</td><td>8</td><td>4</td><td>6</td><td>2</td><td>4</td><td>4</td><td>3</td><td>2</td><td>5</td><td>7</td><td>2</td><td>4.75</td><td>6.8</td><td><strong>5.66</strong></td></tr><tr><td>Domiciliary care agency</td><td>8</td><td>8</td><td>8</td><td>6</td><td>4</td><td>6</td><td>5</td><td>5</td><td>6</td><td>7</td><td>6</td><td>4</td><td>3</td><td>4</td><td>7</td><td>3</td><td>2</td><td>7</td><td>7</td><td>3</td><td>5.69</td><td>5.6</td><td><strong>5.66</strong></td></tr><tr><td>Health interpreting</td><td>2</td><td>4</td><td>6</td><td>5</td><td>8</td><td>5</td><td>10</td><td>8</td><td>6</td><td>8</td><td>3</td><td>8</td><td>2</td><td>5</td><td>4</td><td>2</td><td>10</td><td>5</td><td>3</td><td>1</td><td>4.95</td><td>5.4</td><td><strong>5.16</strong></td></tr></tbody></table></div>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> Note how tightly the top three cluster (6.99–7.32).</strong> That is not indecision in the model; it is the model detecting that these are the same business at three levels of capital intensity. The ranking is a sequence, not a choice.</p>
+<hr />
+<h2 id="7-deep-dives" class="sec"><span class="secnum">7</span><span class="sectxt">Deep dives</span></h2>
+<hr />
+<h3 id="71-caregiver-oral-care-training-and-protocol-programme-for-care-homes">7.1 — Caregiver oral-care training and protocol programme for care homes</h3>
+<p><strong>Adjusted 7.32 · Opportunity 6.70 · Founder fit 8.0 · Under €5,000 · Start now</strong></p>
+<p class="lede"><strong>Concept.</strong> A packaged programme sold to residential homes that makes daily mouth care actually happen: a two-minute protocol per resident, hands-on training for care assistants, an individual oral-care plan per resident recorded in the home's own documentation, a named responsible person per shift, and a quarterly review. Sold per home, per year.</p>
+<p class="lede"><strong>Customer.</strong> The residence director or care quality manager. Secondarily the regional operator's quality department — which is where the ten telephone numbers holding 35% of the market sit <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p class="lede"><strong>Problem.</strong> Residents' mouths are not being cleaned. The consequences are documented: only one in four decayed teeth treated among older adults <span class="ev ev-V" title="Verified — sourced">V</span>, and reported failures in help with hygiene and eating in understaffed homes <span class="ev ev-V" title="Verified — sourced">V</span>. The Swedish evidence identifies the mechanism precisely — <strong>unclear responsibility and a lack of routine means oral care receives low priority</strong> <span class="ev ev-V" title="Verified — sourced">V</span>. It is an ownership failure, not a knowledge failure.</p>
+<p class="lede"><strong>Current workaround.</strong> Nothing systematic. Oral care is folded into general personal hygiene, delegated implicitly to whoever is on shift, and documented rarely. Where a home does act, it typically calls a dentist after a problem has already occurred.</p>
+<p><strong>Solution.</strong> Three deliverables, all of which she can produce alone:</p>
+<ol>
+<li><strong>A protocol</strong> — the two-minute version, written for a carer with eleven residents and no time, including the dependent-resident and dementia-resistance cases that make standard advice useless.</li>
+<li><strong>On-site training</strong> — hands-on, on the ward, with real residents, not a slide deck. Her eight years of chairside practice <em>and</em> her years of frontline elderly care are what make this credible [V, CV].</li>
+<li><strong>A record</strong> — an oral-care plan per resident and a monthly compliance check, which is what converts the sale from goodwill into risk management.</li>
+</ol>
+<p class="lede"><strong>Why now.</strong> The public plan explicitly begins with over-65s <strong>in institutions</strong> and has €128m behind it across 2025–26 <span class="ev ev-V" title="Verified — sourced">V</span>. Homes anticipating public dental services entering their buildings need their own house in order first. NICE NG48 established internationally in 2016 that this is a <strong>care-home management responsibility</strong>, addressed to managers and staff, not only to dental services <span class="ev ev-V" title="Verified — sourced">V</span> — that framing is nine years old in the UK and arriving in Spain now.</p>
+<p><strong>Market size and unit economics <span class="ev ev-E" title="Estimate — derived">E</span>.</strong></p>
+<p>Spain has 5,530 homes and 407,780 places <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<div class="tw"><table><thead><tr><th>Penetration</th><th>Homes</th><th>Residents</th><th>@ €60/resident/yr</th><th>@ €120</th><th>@ €240</th></tr></thead><tbody><tr><td>2%</td><td>111</td><td>8,156</td><td>€489k</td><td>€979k</td><td>€1.96m</td></tr><tr><td>5%</td><td>276</td><td>20,389</td><td>€1.22m</td><td>€2.45m</td><td>€4.89m</td></tr><tr><td>10%</td><td>553</td><td>40,778</td><td>€2.45m</td><td>€4.89m</td><td>€9.79m</td></tr></tbody></table></div>
+<p class="lede"><strong>€1m of revenue sits at roughly 5% of Spanish residential places at €120 per resident per year, or 2% at €240</strong> <span class="ev ev-E" title="Estimate — derived">E</span>. Alternatively price per home: €3,000–9,000 per home per year for a 60–120 bed facility. Either way, the target is measured in hundreds of buildings, not thousands of customers.</p>
+<p>Gross margin <strong>70–85%</strong> once the protocol is written <span class="ev ev-E" title="Estimate — derived">E</span>; the cost is her time and travel, falling sharply as she trains regional trainers.</p>
+<p><strong>Capital.</strong> <strong>Under €5,000.</strong> A written protocol, printed materials, a laptop, travel. This is the only recommendation in three reports that could start next week.</p>
+<p class="lede"><strong>Regulation.</strong> Training and health education sit squarely inside a hygienist's recognised scope — health promotion and oral health education, individual and collective, including advice on hygienic and preventive measures <span class="ev ev-V" title="Verified — sourced">V</span>. <strong>No dentist as medical director is required, because no clinical act is performed.</strong> That is precisely why this ranks first: it is the maximum business available at zero regulatory friction.</p>
+<p class="lede"><strong>Competition.</strong> Dental Residency positions itself in residential dentistry for older people and people with functional diversity <span class="ev ev-V" title="Verified — sourced">V</span>. Dental supply companies run occasional CPD sessions. <strong><span class="ev ev-I" title="Inference — judgement">I</span> I found no packaged, recurring, protocol-plus-record programme sold to Spanish care homes as a service line.</strong> The market looks empty because it is unglamorous and requires standing in a care home at 8am, not because the economics fail.</p>
+<p class="lede"><strong>Moat.</strong> Weak on paper — a protocol can be copied. Real in practice: contracted relationships with homes, accumulated outcome data across facilities, and being the named person the inspector's report references. <strong><span class="ev ev-I" title="Inference — judgement">I</span> In services, the moat is the renewal, and renewals come from the operator's quality department having no reason to change.</strong></p>
+<p class="lede"><strong>Risks.</strong> (i) Care homes are margin-squeezed and may refuse to pay for anything not legally required — <strong>this is the central risk</strong> and the reason to price low and prove time-saving. (ii) A regional health service could commission the same thing free. (iii) Solo delivery caps growth until trainers are hired. (iv) It is physically demanding, low-status work that many would not do.</p>
+<p class="lede"><strong>90-day plan.</strong> Two free pilots in Málaga province — one private home, one <em>concertada</em>. Deliver the training, install the record, and measure two things over eight weeks: <strong>staff time per resident per day, and the count of residents with a completed oral-care plan.</strong> Then take that one-page result to the next ten homes and charge for it.</p>
+<p class="lede"><strong>First ten customers.</strong> Málaga and Costa del Sol homes, in person, using the credential and the local base. Then the provincial employers' association, then the regional quality manager of one of the ten large operators. <strong><span class="ev ev-I" title="Inference — judgement">I</span> One signed group contract is worth two hundred cold visits, and the group buyer only exists because this market is consolidated.</strong></p>
+<p><strong>Path to €1m.</strong> ~20,000 residents under programme at €120/year, or ~275 homes <span class="ev ev-E" title="Estimate — derived">E</span>. Requires regional trainers and 3–4 years.</p>
+<p><strong>Path to €100m.</strong> No. <strong>P(€100m) = 2/10.</strong> This is a €1–4m business. Saying otherwise would be dishonest.</p>
+<p class="lede"><strong>Why now, in one paragraph.</strong> <em>This programme would have had no buyer in 2022, because oral health in Spanish residential care was nobody's budget line and no public money was attached to it. It becomes sellable now because Spain's expansion of the common portfolio of oral health services has explicitly added over-65s starting with those in institutions, backed by €68m for 2025 and €60m authorised in May 2026 with an execution window to 2027, while coverage of that group stands at about 3%. Homes that expect public dental services to arrive in their buildings need a defensible internal routine first, and international precedent — NICE NG48 in the UK since 2016 — has already established this as a management responsibility rather than a clinical favour. If the Spanish plan follows the UK and Swedish pattern, oral care documentation becomes an inspection expectation, and a voluntary purchase becomes a required one.</em></p>
+<p><strong>Verdict: START NOW.</strong></p>
+<hr />
+<h3 id="72-dental-staffing-and-training-pipeline-for-clinics">7.2 — Dental staffing and training pipeline for clinics</h3>
+<p><strong>Adjusted 7.06 · Opportunity 6.54 · Founder fit 7.6 · €5–20,000</strong></p>
+<p class="lede"><strong>Concept.</strong> A specialist recruitment and onboarding service placing hygienists and dental assistants into Spanish clinics, with a paid training layer that makes candidates immediately productive — front desk, patient flow, materials ordering, chairside protocol — not just clinically qualified.</p>
+<p class="lede"><strong>Customer.</strong> Clinic owners and chains. Spain has 23,000–24,000 clinics, chains at only 15% share and consolidating <span class="ev ev-V" title="Verified — sourced">V</span>; private clinics show constant demand for hygienists and hiring has risen with sector growth <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p class="lede"><strong>Problem.</strong> Clinics hire hygienists who can clean teeth but cannot run a reception desk, manage a stock order or handle a difficult patient on the phone — which is most of what a small clinic actually needs. Turnover is expensive and owners have no time to train.</p>
+<p class="lede"><strong>Why she is credible.</strong> Her CV lists reception management, telephone patient handling, administrative and customer-service problem resolution, and materials ordering <strong>alongside</strong> the clinical duties, across two clinics in two provinces [V, CV]. She can specify the role because she has held all of it.</p>
+<p class="lede"><strong>Revenue model <span class="ev ev-E" title="Estimate — derived">E</span>.</strong> Placement fee <strong>€1,200–2,500</strong> per hire (roughly 4–8% of first-year gross salary, against a €27,500–34,500 band <span class="ev ev-V" title="Verified — sourced">V</span>); or a <strong>€150–400/month</strong> subscription per clinic for pipeline access; plus a paid pre-employment course to candidates at <strong>€150–400</strong>, which is a second revenue line from the same activity.</p>
+<p class="lede"><strong>Unit economics.</strong> 300 placements a year at €1,800 = <strong>€540k</strong> <span class="ev ev-E" title="Estimate — derived">E</span>; <strong>€1m needs ~450–650 placements a year, or a blend of placements and clinic subscriptions</strong> <span class="ev ev-E" title="Estimate — derived">E</span>. Gross margin 60–75%.</p>
+<p class="lede"><strong>Competition.</strong> Generalist job boards (EmpleoDental.es and similar) and generalist recruiters. <strong><span class="ev ev-I" title="Inference — judgement">I</span> Nobody is selling the <em>readiness</em> layer, which is where the actual pain is.</strong></p>
+<p><strong>Risks.</strong> Recruitment is cyclical, relationship-heavy and easy to enter. Margin compresses if chains build internal talent functions — likely as consolidation proceeds.</p>
+<p><strong>Verdict: START SECOND</strong>, once the training business is generating cash. It shares a buyer type (clinic and care operators) and a competence (training), and it is the natural place to put candidates who complete her courses.</p>
+<hr />
+<h3 id="73-residential-and-domiciliary-oral-health-service">7.3 — Residential and domiciliary oral-health service</h3>
+<p><strong>Adjusted 6.99 · Opportunity 6.73 · Founder fit 7.2 · €25–70,000 · Highest opportunity score of the three</strong></p>
+<p class="lede"><strong>Concept.</strong> The clinical version: a mobile team delivering preventive oral care inside residential homes and to dependent people at home — cleanings, fluoride, screening, radiographs where equipped — under a contracted dentist as clinical director, contracting with homes and, where possible, with the regional public programme.</p>
+<p class="lede"><strong>Why it scores highest on opportunity and third overall.</strong> It captures the actual public funding <span class="ev ev-V" title="Verified — sourced">V</span> and has the strongest defensibility of the three. It ranks third only because of capital and regulation: mobile equipment, a health-facility authorisation, and a dentist as clinical director at <strong>€1,500–4,000/month</strong> <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p class="lede"><strong>The operational unit to copy.</strong> Japan reimburses dental hygienist home visits under health insurance at <strong>minimum 20 minutes, capped at four visits per month</strong>, within a long-term care insurance system covering 90% of cost <span class="ev ev-V" title="Verified — sourced">V</span>. <strong><span class="ev ev-I" title="Inference — judgement">I</span> That is a tested service definition — adopt it rather than invent one: a structured ~20-minute preventive visit, monthly, priced per resident.</strong></p>
+<p class="lede"><strong>Revenue model <span class="ev ev-E" title="Estimate — derived">E</span>.</strong> €25–60 per resident visit, or a per-home contract of <strong>€1,500–5,000/month</strong> for a scheduled rota. At 40 homes averaging €2,500/month that is <strong>€1.2m a year</strong> <span class="ev ev-E" title="Estimate — derived">E</span>. Gross margin thinner than training — <strong>35–50%</strong> after clinical director, travel, consumables and hygienist salaries.</p>
+<p class="lede"><strong>Regulation.</strong> Requires the dentist as clinical director for any diagnostic or treatment act <span class="ev ev-V" title="Verified — sourced">V</span>; mobile health units need sanitary authorisation from the regional health authority; her own scope covers prevention, education, fluoride and radiographs but not diagnosis or treatment <span class="ev ev-V" title="Verified — sourced">V</span>.</p>
+<p class="lede"><strong>Competition.</strong> Dental Residency is established in this niche <span class="ev ev-V" title="Verified — sourced">V</span>, and mobile units already visit some homes <span class="ev ev-V" title="Verified — sourced">V</span>. <strong><span class="ev ev-I" title="Inference — judgement">I</span> This is the one recommendation with a real incumbent — which is a positive signal about demand and a reason to enter regionally, in Andalucía, rather than nationally.</strong></p>
+<p class="lede"><strong>Verdict: EARN INTO IT.</strong> Do not start here. Let the training business establish the relationships, the reputation and the cash, then convert existing client homes into clinical contracts. <strong><span class="ev ev-I" title="Inference — judgement">I</span> Selling a €2,500/month clinical contract to a home that already knows and trusts you is a different and far easier sale than cold-calling with a mobile surgery you have already paid for.</strong></p>
+<hr />
+<h3 id="74-two-that-are-close-but-not-yet">7.4 — Two that are close but not yet</h3>
+<p class="lede"><strong>Homologación and vocational-access advisory for migrants (5.86).</strong> Health qualifications take <strong>12–24 months</strong> to recognise with routine delays, and a single documentation error can freeze a file <span class="ev ev-V" title="Verified — sourced">V</span>; 95,000 people regularised through new <em>arraigo</em> routes in five months <span class="ev ev-V" title="Verified — sourced">V</span>; health and social services top the hard-to-fill occupations catalogue <span class="ev ev-V" title="Verified — sourced">V</span>. She has personally walked this path. <strong>But</strong> the field is crowded with <em>gestorías</em> and immigration lawyers, she is not qualified to give legal advice, and defensibility is poor (scored 3/10). <strong><span class="ev ev-I" title="Inference — judgement">I</span> The viable version is narrow: not "we handle your paperwork" but "we get care and dental workers from qualification to first Spanish contract" — a training-plus-placement product that connects to opportunity 7.2, rather than a legal service.</strong></p>
+<p class="lede"><strong>East Africa → Spain care-worker pathway (5.86).</strong> Her rarest asset combination — Spanish C2, Amharic and Afaan Oromo mother tongues, a Spanish health credential, lived migration experience — points here, and Spain genuinely needs carers <span class="ev ev-V" title="Verified — sourced">V</span>. Three things hold it back. First, <strong>acquisition is the problem</strong>: the Ethiopian community in Spain is too small to recruit from <span class="ev ev-V" title="Verified — sourced">V</span>, so candidates must be found in East Africa, which she is not positioned to do from Málaga. Second, <strong>regulatory ease scores 3/10</strong>: cross-border labour recruitment is heavily regulated on both sides and, as the previous report established, Ethiopia sits far below WHO health-workforce thresholds with roughly 2,000 health professionals emigrating annually. Third, the ethical exposure is real. <strong><span class="ev ev-I" title="Inference — judgement">I</span> The defensible version is the Spain-side half only — training and integrating carers who are already legally in Spain, in Spanish and in their own languages — which is a genuinely valuable business and avoids every one of those objections.</strong></p>
+<hr />
+<h3 id="75-the-one-ethiopia-linked-business-that-survives-scrutiny">7.5 — The one Ethiopia-linked business that survives scrutiny</h3>
+<p>Of everything in the previous two reports, exactly one thing here is worth her time — and it is not a company.</p>
+<p class="lede"><strong>Amharic and Afaan Oromo interpreting and intercultural mediation in Spanish health and public services</strong> scored <strong>5.16</strong>, last of eight. The market is genuinely tiny: Ethiopia does not register as a reported nationality in Spain's African-origin population statistics <span class="ev ev-V" title="Verified — sourced">V</span>. As a business it has no scale.</p>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> But as a side income it is unusually good</strong>: near-zero cost, high hourly rate for a rare language pair, flexible hours, and it keeps her Ethiopian languages commercially live. Register with hospital and court interpreting rosters, asylum-support NGOs and the regional health service. Treat it as <strong>a source of €200–600 a month and a network</strong>, not as a venture. It is also the single cheapest way to test whether an East Africa–Spain business has any pull, because the people who need an Amharic interpreter in Málaga are precisely the population any such business would serve.</p>
+<hr />
+<h2 id="8-what-to-avoid" class="sec"><span class="secnum">8</span><span class="sectxt">What to avoid</span></h2>
+<p class="lede"><strong>8.1 — Buying or opening a dental clinic (5.66).</strong> It is legally available to her: a hygienist may own a clinic with a contracted dentist as medical director <span class="ev ev-V" title="Verified — sourced">V</span>. But fit-out and acquisition run <strong>€80,000–250,000</strong> <span class="ev ev-A" title="Assumption — stated input">A</span>, the market has 23,000–24,000 clinics <span class="ev ev-V" title="Verified — sourced">V</span>, and it would put her into direct competition with consolidating chains while carrying a €1,500–4,000/month clinical director cost <span class="ev ev-V" title="Verified — sourced">V</span> before her first patient. <strong><span class="ev ev-I" title="Inference — judgement">I</span> Clinic ownership is a good outcome to arrive at with cash and a client base, not a way to start.</strong></p>
+<p class="lede"><strong>8.2 — A domiciliary elderly-care agency (5.66).</strong> The largest market on the list, and the worst business for her. Home-care margins are thin, the product is labour arbitrage on €1,200–1,500/month wages <span class="ev ev-V" title="Verified — sourced">V</span>, the operational load is scheduling and staff turnover, and her dental credential adds nothing. <strong><span class="ev ev-I" title="Inference — judgement">I</span> She would be competing on price in a sector defined by its inability to pay.</strong></p>
+<p class="lede"><strong>8.3 — The Costa del Sol expat dental market.</strong> The obvious idea in Torremolinos — northern European retirees, dental tourism, high willingness to pay. <strong>English at B1 makes it the wrong founder for that market</strong> <span class="ev ev-V" title="Verified — sourced">V</span>, and it is the most contested segment on the coast.</p>
+<p><strong>8.4 — Anything requiring software.</strong> No technical capability is evidenced. Every recommendation above works with a document, a spreadsheet and a car.</p>
+<p class="lede"><strong>8.5 — Applying the previous reports' Ethiopian opportunities.</strong> The e-invoicing platform, the clinician expert-data network, the merchant acquiring business — all excellent, none of them hers. They require English, engineering, capital, or presence in Addis. <strong><span class="ev ev-I" title="Inference — judgement">I</span> The most valuable thing this report does is decline to force that fit.</strong></p>
+<hr />
+<h2 id="9-sequencing" class="sec"><span class="secnum">9</span><span class="sectxt">Sequencing</span></h2>
+<pre><code>        ONE COMPETENCE: preventive oral care for dependent people
+                              |
+   +--------------------------+--------------------------+
+   |                          |                          |
+ §7.1 TRAINING            §7.2 STAFFING             §7.3 CLINICAL
+ care homes pay           clinics pay               homes + public pay
+ &lt;EUR5k, month 1          EUR5-20k, month 6         EUR25-70k, month 18
+   |                          |                          |
+ relationships    -----&gt;  candidate pool   -----&gt;  delivery capacity
+ with homes               to staff it              inside those homes</code></pre>
+<p class="lede"><strong>Months 0–3.</strong> Two free pilots. Write the protocol. Measure staff time and completed care plans. Register for interpreting work (§7.5) for interim income. <strong>Months 3–9.</strong> Convert to ten paying homes at €3,000–6,000 each. Approach one large operator's quality department. <strong>Months 9–18.</strong> Add the staffing line (§7.2) — the same buyers, the same competence, better cash conversion. <strong>Months 18–36.</strong> With 30+ home relationships and cash, contract a dentist as clinical director and convert existing clients to clinical contracts (§7.3).</p>
+<p class="lede"><strong><span class="ev ev-I" title="Inference — judgement">I</span> The logic is that each stage buys the input the next stage needs</strong>: training buys relationships, staffing buys people, and only then does the clinical service — the highest-opportunity, highest-capital option — become low-risk. Starting at §7.3 would mean paying for a clinical director and a mobile unit before knowing whether a single home will sign.</p>
+<hr />
+<h2 id="10-trigger-signals" class="sec"><span class="secnum">10</span><span class="sectxt">Trigger signals</span></h2>
+<div class="tw"><table><thead><tr><th>Signal</th><th>Threshold</th><th>Implication</th></tr></thead><tbody><tr><td>Over-65 coverage under the oral health plan</td><td>Rising from ~3% toward 15%+ <span class="ev ev-V" title="Verified — sourced">V</span></td><td>Delivery capacity is being contracted — get in before the framework agreements are signed</td></tr><tr><td>Continuation funding beyond 2027</td><td>Announced or not</td><td>The PRTR execution window ends 2027 <span class="ev ev-V" title="Verified — sourced">V</span>; if funding is not renewed, §7.3's public revenue disappears and only the private contracts survive</td></tr><tr><td>Care-home inspection criteria</td><td>Oral-care documentation becoming an inspection item in any autonomous community</td><td>Converts §7.1 from a voluntary purchase to a required one. <strong>This is the single highest-value signal to monitor</strong></td></tr><tr><td>Staffing ratio regulation</td><td>Movement toward the 2029 target of 0.43 carers per 100 residents <span class="ev ev-V" title="Verified — sourced">V</span></td><td>More staff means more capacity to absorb training; fewer means more resistance</td></tr><tr><td>Hygienist professional scope</td><td>Any reform of the outdated framework the sector is complaining about <span class="ev ev-V" title="Verified — sourced">V</span></td><td>Wider autonomous scope would materially improve §7.3's economics by reducing dentist-director dependence</td></tr><tr><td>Sector consolidation</td><td>Top 10 operators' share moving past 35% <span class="ev ev-V" title="Verified — sourced">V</span></td><td>Fewer, larger buyers — better for a group contract, worse for pricing power</td></tr></tbody></table></div>
+<hr />
+<h2 id="11-next-research-steps" class="sec"><span class="secnum">11</span><span class="sectxt">Next research steps</span></h2>
+<p><strong>Week 1 — Test the sale before building anything.</strong></p>
+<ol>
+<li>Visit <strong>ten residential homes in Málaga province</strong> in person. One question: <em>who is responsible for cleaning residents' mouths, and where is it written down?</em> The answers determine whether this business exists.</li>
+<li>Ask three of them what they would pay per resident per year for a protocol, training and a record. <em>Kill criterion: if fewer than three of ten express interest at €100/resident/year, reprice or reconsider.</em></li>
+</ol>
+<p><strong>Weeks 1–3 — Verify the money.</strong></p>
+<ol>
+<li>Contact the <strong>Andalusian regional health authority</strong> about how the expansion of the oral health portfolio for institutionalised over-65s is actually being commissioned in Andalucía: framework agreement, direct contract, or public provision. <strong>This determines whether §7.3 has a public customer or only private ones.</strong></li>
+<li>Confirm the execution deadline and whether continuation funding beyond 2027 is planned [V for €68m/2025 and €60m/2026].</li>
+</ol>
+<p><strong>Weeks 2–4 — Verify scope and structure.</strong></p>
+<ol>
+<li>Written confirmation from the <strong>Colegio de Higienistas</strong> or a health-law adviser on exactly what she may deliver in a residential home without a dentist present, and what documentation the home must hold.</li>
+<li>Sanitary authorisation requirements for a mobile dental unit in Andalucía, and the real market cost of a part-time clinical director (the €1,500–4,000/month figure is a published range <span class="ev ev-V" title="Verified — sourced">V</span>, not a quote).</li>
+</ol>
+<p><strong>Weeks 3–6 — Study the incumbent and the precedent.</strong></p>
+<ol>
+<li><strong>Dental Residency</strong> <span class="ev ev-V" title="Verified — sourced">V</span>: pricing, geography, contract structure, and whether they would rather partner than compete in Andalucía.</li>
+<li>Obtain <strong>NICE NG48</strong> in full <span class="ev ev-V" title="Verified — sourced">V</span> and the Japanese home-visit dental hygiene service specification <span class="ev ev-V" title="Verified — sourced">V</span>. Adapt, do not invent: both give a defensible protocol and a defensible visit unit.</li>
+<li>Two numbers I could not find and that matter: <strong>the number of registered dental hygienists in Spain</strong>, and <strong>the number of residential places in Andalucía specifically</strong>. Both are obtainable from the professional association and the regional social services registry.</li>
+</ol>
+<p><strong>The three numbers to track monthly thereafter:</strong> homes visited, homes converted to paid, and staff-minutes per resident per day inside programme homes — the last being the only metric that renews a contract.</p>
+<hr />
+<h2 id="sources" class="sec sec-plain">Sources</h2>
+<p><strong>Spanish oral health policy and funding</strong></p>
+<ul>
+<li><a href="https://www.sanidad.gob.es/profesionales/prestacionesSanitarias/PlanSaludBucodental/pdf/Plan_ampliacion_cartera_bucodental_.pdf" target="_blank" rel="noopener noreferrer">Plan for the expansion of the common portfolio of oral health services — Ministerio de Sanidad (PDF)</a></li>
+<li><a href="https://planderecuperacion.gob.es/noticias/gobierno-amplia-asistencia-bucodental-prtr" target="_blank" rel="noopener noreferrer">Government allocates €68m for the expansion of oral health care — Plan de Recuperación</a></li>
+<li><a href="https://www.sanidad.gob.es/gabinete/notasPrensa.do?id=6748" target="_blank" rel="noopener noreferrer">Interterritorial Council approves distribution of €68m to expand oral care in 2025 — Ministerio de Sanidad</a></li>
+<li><a href="https://www.sanidad.gob.es/gabinete/notasPrensa.do?id=6917" target="_blank" rel="noopener noreferrer">Council of Ministers authorises €60m for the oral health portfolio — Ministerio de Sanidad</a></li>
+<li><a href="https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/sanidad14/paginas/2023/131223-plan-salud-higiene-bucodental.aspx" target="_blank" rel="noopener noreferrer">Oral health plan: what it is and who benefits — La Moncloa</a></li>
+</ul>
+<p><strong>Elderly oral health evidence and domiciliary models</strong></p>
+<ul>
+<li><a href="https://consejodentistas.es/la-salud-bucodental-en-el-adulto-mayor-en-espana-una-asignatura-pendiente/" target="_blank" rel="noopener noreferrer">Oral health in older adults in Spain: an outstanding issue — Consejo General de Dentistas</a></li>
+<li><a href="https://gacetadental.com/2025/09/la-salud-bucodental-en-el-adulto-mayor-en-espana-una-asignatura-pendiente/" target="_blank" rel="noopener noreferrer">Oral health in older adults in Spain — Gaceta Dental</a></li>
+<li><a href="https://dentalresidency.es/2021/09/28/la-odontologia-domiciliaria-no-es-un-capricho-es-una-verdadera-necesidad-social/" target="_blank" rel="noopener noreferrer">Domiciliary dentistry is not a luxury but a social necessity — Dental Residency</a></li>
+<li><a href="https://www.consalud.es/dentalia/clinicas/dentistas-en-unidades-moviles-llevan-atencion-bucodental-residencias-mayores.html" target="_blank" rel="noopener noreferrer">Dentists in mobile units bring oral care to care homes — ConSalud/Dentalia</a></li>
+<li><a href="https://www.elsevier.es/es-revista-atencion-primaria-27-articulo-programas-asistencia-dental-domiciliaria-una-13067774" target="_blank" rel="noopener noreferrer">Domiciliary dental assistance programmes: a current demand — Atención Primaria (Elsevier)</a></li>
+</ul>
+<p><strong>International precedent</strong></p>
+<ul>
+<li><a href="https://www.nice.org.uk/guidance/ng48" target="_blank" rel="noopener noreferrer">NICE guideline NG48, Oral health for adults in care homes (5 July 2016)</a></li>
+<li><a href="https://www.nice.org.uk/guidance/ng48/chapter/recommendations" target="_blank" rel="noopener noreferrer">NG48 recommendations — NICE</a></li>
+<li><a href="https://www.dentalhealth.org/oral-health-promotion-in-care-homes-ng48" target="_blank" rel="noopener noreferrer">Oral health promotion in care homes (NG48) — Oral Health Foundation</a></li>
+<li><a href="https://www.gu.se/en/news/oral-health-falls-between-the-cracks-in-swedish-elder-care" target="_blank" rel="noopener noreferrer">Oral health falls between the cracks in Swedish elder care — University of Gothenburg</a></li>
+<li><a href="https://academic.oup.com/eurpub/article/27/suppl_3/ckx187.052/4556023" target="_blank" rel="noopener noreferrer">Preventive dental care in Sweden for children, adults and elderly — European Journal of Public Health</a></li>
+<li><a href="https://www.mdpi.com/1660-4601/18/17/9359" target="_blank" rel="noopener noreferrer">Japan's dental care facing population ageing: universal coverage and home-visit services — Int. J. Environ. Res. Public Health</a></li>
+</ul>
+<p><strong>Spanish residential care sector</strong></p>
+<ul>
+<li><a href="https://www.infogeriatria.com/noticias/20260611/-empresas-gestoras-residencias-mayores-facturaron-6100-millones-euros-en-2025-un-69-mas" target="_blank" rel="noopener noreferrer">Care-home management companies billed €6.1bn in 2025, up 6.9% — InfoGeriatría</a></li>
+<li><a href="https://www.pymeactual.es/noticias/20260611/-grandes-empresas-residencias-ganan-peso-en-un-mercado-que-supera-6100-millones-euros" target="_blank" rel="noopener noreferrer">Large residential-care companies gain share in a market above €6.1bn — PYME Actual</a></li>
+<li><a href="https://isanidad.com/380047/las-residencias-privadas-superan-las-289-000-plazas/" target="_blank" rel="noopener noreferrer">Private residences exceed 289,000 places — iSanidad</a></li>
+<li><a href="https://directoressociales.com/wp-content/uploads/2026/01/NdP-residencias-2024.pdf" target="_blank" rel="noopener noreferrer">Residential places deficit for older people — Asociación de Directoras y Gerentes de Servicios Sociales (PDF)</a></li>
+<li><a href="https://www.infobae.com/espana/2026/01/15/espana-sufre-el-envejecimiento-de-la-poblacion-mas-de-50000-personas-dependientes-esperan-una-plaza-en-residencias-publicas/" target="_blank" rel="noopener noreferrer">More than 50,000 dependent people waiting for a public residential place — Infobae</a></li>
+<li><a href="https://www.leonoticias.com/comarcas/falta-gerocultores-problema-residencias-leon-contrato-pago-20250409081628-nt.html" target="_blank" rel="noopener noreferrer">Shortage of gerocultores in care homes — Leonoticias</a></li>
+<li><a href="https://www.infobae.com/espana/2026/05/15/la-realidad-de-vivir-en-una-residencia-de-ancianos-en-espana-pagar-2500-euros-al-mes-comer-porqueria-y-falta-de-personal/" target="_blank" rel="noopener noreferrer">Reality of living in a Spanish care home: staffing shortages and ratios — Infobae</a></li>
+<li><a href="https://dependencia.info/imagenes/radiografia-sector-residencias-pwc.pdf" target="_blank" rel="noopener noreferrer">Sector radiography of residential care for older people — PwC (PDF)</a></li>
+</ul>
+<p><strong>Dental sector, profession and regulation</strong></p>
+<ul>
+<li><a href="https://www.traspasodental.es/higienista-dental-abrir-clinica-requisitos/" target="_blank" rel="noopener noreferrer">Can a dental hygienist open a clinic? Requirements and legal alternatives — Traspaso Dental</a></li>
+<li><a href="https://www.boe.es/diario_boe/txt.php?id=BOE-A-2014-10066" target="_blank" rel="noopener noreferrer">Real Decreto 769/2014 establishing the Higher Technician in Oral and Dental Hygiene qualification — BOE</a></li>
+<li><a href="https://gacetadental.com/2022/02/atribuciones-profesionales-higienista-dental-29258/" target="_blank" rel="noopener noreferrer">Professional attributions of the dental hygienist — Gaceta Dental</a></li>
+<li><a href="https://isanidad.com/333310/situacion-actual-del-higienista-dental/" target="_blank" rel="noopener noreferrer">Current situation of the dental hygienist — iSanidad</a></li>
+<li><a href="https://isanidad.com/325380/la-transformacion-del-sector-dental-en-espana-retos-y-oportunidades/" target="_blank" rel="noopener noreferrer">The transformation of the dental sector in Spain: challenges and opportunities — iSanidad</a></li>
+<li><a href="https://www.empleodental.es/salarios" target="_blank" rel="noopener noreferrer">Dental hygienist salaries in Spain 2026 — EmpleoDental</a></li>
+<li><a href="https://edentiafp.com/blog/guia-salarial-dental" target="_blank" rel="noopener noreferrer">Dental salary guide 2026 — Edentia FP</a></li>
+<li><a href="https://www.researchandmarkets.com/reports/6166630/spain-dental-care-market-region-competition" target="_blank" rel="noopener noreferrer">Spain dental care market and clinic chain consolidation — Research and Markets</a></li>
+</ul>
+<p><strong>Migration, labour and qualification recognition</strong></p>
+<ul>
+<li><a href="https://www.caixabank.es/particular/nuevos-residentes/claves-reforma-ley-extranjeria-mayo-2025-p.html" target="_blank" rel="noopener noreferrer">Key points of the May 2025 Reglamento de Extranjería reform — CaixaBank</a></li>
+<li><a href="https://cnnespanol.cnn.com/2025/05/20/espana/nuevo-reglamento-extranjeria-migrantes-afectados-visados-orixx" target="_blank" rel="noopener noreferrer">New Reglamento de Extranjería: which migrants it affects — CNN Español</a></li>
+<li><a href="https://www.sepe.es/HomeSepe/en/que-es-el-sepe/comunicacion-institucional/noticias/detalle-noticia?folder=%2FSEPE%2F2025%2FFebrero%2F&amp;detail=catalogo-ocupaciones-dificil-cobertura-primer-trimestre-2025" target="_blank" rel="noopener noreferrer">Catálogo de ocupaciones de difícil cobertura — SEPE</a></li>
+<li><a href="https://gestoriaextranjeriavalencia.com/homologar-estudios-extranjeros-en-espana-2026/" target="_blank" rel="noopener noreferrer">Recognition of foreign qualifications in Spain 2026: how long it takes</a></li>
+<li><a href="https://www.negrxs.com/comunidad-negra-migrante-espana-estadisticas-y-realidad-2025/" target="_blank" rel="noopener noreferrer">Black migrant community in Spain: statistics 2025 — Negrxs</a></li>
+<li><a href="https://www.realinstitutoelcano.org/analisis/inmigracion-y-mercado-de-trabajo-en-espana-iii-la-inmigracion-africana/" target="_blank" rel="noopener noreferrer">Immigration and the labour market in Spain: African immigration — Real Instituto Elcano</a></li>
+</ul>
+<hr />
+<p><em>Founder assessment based solely on the curriculum vitae supplied. Market figures are labelled verified, estimated, assumed or inferred throughout. The numbers most worth verifying before acting are: the number of registered dental hygienists in Spain, residential places in Andalucía specifically, how the oral health portfolio expansion is being commissioned regionally, and the real cost of a part-time clinical director. Not investment advice.</em></p>
+      <footer>
+        Evidence is tagged throughout: <span class="ev ev-V">V</span> verified &middot;
+        <span class="ev ev-E">E</span> estimate &middot;
+        <span class="ev ev-A">A</span> assumption &middot;
+        <span class="ev ev-I">I</span> inference.<br />
+        Forward-looking statements are estimates. Not investment advice.
+      </footer>
+    </div>
+  </main>
+</div>
