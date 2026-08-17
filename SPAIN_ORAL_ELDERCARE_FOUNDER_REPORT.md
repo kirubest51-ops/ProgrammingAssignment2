@@ -201,7 +201,7 @@ Founder fit is scored on eight sub-criteria: clinical domain authority, clinic o
 | 5 | East Africa → Spain care-worker pathway | 5.85 | 5.9 | **5.86** | €15–60k | Investigate carefully |
 | 6 | Own or acquire a dental clinic | 4.75 | 6.8 | **5.66** | €80–250k | Not yet |
 | 7 | Domiciliary elderly care agency (SAD) | 5.69 | 5.6 | **5.66** | €30–100k | Avoid |
-| 8 | Amharic / Afaan Oromo – Spanish health interpreting | 4.95 | 5.4 | **5.16** | <€2k | Side income, not a business |
+| 8 | Amharic / Afaan Oromo interpreting &mdash; *re-scored in §7.5; best variant 6.07* | 4.93&ndash;6.40 | 4.8&ndash;5.8 | **5.15&ndash;6.07** | <€2k | Parallel track |
 
 **Full sub-scores:**
 
@@ -214,7 +214,8 @@ Founder fit is scored on eight sub-criteria: clinical domain authority, clinic o
 | East Africa → Spain pathway | 6 | 8 | 8 | 6 | 6 | 4 | 7 | 3 | 6 | 5 | 6 | 7 | 4 | 6 | 6 | 6 | 10 | 7 | 5 | 3 | 5.85 | 5.9 | **5.86** |
 | Own or acquire a clinic | 6 | 5 | 5 | 7 | 3 | 5 | 2 | 6 | 6 | 8 | 4 | 6 | 2 | 4 | 4 | 3 | 2 | 5 | 7 | 2 | 4.75 | 6.8 | **5.66** |
 | Domiciliary care agency | 8 | 8 | 8 | 6 | 4 | 6 | 5 | 5 | 6 | 7 | 6 | 4 | 3 | 4 | 7 | 3 | 2 | 7 | 7 | 3 | 5.69 | 5.6 | **5.66** |
-| Health interpreting | 2 | 4 | 6 | 5 | 8 | 5 | 10 | 8 | 6 | 8 | 3 | 8 | 2 | 5 | 4 | 2 | 10 | 5 | 3 | 1 | 4.95 | 5.4 | **5.16** |
+| Interpreting &mdash; Spanish pair, in Spain | 2 | 3 | 6 | 6 | 8 | 7 | 10 | 8 | 7 | 8 | 2 | 8 | 2 | 5 | 5 | 2 | 10 | 4 | 2 | 1 | 4.93 | 5.4 | **5.15** |
+| Interpreting &mdash; English pair, remote, after C1 | 7 | 8 | 8 | 8 | 6 | 8 | 10 | 6 | 6 | 7 | 4 | 9 | 2 | 5 | 6 | 7 | 10 | 7 | 7 | 1 | 6.40 | 5.8 | **6.07** |
 
 **[I] Note how tightly the top three cluster (6.99–7.32).** That is not indecision in the model; it is the model detecting that these are the same business at three levels of capital intensity. The ranking is a sequence, not a choice.
 
@@ -333,13 +334,104 @@ Gross margin **70–85%** once the protocol is written [E]; the cost is her time
 
 ---
 
-## 7.5 — The one Ethiopia-linked business that survives scrutiny
+## 7.5 — Amharic and Afaan Oromo interpreting, examined properly
 
-Of everything in the previous two reports, exactly one thing here is worth her time — and it is not a company.
+**I scored this 5.16 and last of eight on first pass, and I sized it wrong.** I used "Ethiopians in Spain" as the denominator. That is the wrong denominator — the buyer is not the diaspora, it is public procurement. Correcting it does not rescue the Spanish version, but it uncovers a materially better one and, more usefully, identifies the single highest-return investment available to this founder.
 
-**Amharic and Afaan Oromo interpreting and intercultural mediation in Spanish health and public services** scored **5.16**, last of eight. The market is genuinely tiny: Ethiopia does not register as a reported nationality in Spain's African-origin population statistics [V]. As a business it has no scale.
+### Three variants, re-scored
 
-**[I] But as a side income it is unusually good**: near-zero cost, high hourly rate for a rare language pair, flexible hours, and it keeps her Ethiopian languages commercially live. Register with hospital and court interpreting rosters, asylum-support NGOs and the regional health service. Treat it as **a source of €200–600 a month and a network**, not as a venture. It is also the single cheapest way to test whether an East Africa–Spain business has any pull, because the people who need an Amharic interpreter in Málaga are precisely the population any such business would serve.
+| Variant | Opportunity | Founder fit | **Adjusted** |
+|---|---|---|---|
+| **A** — Amharic/Oromo ↔ **Spanish**, in Spain *(the original score)* | 4.93 | 5.4 | **5.15** |
+| **B1** — Amharic/Oromo ↔ **English**, remote, **at her current English (B1)** | 6.25 | 4.8 | **5.45** |
+| **B2** — Amharic/Oromo ↔ **English**, remote, **after English reaches C1** | 6.40 | 5.8 | **6.07** |
+| **C** — Horn-of-Africa interpreter agency selling into Spanish procurement | 4.56 | 4.8 | **4.65** |
+
+**[I] Read the B1→B2 row carefully. The opportunity score barely moves (6.25 → 6.40). The fit score jumps (4.8 → 5.8). The constraint on this asset is not the market. It is her English.**
+
+### Why Spain is the wrong country for this language pair
+
+The Spanish asylum system is dominated by Spanish speakers who need no interpreter at all.
+
+| Spain, 2025 | |
+|---|---|
+| Total international protection applications | **144,396**, down 13.7% on 2024 |
+| Venezuela | **85,413** |
+| Mali | **16,004** |
+| Colombia | **14,524** |
+| Canary Islands total | 7,825 — led by Venezuela, Mali, Colombia, Senegal, Guinea, Gambia, Peru |
+| Ethiopia / Eritrea | Recognised as relevant protection contexts, **but not among the main applicant nationalities** |
+
+All [V]. Arrivals to the Canaries fell 62% on externalisation agreements with Mauritania, Senegal and Morocco [V].
+
+**[I] So Spain has a large interpreting market and almost no demand for *this* pair.** Amharic and Afaan Oromo work in Spain will be sporadic — my estimate is **10–20 hours a month at best, at €35–60/hour**, i.e. **€400–900/month** [E]. Real money, not a business.
+
+### What *is* good about the Spanish version: the buyer structure
+
+She would not be finding clients. Spain buys interpreting through public framework contracts held by a handful of named vendors:
+
+- **Seprotec** has won **351 public awards totalling €69.57m** [V]
+- **Ofilingua** holds interpreting lots including one awarded at **€6,446,280.99** [V]
+- **Dualia** supplies telephone interpreting to health services — contracted by the Extremadura Health Service and for the Hospital Clínico San Carlos in Madrid [V]
+
+**[I] Customer acquisition is therefore three emails, not a marketing plan.** Register on the vendor rosters, plus the regional health service, the judicial interpreting register, and the refugee NGOs (CEAR, ACCEM, Red Cross). Telephone and remote interpreting also means Torremolinos is no constraint — she can serve the whole country from home, between other work.
+
+### Where the demand and the money actually are
+
+The scarcity in these languages is real, documented and priced — just not in Spain.
+
+- **The EUAA records that Luxembourg increased its translation and interpretation budget by roughly €180,000** because its main protection applicants were Eritrean and **Tigrinya interpreters had to travel from Belgium and Germany** to attend interviews [V]. That is scarcity pricing in Horn-of-Africa languages, in the EU, in a single small country.
+- In the United States, **Somali and Amharic interpreters are described as critically needed in the Midwest, with Minnesota, Ohio and parts of Washington reporting some of the longest hold times** [V].
+- Remote **Oromo** interpreters in the US average **$31.89/hour**, with most between **$25.24 and $38.70** [V]. Remote **Amharic** medical interpreter roles are advertised in a **$25–84/hour** band [V].
+- **LanguageLine pays $0.70–0.85 per minute** for freelance telephone interpreting, varying by time of day and level [V] — nominally $42–51/hour at continuous talk time, realistically **$19–33/hour** at 45–65% utilisation [E].
+- The medical interpreter services market is **$0.41bn in 2026 growing to $1.09bn by 2035, an 11.5% CAGR** [V].
+
+**Income arithmetic [E]:**
+
+| Scenario | Rate | Hours/month | Monthly | Annual |
+|---|---|---|---|---|
+| Spain, Spanish pair, sporadic | €45 | 12 | **€540** | €6,500 |
+| US/UK remote, low utilisation | $28 | 60 | **$1,680** | $20,200 |
+| US/UK remote, steady | $32 | 90 | **$2,880** | $34,600 |
+| US/UK remote, near full-time | $34 | 140 | **$4,760** | $57,100 |
+
+**[I] The gap between row one and row three is the entire finding: roughly 5× the income, for the same rare skill, gated on one thing.**
+
+### The gate: English
+
+Professional interpreting requires near-native command of *both* working languages. LanguageLine's own Amharic listing requires fluency in both Amharic **and English** [V]. Her CV records **English at B1 across all four skills** [V] — below the threshold, and she would fail a screening today.
+
+**[I] This is the most actionable conclusion in this report. Taking English from B1 to C1 is a 12–18 month project of deliberate study, and it converts a €540/month sporadic side income into a plausible $1,700–3,500/month remote income that requires no capital, no premises, no staff and no licence — and that is portable to any country she ever lives in.** No other single investment available to her has that return. It also unlocks nothing else on this list, which is why I am not recommending she wait for it: §7.1 should start now, in Spanish, while English improves in parallel.
+
+### The credential path, and a date that matters
+
+- The standard entry requirement is a **40-hour medical interpreting training course** [V].
+- **CCHI is the only accredited body offering certification for interpreters of all languages**, including those of lesser diffusion [V].
+- **CoreCHI**, its knowledge-based written certification open to any language, **is being awarded only until 31 December 2026 and sunsets in 2027** [V].
+- After that, the routes for languages without a bilingual oral exam are **CoreCHI-P** (available for languages including Somali, Haitian Creole, Hmong, Burmese and Tigrinya) and **NBCMI's Hub-CMI** [V].
+
+**[I] Realistically she cannot reach interpreting-grade English by 31 December 2026, so the CoreCHI window is not hers. Plan for CoreCHI-P or Hub-CMI in 2027–28.** The 40-hour course, however, can be done now, in Spanish, and is worth doing regardless because it is also a credential for the care-home work in §7.1.
+
+### Why AI is not the threat here that it is elsewhere
+
+Interpreting is being reshaped by AI, but unevenly, and this pair sits on the favourable side of the split. The 2026 industry consensus is **hybrid human-AI**, with automation absorbing routine volume while high-stakes work stays human — in a remote court deposition or a telemedicine triage call, an AI mishearing a clinical or legal term does damage that is "immediate and irreversible," and AI "lacks judgment, accountability and legal awareness" [V].
+
+**[I] Two things protect her specifically.** First, **automation pressure lands first on high-volume, high-resource pairs** — Spanish↔English — not on Amharic and Afaan Oromo, which remain low-resource and are precisely where the reported interpreter shortages are [V]. Second, **medical and legal settings carry liability and accreditation requirements that a model cannot satisfy**. The realistic 2030 shape of this work is a certified human supervising and correcting machine output in a rare language — which pays better per hour than today's raw interpreting, not worse.
+
+### Variant C, and why the agency version fails from Spain
+
+Being the *supplier* of Horn-of-Africa interpreters rather than one of them is the obvious scale-up, and it scores worst of the four (**4.65**). Two reasons. The frameworks are already held by Seprotec, Ofilingua and Dualia, with tens of millions of euros of awards behind them [V] — displacing an incumbent on a public tender is not a first business. And the recruitable pool of Amharic or Afaan Oromo speakers with C1 Spanish **inside Spain** is tiny, because the community itself is too small to register in national statistics [V]. The agency has the wrong incumbents and no supply.
+
+### Revised verdict
+
+**Upgraded from "side income" to "a deliberate parallel track."** Concretely:
+
+1. **Now:** register with Seprotec, Ofilingua, Dualia, the Andalusian health service, the judicial interpreting register and CEAR/ACCEM/Red Cross. Cost: a few hours. Expect **€400–900/month**, irregular.
+2. **Now:** take the 40-hour medical interpreting course. It serves §7.1 as well.
+3. **Now → 18 months:** English to C1, treated as a capital investment rather than a hobby. This is the highest-return action available to her from any asset in this report.
+4. **2027–28:** CoreCHI-P or Hub-CMI, then onboard with LanguageLine, CyraCom and equivalent remote platforms.
+
+**It still is not the main business** — §7.1 remains the recommendation at 7.32 against 6.07 for the best interpreting variant. **But it is the ideal companion to it:** both are part-time compatible, neither needs capital, one pays in euros locally while the other builds a portable, scarce, AI-resistant credential in dollars. **[I] Running them together is a better plan than either alone, and materially better than the "side income" framing I gave it first time.**
 
 ---
 
@@ -468,6 +560,23 @@ Of everything in the previous two reports, exactly one thing here is worth her t
 - [Recognition of foreign qualifications in Spain 2026: how long it takes](https://gestoriaextranjeriavalencia.com/homologar-estudios-extranjeros-en-espana-2026/)
 - [Black migrant community in Spain: statistics 2025 — Negrxs](https://www.negrxs.com/comunidad-negra-migrante-espana-estadisticas-y-realidad-2025/)
 - [Immigration and the labour market in Spain: African immigration — Real Instituto Elcano](https://www.realinstitutoelcano.org/analisis/inmigracion-y-mercado-de-trabajo-en-espana-iii-la-inmigracion-africana/)
+
+**Interpreting market, asylum demand and certification**
+- [Asylum applications in Spain 2025: 144,396, down 13.7%, led by Venezuela — Infobae](https://www.infobae.com/espana/2026/06/15/caen-un-13-las-peticiones-de-asilo-en-espana-pese-al-aumento-de-los-conflictos-las-politicas-hostiles-dificultan-el-acceso/)
+- [Canary Islands recorded almost 8,000 asylum applications in 2025 — elDiario](https://www.eldiario.es/canariasahora/sociedad/canarias-registra-8-000-solicitudes-asilo-2025-pese-politicas-hostiles-ue_1_13304282.html)
+- [Refugees: more than numbers — CEAR](https://masquecifras.org/)
+- [Seprotec public contract awards — Gobierto Contratación](https://contratos.gobierto.es/adjudicatarios/seprotec-traduccio-i-interpretacio-s-l-u)
+- [Telephone translation and interpreting service, Hospital Clínico San Carlos, Madrid — Comunidad de Madrid public contracts](https://contratos-publicos.comunidad.madrid/contrato-publico/servicio-traduccion-e-interpretacion-telefonica-hospital-clinico-san-carlos-0)
+- [Teleinterpreting service contracted by the Extremadura Health Service](https://www.areasaludcaceres.es/noticias/portada/264-servicio-de-teleinterpretacion-contratado-por-el-ses.html)
+- [Interpretation services — EUAA Asylum Report (Luxembourg, Tigrinya interpreter scarcity)](https://www.euaa.europa.eu/asylum-report-2020/74-interpretation-services)
+- [Remote Oromo interpreter pay data — ZipRecruiter](https://www.ziprecruiter.com/Jobs/Remote-Oromo-Interpreter)
+- [Remote Amharic medical interpreter roles and rates — ZipRecruiter](https://www.ziprecruiter.com/Jobs/Remote-Amharic-Medical-Interpreter)
+- [Amharic freelance telephone interpreters, per-minute rates — LanguageLine Solutions](https://languageline.wd5.myworkdayjobs.com/en-US/LLS_UK_Careers/job/Amharic-Freelance-Telephone-Interpreters-UK--Apply-Here-_UK-AMHARIC-EVG)
+- [CCHI certification eligibility and languages of lesser diffusion](https://cchicertification.org/certifications/eligibility/)
+- [CCHI vs NBCMI medical interpreter certification 2026, CoreCHI sunset](https://useinterpreter.com/blog/cchi-vs-nbcmi-certification/)
+- [High-demand languages for interpreters: where the work is in 2026](https://useinterpreter.com/blog/high-demand-languages-interpreters/)
+- [State of Interpreting Technology 2026 — Boostlingo](https://boostlingo.com/resources/state-of-interpreting-2026/)
+- [Medical interpreter services market size and CAGR — Business Research Insights](https://www.businessresearchinsights.com/market-reports/medical-interpreter-services-market-113098)
 
 ---
 
